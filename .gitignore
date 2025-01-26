@@ -1,0 +1,76 @@
+# Compiled output
+/quizz-ui/dist
+/quizz-ui/tmp
+/quizz-ui/out-tsc
+/quizz-ui/bazel-out
+/quizz-ui/# Node
+/quizz-ui/node_modules
+/quizz-ui/npm-debug.log
+/quizz-ui/yarn-error.log
+/quizz-ui/# IDEs and editors
+/quizz-ui/.idea/
+/quizz-ui/.project
+/quizz-ui/.classpath
+/quizz-ui/.c9/
+/quizz-ui/*.launch
+/quizz-ui/.settings/
+/quizz-ui/*.sublime-workspace
+/quizz-ui/*.iml
+/quizz-ui/# Visual Studio Code
+/quizz-ui/.vscode/*
+/quizz-ui/!.vscode/settings.json
+/quizz-ui/!.vscode/tasks.json
+/quizz-ui/!.vscode/launch.json
+/quizz-ui/!.vscode/extensions.json
+/quizz-ui/.history/*
+/quizz-ui/# Miscellaneous
+/quizz-ui/.angular/cache
+/quizz-ui/.sass-cache/
+/quizz-ui/connect.lock
+/quizz-ui/coverage
+/quizz-ui/libpeerconnection.log
+/quizz-ui/testem.log
+/quizz-ui/typings
+/quizz-ui/package-lock.json
+/quizz-ui/.nx
+/quizz-ui/# System files
+/quizz-ui/.DS_Store
+/quizz-ui/Thumbs.db
+
+
+/quizz-service/HELP.md
+/quizz-service/target/
+/quizz-service/!.mvn/wrapper/maven-wrapper.jar
+/quizz-service/!**/src/main/**/target/
+/quizz-service/!**/src/test/**/target/
+
+### STS ###
+/quizz-service/.apt_generated
+/quizz-service/.classpath
+/quizz-service/.factorypath
+/quizz-service/.project
+/quizz-service/.settings
+/quizz-service/.springBeans
+/quizz-service/.sts4-cache
+
+### IntelliJ IDEA ###
+/quizz-service/.idea
+/quizz-service/*.iws
+/quizz-service/*.iml
+/quizz-service/*.ipr
+
+### NetBeans ###
+/quizz-service/nbproject/private/
+/quizz-service/nbbuild/
+/quizz-service/dist/
+/quizz-service/nbdist/
+/quizz-service/.nb-gradle/
+/quizz-service/build/
+/quizz-service/!**/src/main/**/build/
+/quizz-service/!**/src/test/**/build/
+
+### VS Code ###
+/quizz-service/.vscode/
+/quizz-service/logs/*.log
+/quizz-service/false
+/quizz-service/logs/*.gz

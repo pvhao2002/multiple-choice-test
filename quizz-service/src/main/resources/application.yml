@@ -1,0 +1,45 @@
+server:
+  port: ${PORT:1122}
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+    min-response-size: 512
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+application:
+  datasource:
+    read:
+      jdbc-url: "jdbc:mysql://${MYSQL_READ_DB_HOST:localhost}:${MYSQL_READ_DB_PORT:3306}/${MYSQL_READ_DB_NAME:quizz_db}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true"
+      username: "${MYSQL_READ_DB_USERNAME:root}"
+      password: "${MYSQL_READ_DB_PASSWORD:1234}"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      maximum-pool-size: 2
+    write:
+      jdbc-url: "jdbc:mysql://${MYSQL_WRITE_DB_HOST:localhost}:${MYSQL_WRITE_DB_PORT:3306}/${MYSQL_WRITE_DB_NAME:quizz_db}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true"
+      username: "${MYSQL_WRITE_DB_USERNAME:root}"
+      password: "${MYSQL_WRITE_DB_PASSWORD:1234}"
+      driver-class-name: "com.mysql.cj.jdbc.Driver"
+      maximum-pool-size: 2
+
+jwt:
+  secret: "${JWT_SECRET:872c871a1ab996919a3e97145ece2418bb837cadbd69387d96cd45eef831f239}"
+  expiration: "${JWT_EXPIRATION:86400000}"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: false
+
+logging:
+  file:
+    name: logs/agent-service.log

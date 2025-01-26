@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@import './app/styles/app.min.css';
+@import './app/styles/icons.min.css';
+
+
+@media (min-width: 992px) {
+  .auth-brand {
+    position: absolute;
+    top: 1rem;
+  }
+}
