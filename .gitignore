@@ -1,3 +1,6 @@
+.idea/
+quilts-ui.iml
+
 # Compiled output
 /quizz-ui/dist
 /quizz-ui/tmp
@@ -43,6 +46,7 @@
 /quizz-service/!.mvn/wrapper/maven-wrapper.jar
 /quizz-service/!**/src/main/**/target/
 /quizz-service/!**/src/test/**/target/
+/quizz-service/.mvn/
 
 ### STS ###
 /quizz-service/.apt_generated
