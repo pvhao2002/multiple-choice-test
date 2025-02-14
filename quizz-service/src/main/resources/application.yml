@@ -11,8 +11,22 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: "${GOOGLE_CLIENT_ID:adsa}"
+            clientSecret: "${GOOGLE_CLIENT_SECRET:dsadsd}"
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
 
 application:
+  ignored:
+    urls:
+      - /auth/**
   datasource:
     read:
       jdbc-url: "jdbc:mysql://${MYSQL_READ_DB_HOST:localhost}:${MYSQL_READ_DB_PORT:3306}/${MYSQL_READ_DB_NAME:quizz_db}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true"
@@ -29,7 +43,8 @@ application:
 
 jwt:
   secret: "${JWT_SECRET:872c871a1ab996919a3e97145ece2418bb837cadbd69387d96cd45eef831f239}"
-  expiration: "${JWT_EXPIRATION:86400000}"
+  access-ttl: ${JWT_ACCESS_TTL:1D}
+  refresh-ttl: ${JWT_REFRESH_TTL:1D}
 
 management:
   endpoints:

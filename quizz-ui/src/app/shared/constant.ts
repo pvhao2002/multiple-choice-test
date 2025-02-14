@@ -1,4 +1,4 @@
-import {CustomPagingModel} from '../model/custom-paging.model';
+import {CustomPagingModel} from './model/custom-paging.model';
 
 export const CONSTANT = {
   configs: {
@@ -14,6 +14,10 @@ export const CONSTANT = {
   loginPath: '/login',
   login: 'login',
   register: 'register',
+  BE_URL_LOCAL: 'http://localhost:1122',
+  bearer: 'Bearer ',
+  lib1: '../../shared/styles/app.min.css',
+  lib2: '../../shared/styles/icons.min.css',
 };
 
 export const DEFAULT_PAGING_CONFIG: CustomPagingModel = {
@@ -36,7 +40,7 @@ export const API_URL = {
   authPrefix: '/auth/',
   translatePath: './assets/i18n/',
   auth: {
-    info: '/api/auth/info',
+    info: '/api/users/info',
     login: '/api/auth/login',
     register: '/api/auth/register',
     logout: '/api/auth/logout',

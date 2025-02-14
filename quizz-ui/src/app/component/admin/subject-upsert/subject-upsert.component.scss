@@ -1,0 +1,61 @@
+.container-upload {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .upload-box {
+    padding: 20px;
+    border: 2px dashed rgb(199, 199, 199);
+    min-height: 200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content {
+      padding: 1rem 0;
+      text-align: center;
+
+      .upload-icon {
+        img {
+          width: 10%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        padding-bottom: 1rem;
+      }
+
+      .text {
+
+        font-weight: 400;
+        display: inline;
+        color: blue;
+      }
+
+      .upload-btn-wrapper {
+        padding-top: 0.3rem;
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+      }
+
+      .btn {
+        border: none;
+        padding: 10px 40px;
+        border-radius: 3px;
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+
+      .upload-btn-wrapper input[type="file"] {
+        font-size: 100px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        opacity: 0;
+      }
+    }
+  }
+}

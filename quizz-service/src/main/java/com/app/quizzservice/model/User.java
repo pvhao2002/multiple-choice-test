@@ -3,10 +3,11 @@ package com.app.quizzservice.model;
 import com.app.quizzservice.model.enums.GenderEnum;
 import com.app.quizzservice.model.enums.RoleEnum;
 import com.app.quizzservice.model.enums.StatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.apache.commons.lang3.EnumUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PROTECTED)
 public class User {
     long userId;
     String email;
@@ -22,10 +24,19 @@ public class User {
     String firstName;
     String lastName;
 
-    GenderEnum gender;
+    @Builder.Default
+    GenderEnum gender = GenderEnum.OTHER;
     String avatar;
-    RoleEnum role;
-    StatusEnum status;
+    @Builder.Default
+    RoleEnum role = RoleEnum.STUDENT;
+    @Builder.Default
+    StatusEnum status = StatusEnum.INACTIVE;
+
+    public User(long userId, String email, String password) {
+        this.userId = userId;
+        this.email = email;
+        this.password = password;
+    }
 
     public User(ResultSet rs) throws SQLException {
         this(
@@ -34,10 +45,10 @@ public class User {
                 rs.getString("password"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),
-                GenderEnum.valueOf(rs.getString("gender")),
+                GenderEnum.valueOf(rs.getString("gender").toUpperCase()),
                 rs.getString("avatar"),
-                RoleEnum.valueOf(rs.getString("role")),
-                StatusEnum.valueOf(rs.getString("status"))
+                RoleEnum.valueOf(rs.getString("role").toUpperCase()),
+                StatusEnum.valueOf(rs.getString("status").toUpperCase())
         );
     }
 }

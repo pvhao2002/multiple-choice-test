@@ -1,5 +1,5 @@
-DELIMITER //
-DROP TRIGGER if EXISTS `trigger_user_ari` //
+DELIMITER $$
+DROP TRIGGER if EXISTS `trigger_user_ari` $$
 CREATE TRIGGER `trigger_user_ari`
     AFTER INSERT
     ON `users`
@@ -10,4 +10,4 @@ BEGIN
     UPDATE users
         SET avatar = IF(NEW.gender = 'male', avatar_male, avatar_female)
     WHERE user_id = NEW.user_id;
-END //
+END $$

@@ -24,25 +24,66 @@ create table if not exists `users`
     `password`   varchar(500)            not null,
     `first_name` varchar(50)             not null,
     `last_name`  varchar(50)             not null,
-    `gender`     enum ('male', 'female') not null,
-    `avatar`     text,
-    `role`       ENUM ('admin', 'student')   default 'student',
-    `status`     ENUM ('active', 'inactive') default 'active',
-    `created_at` timestamp                   default current_timestamp,
-    `updated_at` timestamp                   default current_timestamp on update current_timestamp,
+    `gender`     enum ('male', 'female', 'other') not null,
+    `avatar`     LONGTEXT,
+    `role`       ENUM ('admin', 'student')              default 'student',
+    `status`     ENUM ('active', 'inactive', 'blocked') default 'active',
+    `created_at` timestamp                              default current_timestamp,
+    `updated_at` timestamp                              default current_timestamp on update current_timestamp,
     primary key (`user_id`),
     unique key `email` (`email`),
     index (`email`)
 ) engine = InnoDB
   default charset = utf8;
 
+drop table if exists `user_tokens`;
+create table if not exists `user_tokens`
+(
+    `token_id`   int(11) not null auto_increment,
+    `user_id`    int(11) not null,
+    `token`      varchar(500),
+    `created_at` timestamp default current_timestamp,
+    `expired_at` timestamp,
+    primary key (`token_id`),
+    foreign key (`user_id`) references `users` (`user_id`),
+    unique key (`token`),
+    index (`token`)
+) engine = InnoDB
+  default charset = utf8;
 
+drop table if exists `otp`;
+create table if not exists `otp`
+(
+    `otp_id`     int(11)      not null auto_increment,
+    `email`      varchar(255) not null,
+    `otp`        varchar(6)   not null,
+    `expired_at` bigint,
+    `created_at` timestamp default current_timestamp,
+    primary key (`otp_id`),
+    unique key (`email`),
+    foreign key (`email`) references `users` (`email`),
+    index (`email`)
+) engine = InnoDB
+  default charset = utf8;
+
+drop table if exists `forget_password_token`;
+create table if not exists `forget_password_token`
+(
+    `token_id`  int(11) primary key auto_increment,
+    `email`      varchar(255) not null,
+    `token`      varchar(500) not null,
+    `expired_at` bigint unsigned,
+    foreign key (`email`) references `users` (`email`),
+    index (`email`)
+) engine = InnoDB
+  default charset = utf8;
 
 drop table if exists `subjects`;
 create table if not exists `subjects`
 (
     `subject_id` int(11)      not null auto_increment,
     `name`       varchar(255) not null,
+    `icon`       LONGTEXT                        default null,
     `status`     ENUM ('active', 'inactive') default 'active',
     `created_at` timestamp                   default current_timestamp,
     `updated_at` timestamp                   default current_timestamp on update current_timestamp,
@@ -61,6 +102,7 @@ create table if not exists `test`
     `name`            varchar(255) not null,
     `total_questions` int(11)                     default 0,
     `status`          ENUM ('active', 'inactive') default 'active',
+    `has_monitor`     tinyint(1)                  default 0,
     `created_at`      timestamp                   default current_timestamp,
     `updated_at`      timestamp                   default current_timestamp on update current_timestamp,
     primary key (`test_id`),
@@ -77,6 +119,8 @@ create table if not exists `questions`
     `question_id` int(11)                   not null auto_increment,
     `test_id`     int(11)                   not null,
     `no`          int(11)                   not null,
+    `image`       LONGTEXT,
+    `has_image`   tinyint(1) default 0,
     `content`     text                      not null,
     `option_a`    text                      not null,
     `option_b`    text                      not null,
@@ -84,8 +128,8 @@ create table if not exists `questions`
     `option_d`    text                      not null,
     `points`      int(11)                   not null,
     `answer`      ENUM ('a', 'b', 'c', 'd') not null,
-    `created_at`  timestamp default current_timestamp,
-    `updated_at`  timestamp default current_timestamp on update current_timestamp,
+    `created_at`  timestamp  default current_timestamp,
+    `updated_at`  timestamp  default current_timestamp on update current_timestamp,
     primary key (`question_id`),
     foreign key (`test_id`) references `test` (`test_id`)
 ) engine = InnoDB

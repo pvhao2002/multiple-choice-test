@@ -16,8 +16,9 @@ import {provideAnimations} from '@angular/platform-browser/animations';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 import {API_URL, CONSTANT} from './shared/constant';
-import {JwtInterceptor} from './helper/jwt-interceptor';
-import {ErrorInterceptor} from './helper/error-interceptor';
+import {JwtInterceptor} from './shared/helper/jwt-interceptor';
+import {ErrorInterceptor} from './shared/helper/error-interceptor';
+import {provideToastr} from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -40,5 +41,6 @@ export const appConfig: ApplicationConfig = {
     )),
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    provideToastr()
   ]
 };

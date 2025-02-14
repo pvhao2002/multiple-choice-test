@@ -1,0 +1,76 @@
+<div class="leftside-menu">
+  <!-- LOGO -->
+  <a href="/" class="logo text-center logo-light">
+    <span class="logo-lg">
+        <img src="assets/images/logo.jpg" alt="">
+    </span>
+    <span class="logo-sm">
+        <img src="assets/images/logo.jpg" alt="">
+    </span>
+  </a>
+
+  <!-- LOGO -->
+  <a href="" class="logo text-center logo-dark">
+    <span class="logo-lg">
+        <img src="assets/images/logo.jpg" alt="">
+    </span>
+    <span class="logo-sm">
+        <img src="assets/images/logo.jpg" alt="">
+    </span>
+  </a>
+
+  <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+    <!--- Sidemenu -->
+    <ul class="side-nav">
+      <li class="side-nav-title side-nav-item">Quiz</li>
+      @for (menu of currentMenu; track menu) {
+        @if (menu.children.length > 0) {
+          <ng-container
+            [ngTemplateOutlet]="menuWithChildren"
+            [ngTemplateOutletContext]="{menu}"
+          />
+        } @else {
+          <ng-container
+            [ngTemplateOutlet]="singleMenu"
+            [ngTemplateOutletContext]="{menu}"
+          />
+        }
+      }
+    </ul>
+    <!-- End Sidebar -->
+    <div class="clearfix"></div>
+  </div>
+  <!-- Sidebar -left -->
+</div>
+
+
+<ng-template #singleMenu let-menu="menu">
+  <li class="side-nav-item " [ngClass]="{'active': menu.active}" routerLink="{{menu.path}}" routerLinkActive="active">
+    <a class="side-nav-link">
+      <i [class]="menu.icon"></i>
+      <span> {{ menu.name }}</span>
+    </a>
+  </li>
+</ng-template>
+
+<ng-template #menuWithChildren let-menu="menu">
+  <li class="side-nav-item" [ngClass]="{'menuitem-active': menu.active}">
+    <a data-bs-toggle="collapse" (click)="expandMenu(menu)" aria-expanded="false"
+       aria-controls="sidebarLayouts"
+       class="side-nav-link">
+      <i [class]="menu.icon"></i>
+      <span> {{ menu.name }} </span>
+      <span class="menu-arrow"></span>
+    </a>
+    <div class="collapse" id="{{menu.key}}" [ngClass]="{'show': menu.active}">
+      <ul class="side-nav-second-level">
+        @for (child of menu.children; track child) {
+          <li routerLink="{{child.path}}" routerLinkActive="active">
+            <a>{{ child.name }}</a>
+          </li>
+        }
+      </ul>
+    </div>
+  </li>
+</ng-template>

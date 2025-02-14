@@ -4,41 +4,57 @@
       <div class="card-body">
 
         <div class="auth-brand text-center text-lg-start">
-          <a href="/" class="logo-dark">
+          <a href="/quizz-ui/public" class="logo-dark">
             <span><img ngSrc="/assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
-          <a href="/" class="logo-light">
+          <a href="/quizz-ui/public" class="logo-light">
             <span><img ngSrc="/assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
         </div>
 
         <!-- title-->
-        <h4 class="mt-0">Đăng nhập</h4>
-        <p class="text-muted mb-4">Nhập email và mật khẩu của bạn vào đây để đăng nhập.</p>
+        <h4 class="mt-0">Login</h4>
+        <p class="text-muted mb-4">
+          Enter your email address and password to access website.
+        </p>
 
         <!-- form -->
-        <form action="#">
+        <form>
           <div class="mb-3">
-            <label for="emailaddress" class="form-label">Địa chỉ email</label>
-            <input class="form-control" type="email" id="emailaddress" required="" placeholder="Nhập email">
+            <label for="emailaddress" class="form-label">Email</label>
+            <input class="form-control" type="email" name="email"
+                   [(ngModel)]="loginPayload.email"
+                   id="emailaddress" required
+                   placeholder="Enter your email">
           </div>
           <div class="mb-3">
-            <a href="/" class="text-muted float-end"><small>Quên mật khẩu?</small></a>
-            <label for="password" class="form-label">Mật khẩu</label>
-            <input class="form-control" type="password" required="" id="password" placeholder="Nhập mật khẩu của bạn">
+            <a href="javascript:void(0)" class="text-muted float-end" (click)="openForgetPassword()"><small>Forget
+              password?</small></a>
+            <label for="password" class="form-label">Password</label>
+            <input class="form-control" type="password" name="password"
+                   [(ngModel)]="loginPayload.password"
+                   required id="password"
+                   placeholder="Enter your password">
           </div>
+
           <div class="mb-3">
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="checkbox-signin">
-              <label class="form-check-label" for="checkbox-signin">Nhớ tôi</label>
+            <label for="captcha" class="form-label">Captcha</label>
+            <div class="d-flex">
+              <img [src]="captchaUrl" (click)="getCaptcha()" alt="captcha" class="captcha"/>
+              <input class="form-control ms-3" type="text" name="captcha"
+                     [(ngModel)]="loginPayload.captcha"
+                     id="captcha" required
+                     placeholder="">
             </div>
           </div>
+
           <div class="d-grid mb-0 text-center">
-            <button class="btn btn-primary" type="submit"><i class="mdi mdi-login"></i> Đăng nhập</button>
+            <button class="btn btn-primary" type="submit" (click)="doLogin()"><i class="mdi mdi-login"></i> Login
+            </button>
           </div>
           <!-- social-->
           <div class="text-center mt-4">
-            <p class="text-muted font-16">Đăng nhập với</p>
+            <p class="text-muted font-16">Login with</p>
             <ul class="social-list list-inline mt-3">
               <li class="list-inline-item">
                 <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
@@ -63,10 +79,44 @@
 
         <!-- Footer-->
         <footer class="footer footer-alt">
-          <p class="text-muted">Chưa có tài khoản? <a href="/#/register" class="text-muted ms-1"><b>Đăng ký</b></a></p>
+          <p class="text-muted">Not have account? <a href="/quizz-ui/public#/register" class="text-muted ms-1"><b>Register</b></a>
+          </p>
         </footer>
 
       </div>
     </div>
   </div>
 </div>
+
+
+<ng-template #forgetPassword>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Quên mật khẩu</h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="handleClose()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <img ngSrc="/quizz-ui/src/assets/images/forgotPass.jpg" alt="forget-password" class="img" height="360"
+             width="450"/>
+        <h5>Quên mật khẩu</h5>
+        <p style="color: red">*Lưu ý: Email này chỉ có hiệu lực trong vòng 48h</p>
+      </div>
+      <form class="form-forgot mt-2">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">
+            <fa-icon [icon]="faEnvelope"></fa-icon>
+          </span>
+          <input type="email" class="form-control" placeholder="Nhập Email của tài khoản quên mật khẩu"
+                 name="email"
+                 [(ngModel)]="paramForgetPassword.email" required/>
+        </div>
+        <div class="mb-3 d-flex flex-column align-items-center">
+          <button type="button" class="btn btn-primary px-5 mb-3" style="background-color: #98154c; border-radius: 10px"
+                  (click)="resetPassword()">Cấp lại mật khẩu
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

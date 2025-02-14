@@ -1,7 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import './app/styles/app.min.css';
-@import './app/styles/icons.min.css';
-
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import 'app/shared/styles/app.min.css';
+@import 'app/shared/styles/icons.min.css';
+// regular style toast
+@import 'ngx-toastr/toastr';
 
 @media (min-width: 992px) {
   .auth-brand {

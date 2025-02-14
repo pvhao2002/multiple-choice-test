@@ -1,5 +1,8 @@
 package com.app.quizzservice.jwt;
 
+import com.app.quizzservice.model.User;
+import com.app.quizzservice.model.UserToken;
+import com.app.quizzservice.utils.Constants;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -9,13 +12,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.wildfly.common.annotation.NotNull;
 
 import java.security.Key;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 
@@ -27,11 +33,16 @@ public class JwtTokenProvider {
     private String secret;
 
     //Thời gian có hiệu lực của chuỗi jwt
-    @Value("${jwt.expiration}")
-    private long jwtExpiration;
+    @Value("${jwt.access-ttl}")
+    private Duration jwtExpiration;
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        try {
+            return extractClaim(token, Claims::getSubject);
+        } catch (Exception e) {
+            log.warning("Token exception: " + e.getMessage());
+            return null;
+        }
     }
 
     public String extractPassword(String token) {
@@ -75,16 +86,51 @@ public class JwtTokenProvider {
     }
 
     public String generateToken(String email, String password, List<String> roles) {
+        var issuedAt = new Date();
+        var expiration = new Date(issuedAt.getTime() + jwtExpiration.toMillis());
+        return generateToken(email, password, roles, issuedAt, expiration);
+    }
+
+    public String generateToken(String email, String password, String role) {
+        return generateToken(email, password, Collections.singletonList(role));
+    }
+
+    public String generateToken(Optional<User> user) {
+        return user.map(value -> generateToken(
+                value.getEmail(),
+                value.getPassword(),
+                Collections.singletonList(value.getRole().name())
+        )).orElse(null);
+    }
+
+    public String generateToken(String email, String password, List<String> roles, Date issueAt, Date expiration) {
         return Jwts
                 .builder()
                 .setSubject(email)
                 .claim("role", roles)
                 .claim("password", password)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(Date.from(Instant.now()
-                                                .plus(jwtExpiration, ChronoUnit.MILLIS)))
+                .setIssuedAt(issueAt)
+                .setExpiration(expiration)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public UserToken generateToken(User user) {
+        var issuedAt = new Date();
+        var expiration = new Date(issuedAt.getTime() + jwtExpiration.toMillis());
+        var token = generateToken(
+                user.getEmail(),
+                user.getPassword(),
+                Collections.singletonList(user.getRole().name()),
+                issuedAt,
+                expiration
+        );
+        return UserToken.builder()
+                        .token(token)
+                        .userId(user.getUserId())
+                        .createdAt(issuedAt)
+                        .expiredAt(expiration)
+                        .build();
     }
 
     public boolean validateToken(String token) {
@@ -102,8 +148,8 @@ public class JwtTokenProvider {
     }
 
     public String getToken(HttpServletRequest request) {
-        final String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        final String bearerToken = request.getHeader(Constants.AUTHORIZATION);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(Constants.BEARER)) {
             return bearerToken.substring(7);
         }
         return null;

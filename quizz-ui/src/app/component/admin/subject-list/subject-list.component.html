@@ -1,0 +1,57 @@
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-sm-5">
+            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add
+              Subject
+            </a>
+          </div>
+          <div class="col-sm-7 d-flex align-items-center">
+            <span class="me-2">Search:</span>
+            <input type="text" class="form-control" name="search" [(ngModel)]="textSearch"
+                   (ngModelChange)="onSearch()"
+                   (keyup.enter)="getListSubject()"/>
+            <div class="text-sm-end ms-2">
+              <button type="button" class="btn btn-success  me-1"><i class="mdi mdi-reload"></i></button>
+            </div>
+          </div><!-- end col-->
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+            <thead class="table-light">
+            <tr>
+              <th class="all">No</th>
+              <th>Subject name</th>
+              <th style="width: 85px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (item of data.contents; track item; let i = $index) {
+                <tr>
+                  <td>{{ i + 1 }}</td>
+                  <td>
+                    <img [src]="item.icon" alt="image"
+                         class="rounded me-3" height="48"/>
+                    <p class="m-0 d-inline-block align-middle font-16">
+                      {{ item.name }}
+                    </p>
+                  </td>
+
+                  <td class="table-action">
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col -->
+</div>
