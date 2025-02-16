@@ -21,11 +21,12 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class SideMenuComponent implements OnInit {
   menuStudent: Menu[] = [
-    new Menu('Dashboard', 'mdi-home-outline', '/#/student/home'),
-    new Menu('Exam', 'mdi-school-outline', '', [
-      new ChildMenu('List', '#/student/exam'),
+    new Menu('Dashboard', 'mdi-home-outline', '/student/home'),
+    new Menu('Exam', 'mdi-school-outline', '/student/exam', [
+      new ChildMenu('List Subject', '/student/subject'),
+      new ChildMenu('List Exam', '/student/exam'),
     ]),
-    new Menu('Learning Result', 'mdi-book-education-outline', '/#/student/result')
+    new Menu('Learning Result', 'mdi-book-education-outline', '/student/result')
   ]
 
   menuAdmin: Menu[] = [

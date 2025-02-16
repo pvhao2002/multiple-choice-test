@@ -1,0 +1,78 @@
+<app-page-title [data]="breadCrumbs"/>
+<div class="row mb-2">
+  <div class="col-sm-12">
+    <div class="text-sm-end">
+      <div class="btn-group mb-3">
+        <button type="button" class="btn btn-outline-primary"
+                (click)="switch(Mode.ALL)"
+                [ngClass]="{'btn-primary': model === Mode.ALL, 'btn-outline-primary': model!=Mode.ALL}">All
+        </button>
+      </div>
+      <div class="btn-group mb-3 ms-1">
+        <button type="button" class="btn btn-outline-primary"
+                (click)="switch(Mode.YES)"
+                [ngClass]="{'btn-primary': model === Mode.YES, 'btn-outline-primary': model!=Mode.YES}">
+          Has monitor
+        </button>
+        <button type="button" class="btn btn-outline-primary"
+                (click)="switch(Mode.NO)"
+                [ngClass]="{'btn-primary': model === Mode.NO, 'btn-outline-primary': model!=Mode.NO}">No monitor
+        </button>
+      </div>
+    </div>
+  </div><!-- end col-->
+</div>
+
+<div class="row">
+  @for (e of data.contents; track e) {
+    <div class="col-md-6 col-xxl-3">
+      <!-- project card -->
+      <div class="card d-block hover-me" (click)="startTest(e)">
+        <div class="card-body">
+          <!-- project title-->
+          <h4 class="mt-0">
+            <a href="javascript:void(0)" class="text-title">{{ e.name }}</a>
+          </h4>
+          @if (e.hasMonitor) {
+            <div class="badge bg-primary">Has Monitor</div>
+          } @else {
+            <div class="badge bg-dark">No Monitor</div>
+          }
+
+          <!-- project detail-->
+          <p class="mb-1">
+          <span class="pe-2 text-nowrap mb-2 d-inline-block">
+              <i class="mdi mdi-format-list-bulleted-type text-muted"></i>
+              <b>{{ e.totalQuestions }}</b> questions
+          </span>
+            <span class="text-nowrap mb-2 d-inline-block">
+              <i class="mdi mdi-"></i>
+              <b>{{ e.count }}</b> result
+          </span>
+          </p>
+          <p class="mb-1">
+            <span class="text-nowrap mb-2 d-inline-block">
+              <i class="mdi mdi-"></i>
+              Last update: <b>{{ e.updatedAt }}</b>
+          </span>
+          </p>
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+    </div> <!-- end col -->
+  }
+
+  @if (data.contents.length === 0) {
+    <div class="col-12">
+      <div class="text-center">
+        <h4 class="mt-3">No data found</h4>
+      </div>
+    </div>
+  } @else if (data.totalRecords > 10) {
+    <div class="d-flex justify-content-center">
+      <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page" [itemsPerPage]="data.size"
+                  [maxSize]="5"
+                  [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  }
+</div>

@@ -8,8 +8,8 @@ export interface ResponseData<T> {
 export class PagingData<T> {
   constructor(
     public contents: T[] = [],
-    public page: number = 0,
-    public size: number = 0,
+    public page: number = 1,
+    public size: number = 10,
     public totalRecords: number = 0
   ) {
   }

@@ -1,21 +1,25 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {Breadcumb} from '../../../shared/model/breadcumb';
 import {PageTitleComponent} from '../../page-title/page-title.component';
-import {CONSTANT} from '../../../shared/constant';
+import {CONSTANT, DEFAULT_PAGING_CONFIG} from '../../../shared/constant';
 import {HttpClient} from '@angular/common/http';
-import {ToastrService} from 'ngx-toastr';
-import {BsModalService} from 'ngx-bootstrap/modal';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
 import {SubjectDTO} from '../../../shared/model/subject';
 import {debounceTime, Subject} from 'rxjs';
+import {Router} from '@angular/router';
+import {PageChangedEvent, PaginationComponent} from 'ngx-bootstrap/pagination';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {SubjectUpsertComponent} from '../subject-upsert/subject-upsert.component';
+import {ConfirmComponent} from '../../confirm/confirm.component';
 
 @Component({
   selector: 'app-subject-list',
   imports: [
     PageTitleComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PaginationComponent
   ],
   templateUrl: './subject-list.component.html',
   standalone: true,
@@ -33,7 +37,7 @@ export class SubjectListComponent implements OnInit {
 
   constructor(
     private http: HttpClient
-    , private toast: ToastrService
+    , private router: Router
     , private bsModal: BsModalService
   ) {
     this.searchSubject.pipe(
@@ -54,5 +58,48 @@ export class SubjectListComponent implements OnInit {
 
   onSearch() {
     this.searchSubject.next(this.textSearch());
+  }
+
+  openCreate() {
+    this.router.navigate(['admin/subject/upsert']).then(r => r);
+  }
+
+  refresh() {
+    this.textSearch.set('');
+    this.getListSubject(DEFAULT_PAGING_CONFIG.pageNo, DEFAULT_PAGING_CONFIG.pageSize);
+  }
+
+  pageChanged($event: PageChangedEvent) {
+    this.getListSubject($event.page, $event.itemsPerPage);
+  }
+
+  updateSubject(subject: SubjectDTO) {
+    const bsRef = this.bsModal.show(SubjectUpsertComponent, {
+      class: 'modal-lg modal-dialog-centered',
+      initialState: {
+        isPopupVisible: signal(true),
+        subject: signal(subject),
+      }
+    });
+    bsRef.content?.eventOut?.subscribe(res => {
+      if (res) {
+        this.getListSubject();
+      }
+    });
+  }
+
+  deleteSubject(subject: SubjectDTO) {
+    const bsRef = this.bsModal.show(ConfirmComponent, {
+      class: 'modal-dialog-centered',
+    });
+
+    bsRef.content?.confirmed.subscribe((res: boolean) => {
+      if (res) {
+        this.http.delete(`api/subjects?subId=${subject.subjectId}`)
+          .subscribe(() => {
+            this.getListSubject();
+          });
+      }
+    })
   }
 }

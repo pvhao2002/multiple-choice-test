@@ -51,8 +51,7 @@
               },
               "src/assets",
               "src/app/shared/styles/vendor.min.js",
-              "src/app/shared/styles/app.min.js",
-              "src/app/shared/styles/dropzone.min.js"
+              "src/app/shared/styles/app.min.js"
             ],
             "styles": [
               "src/styles.scss"

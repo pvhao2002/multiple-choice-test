@@ -41,8 +41,8 @@ public class Question {
                 rs.getString("option_b"),
                 rs.getString("option_c"),
                 rs.getString("option_d"),
-                AnswerEnum.valueOf(rs.getString("answer")),
-                rs.getInt("point")
+                AnswerEnum.valueOf(rs.getString("answer").toUpperCase()),
+                rs.getInt("points")
         );
     }
 }

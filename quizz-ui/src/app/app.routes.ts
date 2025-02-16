@@ -31,6 +31,21 @@ export const routes: Routes = [
         path: 'home',
         loadComponent: () => import('./component/student/home/home.component')
           .then((mod) => mod.HomeComponent),
+      },
+      {
+        path: 'exam',
+        loadComponent: () => import('./component/student/exam-list/exam-list.component')
+          .then((mod) => mod.ExamListComponent),
+      },
+      {
+        path: 'subject',
+        loadComponent: () => import('./component/student/subject-list/subject-list.component')
+          .then((mod) => mod.SubjectListComponent),
+      },
+      {
+        path: 'start',
+        loadComponent: () => import('./component/student/start-test/start-test.component')
+          .then((mod) => mod.StartTestComponent),
       }
     ]
   },
@@ -55,6 +70,11 @@ export const routes: Routes = [
       {
         path: 'exam',
         children: [
+          {
+            path: 'detail',
+            loadComponent: () => import('../app/component/admin/exam-detail/exam-detail.component')
+              .then((mod) => mod.ExamDetailComponent),
+          },
           {
             path: 'list',
             loadComponent: () => import('../app/component/admin/exam-list/exam-list.component')

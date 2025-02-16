@@ -1,0 +1,11 @@
+<app-page-title [data]="breadCrumbs"/>
+<div class="row border-1 border">
+  <div class="col-3 bg-dark">
+    @for (btn of t; track btn; let idx = $index) {
+      <button class="btn btn-outline-primary rounded-circle">{{ idx + 1 }}</button>
+    }
+  </div>
+  <div class="col-8">
+
+  </div>
+</div>

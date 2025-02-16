@@ -128,6 +128,7 @@ create table if not exists `questions`
     `option_d`    text                      not null,
     `points`      int(11)                   not null,
     `answer`      ENUM ('a', 'b', 'c', 'd') not null,
+    `is_deleted`  tinyint(1)                default 0,
     `created_at`  timestamp  default current_timestamp,
     `updated_at`  timestamp  default current_timestamp on update current_timestamp,
     primary key (`question_id`),

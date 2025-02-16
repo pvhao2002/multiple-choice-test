@@ -1,0 +1,41 @@
+<app-page-title [data]="breadCrumbs"/>
+
+
+<div class="row">
+  <p>{{ data.totalRecords }} Subjects</p>
+  @for (sub of data.contents; track sub) {
+    <div class="col-md-6 col-xxl-3">
+      <!-- project card -->
+      <div class="card d-block hover-me" (click)="listExam(sub.subjectId)">
+        <!-- project-thumbnail -->
+        <img class="card-img-top h-200" [src]="sub.icon" alt="project image cap" style="object-fit: cover;">
+
+        <div class="card-body position-relative">
+          <!-- project title-->
+          <h4 class="mt-0">
+            <a href="javascript:void(0)" class="text-title">{{ sub.name }}</a>
+          </h4>
+
+          <!-- project detail-->
+          <p class="mb-3">
+          <span class="pe-2 text-nowrap">
+              <i class="mdi mdi-format-list-bulleted-type"></i>
+              <b>{{ sub.count }}</b> Exam
+          </span>
+
+            <span class="pe-2 text-nowrap">
+              <i class="mdi mdi-clock"></i>
+              Last Updated: <b>{{ sub.lastUpdate }}</b>
+          </span>
+          </p>
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+    </div> <!-- end col -->
+  }
+  <div class="d-flex justify-content-center">
+    <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page" [itemsPerPage]="data.size"
+                [maxSize]="5"
+                [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+    </pagination>
+  </div>
+</div>

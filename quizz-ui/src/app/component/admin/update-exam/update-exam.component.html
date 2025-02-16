@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card h-100">
+      <div class="card-header bg-warning">
+        <h4 class="card-title">Update exam</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="examName" class="form-label">Exam name</label>
+              <input type="text" id="examName" name="examName" class="form-control"
+                     [(ngModel)]="params().name"
+                     placeholder="Enter exam name">
+            </div>
+          </div> <!-- end col-->
+
+          <div class="col-xl-6 d-flex align-items-end">
+            <div class="mb-3 d-flex justify-content-start align-items-center align-content-stretch">
+              <span class="fw-bold me-1">Monitor: </span>
+              <input type="checkbox" id="has-monitor" name="hasMonitor" [(ngModel)]="params().hasMonitor"
+                     class="form-check m-0 me-5">
+              <span class="fw-bold">Number question: {{ params().totalQuestions }}</span>
+            </div>
+          </div> <!-- end col-->
+
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <ng-select id="subject" [(ngModel)]="params().subjectId">
+                @for (sub of subjects(); track sub; let idx = $index) {
+                  <ng-option [value]="sub.subjectId">{{ sub.name }}</ng-option>
+                }
+              </ng-select>
+            </div>
+          </div> <!-- end col-->
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="table-action btn-group-sm">
+          <button type="button" class="btn btn-warning me-2" (click)="submit()">
+            <i class="mdi mdi-plus"></i> Submit
+          </button>
+
+          <button type="button" class="btn btn-dark" (click)="cancel()">
+            <i class="mdi mdi-alpha-x text-light"></i> Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

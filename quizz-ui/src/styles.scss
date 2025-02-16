@@ -4,6 +4,7 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import 'app/shared/styles/app.min.css';
 @import 'app/shared/styles/icons.min.css';
+@import "@ng-select/ng-select/themes/default.theme.css";
 // regular style toast
 @import 'ngx-toastr/toastr';
 
@@ -12,4 +13,14 @@
     position: absolute;
     top: 1rem;
   }
+}
+
+.table > :not(caption) > * > * {
+  background-color: #fff !important;
+}
+
+
+.hover-me:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 14px 28px, rgba(0, 0, 0, 0.22) 0 10px 10px;
 }

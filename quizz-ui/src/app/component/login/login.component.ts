@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {ResponseData} from '../../shared/model/response-data.model';
 import {AuthenticationService} from '../../shared/service/authentication.service';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
     , private http: HttpClient
     , private authService: AuthenticationService
     , private toastr: ToastrService
+    , private router: Router
   ) {
   }
 
@@ -66,11 +68,18 @@ export class LoginComponent implements OnInit {
       next: (res) => {
         if (!res.success) {
           this.toastr.error(res.message);
+          if (res.errorCode === 'ACCOUNT_INACTIVE') {
+
+          }
         } else {
           this.toastr.success('Login success');
           this.authService.redirectHome();
         }
       }
     });
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']).then();
   }
 }

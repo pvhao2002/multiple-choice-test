@@ -1,0 +1,73 @@
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-sm-5">
+            <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="addQuestion()"><i
+              class="mdi mdi-plus-circle me-2"></i> Add Question
+            </a>
+          </div>
+        </div>
+        <div>Total question: {{ data.length }}</div>
+        <div class="table-responsive">
+          <table class="table table-centered w-100 dt-responsive nowrap custom-table" id="products-datatable">
+            <thead class="table-light">
+            <tr>
+              <th class="all">No</th>
+              <th>Content</th>
+              <th>Option A</th>
+              <th>Option B</th>
+              <th>Option C</th>
+              <th>Option D</th>
+              <th>Answer</th>
+              <th style="width: 85px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (item of data; track item; let i = $index) {
+                <tr>
+                  <td>{{ item.no }}</td>
+                  <td>
+                    @if (item.hasImage) {
+                      <img [src]="item.image" alt="image"
+                           class="rounded me-3" height="48"/>
+                    }
+                    <p class="m-0 d-inline-block align-middle font-16 text-truncate" style="max-width: 150px;"
+                       [title]="item.content"
+                    >
+                      {{ item.content }}
+                    </p>
+                  </td>
+                  <td [title]="item.optionA" [outsideClick]="true" [popover]="item.optionA" class="text-truncate"
+                      style="max-width: 150px;">{{ item.optionA }}
+                  </td>
+                  <td [title]="item.optionB" [outsideClick]="true" [popover]="item.optionB" class="text-truncate"
+                      style="max-width: 150px;">{{ item.optionB }}
+                  </td>
+                  <td [title]="item.optionC" [outsideClick]="true" [popover]="item.optionC" class="text-truncate"
+                      style="max-width: 150px;">{{ item.optionC }}
+                  </td>
+                  <td [title]="item.optionD" [outsideClick]="true" [popover]="item.optionD" class="text-truncate"
+                      style="max-width: 150px;">{{ item.optionD }}
+                  </td>
+                  <td [title]="item.answer" [outsideClick]="true" [popover]="item.answer" class="text-truncate"
+                      style="max-width: 150px;">{{ item.answer }}
+                  </td>
+                  <td class="table-action">
+                    <a href="javascript:void(0);" class="action-icon" (click)="updateQuestion(item)"> <i
+                      class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="deleteQuestion(item)"> <i
+                      class="mdi mdi-delete"></i></a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col -->
+</div>

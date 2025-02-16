@@ -27,6 +27,8 @@ public class SubjectController {
         return ResponseContainer.success(subjectService.getSubjects(page, size, key));
     }
 
+
+
     @PostMapping
     public Object create(
             @RequestParam("name") String name,
@@ -36,12 +38,16 @@ public class SubjectController {
     }
 
     @PatchMapping
-    public Object update() {
-        return null;
+    public Object update(
+            @RequestParam("subId") Integer subId,
+            @RequestParam("name") String name,
+            @RequestParam(value = "file", required = false) MultipartFile file
+    ) {
+        return ResponseContainer.success(subjectService.save(subId, name, file));
     }
 
     @DeleteMapping
-    public Object delete() {
-        return null;
+    public Object delete(@RequestParam("subId") Integer subId) {
+        return ResponseContainer.success(subjectService.delete(subId));
     }
 }

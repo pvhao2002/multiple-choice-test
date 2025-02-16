@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 position-relative">
+            <div class="card p-2">
+              <p>Câu hỏi {{ question().no ?? '' }}</p>
+              <input type="file" class="form-control" name="image"
+                     (change)="processFile($event)"
+                     placeholder="Choose image">
+              @if (question().image) {
+                <img [src]="question().image" class="img-fluid mt-2 wh-200x align-self-center"/>
+              }
+              <textarea class="form-control mt-2" rows="3" name="content"
+                        [(ngModel)]="question().content"
+                        placeholder="Enter question"></textarea>
+              <input type="text" name="optionA" class="form-control mt-2" placeholder="Enter answer A"
+                     [(ngModel)]="question().optionA">
+              <input type="text" name="optionB" class="form-control mt-2" placeholder="Enter answer B"
+                     [(ngModel)]="question().optionB">
+              <input type="text" name="optionC" class="form-control mt-2" placeholder="Enter answer C"
+                     [(ngModel)]="question().optionC">
+              <input type="text" name="optionD" class="form-control mt-2" placeholder="Enter answer D"
+                     [(ngModel)]="question().optionD">
+              <div class="mt-2">
+                <span class="fw-bold me-1">Answer: </span>
+                <div class="form-check form-check-inline cursor">
+                  <input type="radio" id="optionA" name="answer" [(ngModel)]="question().answer"
+                         value="A"
+                         class="form-check-input">
+                  <label class="form-check-label" for="optionA">A</label>
+                </div>
+                <div class="form-check form-check-inline cursor">
+                  <input type="radio" id="optionB" name="answer" [(ngModel)]="question().answer"
+                         value="B"
+                         class="form-check-input">
+                  <label class="form-check-label" for="optionB">B</label>
+                </div>
+                <div class="form-check form-check-inline cursor">
+                  <input type="radio" id="optionC" name="answer" [(ngModel)]="question().answer"
+                         value="C"
+                         class="form-check-input">
+                  <label class="form-check-label" for="optionC">C</label>
+                </div>
+                <div class="form-check form-check-inline cursor">
+                  <input type="radio" id="optionD" name="answer" [(ngModel)]="question().answer"
+                         value="D"
+                         class="form-check-input">
+                  <label class="form-check-label" for="optionD">D</label>
+                </div>
+              </div>
+            </div>
+            <div class="table-action btn-group-sm">
+              <button type="button" class="btn btn-primary me-2" (click)="submit()">
+                <i class="mdi mdi-plus"></i> Submit
+              </button>
+
+              <button type="button" class="btn btn-dark" (click)="cancel()">
+                <i class="mdi mdi-alpha-x text-light"></i> Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

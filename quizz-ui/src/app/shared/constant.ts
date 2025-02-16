@@ -18,11 +18,12 @@ export const CONSTANT = {
   bearer: 'Bearer ',
   lib1: '../../shared/styles/app.min.css',
   lib2: '../../shared/styles/icons.min.css',
+  defaultNumberQuestion: 1,
 };
 
 export const DEFAULT_PAGING_CONFIG: CustomPagingModel = {
   pageNo: 1,
-  pageSize: 25,
+  pageSize: 10,
   totalRows: 0,
   totalPages: 0,
 };

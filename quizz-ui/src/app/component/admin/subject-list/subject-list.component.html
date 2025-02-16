@@ -6,7 +6,8 @@
       <div class="card-body">
         <div class="row mb-2">
           <div class="col-sm-5">
-            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i class="mdi mdi-plus-circle me-2"></i> Add
+            <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="openCreate()"><i
+              class="mdi mdi-plus-circle me-2"></i> Add
               Subject
             </a>
           </div>
@@ -16,7 +17,8 @@
                    (ngModelChange)="onSearch()"
                    (keyup.enter)="getListSubject()"/>
             <div class="text-sm-end ms-2">
-              <button type="button" class="btn btn-success  me-1"><i class="mdi mdi-reload"></i></button>
+              <button type="button" class="btn btn-success  me-1" (click)="refresh()"><i class="mdi mdi-reload"></i>
+              </button>
             </div>
           </div><!-- end col-->
         </div>
@@ -33,7 +35,7 @@
             <tbody>
               @for (item of data.contents; track item; let i = $index) {
                 <tr>
-                  <td>{{ i + 1 }}</td>
+                  <td>{{ ((data.page - 1) * data.size) + (i + 1) }}</td>
                   <td>
                     <img [src]="item.icon" alt="image"
                          class="rounded me-3" height="48"/>
@@ -43,13 +45,19 @@
                   </td>
 
                   <td class="table-action">
-                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                    <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="updateSubject(item)"> <i class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="deleteSubject(item)"> <i class="mdi mdi-delete"></i></a>
                   </td>
                 </tr>
               }
             </tbody>
           </table>
+          <div class="d-flex justify-content-center">
+            <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page" [itemsPerPage]="data.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+            </pagination>
+          </div>
         </div>
       </div> <!-- end card-body-->
     </div> <!-- end card-->

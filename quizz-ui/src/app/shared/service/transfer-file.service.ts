@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FileData} from '../model/FileData';
+import {Observable} from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TransferFileService {
   fileData: any;
   mFile: FileData = new FileData();
@@ -12,6 +11,27 @@ export class TransferFileService {
     const file = event.target.files[0];
     this.handleFiles(file);
   }
+
+  processFile(event: any) {
+    return new Observable<any>((obs) => {
+      const file = event.target.files[0];
+      if (!file) {
+        obs.error('No file selected');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64 = e.target?.result;
+        this.fileData = file;
+        obs.next(base64);
+        obs.complete();
+      };
+      reader.onerror = (error) => obs.error(error);
+      reader.readAsDataURL(file);
+    });
+  }
+
 
   handleFiles(file: any) {
     if (file) {

@@ -1,1 +1,101 @@
-<p>exam-upsert works!</p>
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="examName" class="form-label">Exam name</label>
+              <input type="text" id="examName" name="examName" class="form-control"
+                     [(ngModel)]="params().examName"
+                     placeholder="Enter exam name">
+            </div>
+          </div> <!-- end col-->
+
+          <div class="col-xl-6 d-flex align-items-end">
+            <div class="mb-3 d-flex justify-content-start align-items-center align-content-stretch">
+              <span class="fw-bold me-1">Monitor: </span>
+              <input type="checkbox" id="has-monitor" name="hasMonitor" [(ngModel)]="params().hasMonitor"
+                     class="form-check m-0 me-5">
+              <span class="fw-bold">Number question: {{ params().listQuestion.length }}</span>
+            </div>
+          </div> <!-- end col-->
+
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <ng-select id="subject" [(ngModel)]="params().subjectId">
+                @for (sub of subjects(); track sub; let idx = $index) {
+                  <ng-option [value]="sub.subjectId">{{ sub.name }}</ng-option>
+                }
+              </ng-select>
+            </div>
+          </div> <!-- end col-->
+        </div>
+
+        <div class="row">
+          @for (question of params().listQuestion; track question; let idx = $index) {
+            <div class="col-6 position-relative">
+              <div class="card p-2">
+                <p>Cau {{ idx + 1 }}</p>
+                <input type="file" class="form-control" name="image{{idx}}"
+                       (change)="processFile($event, idx)"
+                       placeholder="Choose image">
+                <textarea class="form-control mt-2" rows="3" name="content{{idx}}"
+                          [(ngModel)]="question.content"
+                          placeholder="Enter question"></textarea>
+                <input type="text" name="optionA{{idx}}" class="form-control mt-2" placeholder="Enter answer A"
+                       [(ngModel)]="question.optionA">
+                <input type="text" name="optionB{{idx}}" class="form-control mt-2" placeholder="Enter answer B"
+                       [(ngModel)]="question.optionB">
+                <input type="text" name="optionC{{idx}}" class="form-control mt-2" placeholder="Enter answer C"
+                       [(ngModel)]="question.optionC">
+                <input type="text" name="optionD{{idx}}" class="form-control mt-2" placeholder="Enter answer D"
+                       [(ngModel)]="question.optionD">
+                <div class="mt-2">
+                  <span class="fw-bold me-1">Answer: </span>
+                  <div class="form-check form-check-inline cursor">
+                    <input type="radio" id="optionA{{idx}}" name="answer{{idx}}" [(ngModel)]="question.answer"
+                           value="A"
+                           class="form-check-input">
+                    <label class="form-check-label" for="optionA{{idx}}">A</label>
+                  </div>
+                  <div class="form-check form-check-inline cursor">
+                    <input type="radio" id="optionB{{idx}}" name="answer{{idx}}" [(ngModel)]="question.answer"
+                           value="B"
+                           class="form-check-input">
+                    <label class="form-check-label" for="optionB{{idx}}">B</label>
+                  </div>
+                  <div class="form-check form-check-inline cursor">
+                    <input type="radio" id="optionC{{idx}}" name="answer{{idx}}" [(ngModel)]="question.answer"
+                           value="C"
+                           class="form-check-input">
+                    <label class="form-check-label" for="optionC{{idx}}">C</label>
+                  </div>
+                  <div class="form-check form-check-inline cursor">
+                    <input type="radio" id="optionD{{idx}}" name="answer{{idx}}" [(ngModel)]="question.answer"
+                           value="D"
+                           class="form-check-input">
+                    <label class="form-check-label" for="optionD{{idx}}">D</label>
+                  </div>
+                </div>
+                <button type="button"
+                        (click)="removeQuestion(idx)"
+                        class="btn btn-danger position-absolute top-0 end-0 rounded-circle mt-1 me-2">
+                  <i class="mdi mdi-delete"></i>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="button-list">
+          <button class="btn btn-dark" (click)="addQuestion()">Add Question</button>
+          <button class="btn btn-success" (click)="submit()">Submit</button>
+        </div>
+        <!-- end row -->
+      </div> <!-- end card-body -->
+    </div> <!-- end card-->
+  </div> <!-- end col-->
+</div>

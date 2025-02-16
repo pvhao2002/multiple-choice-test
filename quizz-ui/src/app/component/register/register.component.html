@@ -4,11 +4,11 @@
       <div class="card-body">
 
         <div class="auth-brand text-center text-lg-start">
-          <a href="/quizz-ui/public" class="logo-dark">
-            <span><img ngSrc="/quizz-ui/src/assets/images/logo.jpg" alt="" height="50" width="50"></span>
+          <a href="javascript:void(0)" class="logo-dark">
+            <span><img ngSrc="assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
-          <a href="/quizz-ui/public" class="logo-light">
-            <span><img ngSrc="/quizz-ui/src/assets/images/logo.jpg" alt="" height="50" width="50"></span>
+          <a href="javascript:void(0)" class="logo-light">
+            <span><img ngSrc="assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
         </div>
 
@@ -79,7 +79,8 @@
                   class="mdi mdi-facebook"></i></a>
               </li>
               <li class="list-inline-item">
-                <a href="javascript: void(0);" (click)="loginWithGoogle()" class="social-list-item border-danger text-danger"><i
+                <a href="javascript: void(0);" (click)="loginWithGoogle()"
+                   class="social-list-item border-danger text-danger"><i
                   class="mdi mdi-google"></i></a>
               </li>
               <li class="list-inline-item">
@@ -95,7 +96,8 @@
         </form>
 
         <footer class="footer footer-alt">
-          <p class="text-muted">Already have account? <a href="/quizz-ui/public#/login" class="text-muted ms-1"><b>Login</b></a>
+          <p class="text-muted">Already have account? <a href="javascript:void(0)" class="text-muted ms-1"
+                                                         (click)="navigateToLogin()"><b>Login</b></a>
           </p>
         </footer>
 
@@ -103,27 +105,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #pincode>
-  <div class="card p-4 shadow-lg text-center">
-    <h4 class="mb-3 text-primary">Enter Verification Code</h4>
-    <p class="text-muted">A 6-digit code has been sent to your email. Please enter it below:</p>
-    <div class="d-flex justify-content-center">
-      <div class="w-50">
-        <code-input class="my-3"
-                    [codeLength]="6"
-                    (codeChanged)="onCodeCompleted($event)"
-                    (codeCompleted)="onCodeCompleted($event)">
-        </code-input>
-      </div>
-    </div>
-
-    <button class="btn btn-primary w-100 mt-3" (click)="verifyCode()">Verify</button>
-
-    <p class="mt-3">
-      Didn't receive a code?
-      <a href="javascript:void(0);" class="text-decoration-none text-primary" (click)="resendCode()">Resend</a>
-    </p>
-  </div>
-</ng-template>
-
