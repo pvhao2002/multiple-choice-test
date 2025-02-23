@@ -1,0 +1,154 @@
+<div class="page-title-box">
+  <div class="page-title-right">
+    <div class="app-search">
+      <form>
+        <div class="input-group">
+          <input type="text" class="form-control border" name="key" placeholder="Search..." [(ngModel)]="textSearch"
+                 (ngModelChange)="onSearch()"/>
+          <span class="mdi mdi-magnify search-icon text-dark"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <h4 class="page-title">Result </h4>
+</div>
+
+<div class="mt-2">
+  <h5 class="m-0 pb-2">
+    <a class="text-dark text-decoration-none" data-bs-toggle="collapse" href="#completeResult" role="button"
+       aria-expanded="false"
+       aria-controls="completeResult">
+      <i class='uil uil-angle-down font-18'></i>Complete <span class="text-muted">({{ data1.contents.length }})</span>
+    </a>
+  </h5>
+
+  <div class="collapse show" id="completeResult">
+    <div class="card mb-0">
+      <div class="card-body pb-0">
+        <!-- task -->
+        @for (item of data1.contents; track item) {
+          <div class="row justify-content-sm-between item"
+               (click)="navigateReview(item.testAttemptId)"
+               [title]="'Correct: ' + item.totalCorrect + ' / ' + item.totalQuestions + ' (Warning: ' + item.numberWarning + ')'">
+            <div class="col-sm-6 mb-2 mb-sm-0">
+              <div class="form-check">
+                <label class="form-check-label">
+                  {{ item.name }}
+                </label>
+              </div> <!-- end checkbox -->
+            </div> <!-- end col -->
+            <div class="col-sm-6">
+              <div class="d-flex justify-content-between">
+                <div id="tooltip-container">
+                </div>
+                <div>
+                  <ul class="list-inline font-13 text-end">
+                    <li class="list-inline-item">
+                      <i class='uil uil-schedule font-16 me-1'></i>
+                      {{ item.startTime | date: 'dd/MM/yyyy HH:mm' }} - {{ item.finishTime | date: 'dd/MM/yyyy HH:mm' }}
+                    </li>
+                    <li class="list-inline-item ms-1">
+                      <i class='uil uil-align-alt font-16 me-1'></i>
+                      <b>{{ item.totalCorrect }} / {{ item.totalQuestions }}</b>
+                    </li>
+                    <li class="list-inline-item ms-1">
+                      <i class='uil uil-minus-circle font-16 me-1'></i> {{ item.numberWarning }}
+                    </li>
+                    <li class="list-inline-item ms-2">
+                      @if (item.hasMonitor) {
+                        <span class="badge badge-success-lighten p-1 text-dark">Has monitor</span>
+                      } @else {
+                        <span class="badge badge-danger-lighten p-1 text-dark">No monitor</span>
+                      }
+                    </li>
+                  </ul>
+                </div>
+              </div> <!-- end .d-flex-->
+            </div> <!-- end col -->
+          </div>
+        } @empty {
+          <div class="text-center">No data</div>
+        }
+        @if (data1.contents.length > 0) {
+          <div class="d-flex justify-content-center mt-2">
+            <pagination [totalItems]="data1.totalRecords" [(ngModel)]="data1.page" [itemsPerPage]="data1.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged1($event)">
+            </pagination>
+          </div>
+        }
+      </div> <!-- end card-body-->
+    </div> <!-- end card -->
+  </div> <!-- end .collapse-->
+</div> <!-- end .mt-2-->
+
+
+<div class="mt-4">
+
+  <h5 class="m-0 pb-2">
+    <a class="text-dark text-decoration-none" data-bs-toggle="collapse" href="#incomplete" role="button"
+       aria-expanded="false"
+       aria-controls="incomplete">
+      <i class='uil uil-angle-down font-18'></i>Incomplete <span class="text-muted">({{ data2.contents.length }})</span>
+    </a>
+  </h5>
+
+  <div class="collapse show" id="incomplete">
+    <div class="card mb-0">
+      <div class="card-body pb-0">
+        @if (data2.contents.length === 0) {
+          <div class="text-center">No data</div>
+        }
+        @for (item of data2.contents; track item) {
+          <div class="row justify-content-sm-between item"
+               (click)="navigateTestContinue(item.testId)"
+               [title]="'Correct: ' + item.totalCorrect + ' / ' + item.totalQuestions + ' (Warning: ' + item.numberWarning + ')'">
+            <div class="col-sm-6 mb-2 mb-sm-0">
+              <div class="form-check">
+                <label class="form-check-label">
+                  {{ item.name }}
+                </label>
+              </div> <!-- end checkbox -->
+            </div> <!-- end col -->
+            <div class="col-sm-6">
+              <div class="d-flex justify-content-between">
+                <div id="tooltip-container-2">
+                </div>
+                <div>
+                  <ul class="list-inline font-13 text-end">
+                    <li class="list-inline-item">
+                      <i class='uil uil-schedule font-16 me-1'></i>
+                      {{ item.startTime | date: 'dd/MM/yyyy HH:mm' }} - {{ item.finishTime | date: 'dd/MM/yyyy HH:mm' }}
+                    </li>
+                    <li class="list-inline-item ms-1">
+                      <i class='uil uil-align-alt font-16 me-1'></i>
+                      <b>{{ item.totalCorrect }} / {{ item.totalQuestions }}</b>
+                    </li>
+                    <li class="list-inline-item ms-1">
+                      <i class='uil uil-minus-circle font-16 me-1'></i> {{ item.numberWarning }}
+                    </li>
+                    <li class="list-inline-item ms-2">
+                      @if (item.hasMonitor) {
+                        <span class="badge badge-success-lighten p-1 text-dark">Has monitor</span>
+                      } @else {
+                        <span class="badge badge-danger-lighten p-1 text-dark">No monitor</span>
+                      }
+                    </li>
+                  </ul>
+                </div>
+              </div> <!-- end .d-flex-->
+            </div> <!-- end col -->
+          </div>
+        }
+        @if (data2.contents.length > 0) {
+          <div class="d-flex justify-content-center mt-2">
+            <pagination [totalItems]="data2.totalRecords" [(ngModel)]="data2.page" [itemsPerPage]="data2.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged2($event)">
+            </pagination>
+          </div>
+        }
+      </div> <!-- end card-body-->
+    </div> <!-- end card -->
+  </div> <!-- end collapse-->
+</div>

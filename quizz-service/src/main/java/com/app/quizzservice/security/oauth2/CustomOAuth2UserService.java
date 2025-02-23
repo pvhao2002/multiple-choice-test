@@ -10,6 +10,7 @@ import com.app.quizzservice.security.UserPrincipal;
 import com.app.quizzservice.security.oauth2.user.OAuth2UserInfo;
 import com.app.quizzservice.security.oauth2.user.OAuth2UserInfoFactory;
 import com.app.quizzservice.service.EmailService;
+import com.app.quizzservice.utils.ImageUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -79,7 +80,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                     .firstName(oAuth2UserInfo.getFirstName())
                     .lastName(oAuth2UserInfo.getLastName())
                     .email(oAuth2UserInfo.getEmail())
-                    .avatar(oAuth2UserInfo.getImageUrl())
+                    .avatar(ImageUtils.getBase64FromImageUrl(oAuth2UserInfo.getImageUrl()))
                     .status(StatusEnum.ACTIVE)
                     .password(passwordEncoder.encode(password))
                     .build();
@@ -94,7 +95,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setFirstName(oAuth2UserInfo.getFirstName());
         existingUser.setLastName(oAuth2UserInfo.getLastName());
-        existingUser.setAvatar(oAuth2UserInfo.getImageUrl());
+        existingUser.setAvatar(ImageUtils.getBase64FromImageUrl(oAuth2UserInfo.getImageUrl()));
         existingUser.setStatus(StatusEnum.INACTIVE.equals(existingUser.getStatus()) ? StatusEnum.ACTIVE : existingUser.getStatus());
         return userRepo.save(existingUser, false);
     }

@@ -9,6 +9,7 @@ public enum ErrorCodeEnum {
     SUCCESS(200, "Successful"),
 
     BAD_REQUEST(400, "Bad request"),
+    NO_QUESTION(400, "No question found"),
     UN_AUTHORIZATION(401, "Authorization required"),
     DENIED_IP(403, "IP not allow to be connected"),
     PERMISSION_DENIED(403, "You do not have permission to access this api"),

@@ -88,7 +88,6 @@ create table if not exists `subjects`
     `created_at` timestamp                   default current_timestamp,
     `updated_at` timestamp                   default current_timestamp on update current_timestamp,
     primary key (`subject_id`),
-    unique key `name` (`name`),
     index (`name`)
 ) engine = InnoDB
   default charset = utf8;
@@ -107,7 +106,6 @@ create table if not exists `test`
     `updated_at`      timestamp                   default current_timestamp on update current_timestamp,
     primary key (`test_id`),
     foreign key (`subject_id`) references `subjects` (`subject_id`),
-    unique key `name` (`name`),
     index (`name`)
 ) engine = InnoDB
   default charset = utf8;
@@ -164,7 +162,7 @@ create table if not exists `test_attempt_details`
     `test_attempt_detail_id` int(11)                   not null auto_increment,
     `test_attempt_id`        int(11)                   not null,
     `question_id`            int(11)                   not null,
-    `answer`                 ENUM ('a', 'b', 'c', 'd') not null,
+    `answer`                 ENUM ('a', 'b', 'c', 'd'),
     `points`                 int(11),
     `is_correct`             tinyint(1),
     `created_at`             timestamp default current_timestamp,

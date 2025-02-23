@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,5 +45,18 @@ public class Question {
                 AnswerEnum.valueOf(rs.getString("answer").toUpperCase()),
                 rs.getInt("points")
         );
+    }
+
+    public MapSqlParameterSource toMap(int num, long examId) {
+        return new MapSqlParameterSource()
+                .addValue("no", num)
+                .addValue("image", getImage())
+                .addValue("content", getContent())
+                .addValue("optionA", getOptionA())
+                .addValue("optionB", getOptionB())
+                .addValue("optionC", getOptionC())
+                .addValue("optionD", getOptionD())
+                .addValue("answer", getAnswer().name())
+                .addValue("examId", examId);
     }
 }

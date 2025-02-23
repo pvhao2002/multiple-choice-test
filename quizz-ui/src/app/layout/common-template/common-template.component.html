@@ -1,4 +1,4 @@
-@if (authService.isLoggedIn) {
+@if (authService.isLoggedIn && !isStartTest()) {
   <div class="wrapper">
     <app-side-menu/>
     <div class="content-page">

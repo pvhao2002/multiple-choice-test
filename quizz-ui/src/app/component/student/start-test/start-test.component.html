@@ -1,11 +1,202 @@
-<app-page-title [data]="breadCrumbs"/>
-<div class="row border-1 border">
-  <div class="col-3 bg-dark">
-    @for (btn of t; track btn; let idx = $index) {
-      <button class="btn btn-outline-primary rounded-circle">{{ idx + 1 }}</button>
-    }
-  </div>
-  <div class="col-8">
+@if (isReview()) {
+  <div class="container-start w-100">
+    <div class="a bg-1 h-60 d-flex justify-content-between align-items-center p-2 position-sticky m-0 top-0 start-0">
+      <p class="align-self-center m-0 fw-bold">{{ dataReview.name }}</p>
+      <button class="btn btn-danger px-4 py-0 h-75" (click)="navigateToExam()">Exit</button>
+    </div>
+    <div class="b bg-1 h-side-bar position-sticky m-0 start-0 bottom-0 border-c-2 px-2 pt-4">
+      <h4 class="mb-2">Questions: {{ dataReview.questions.length }}</h4>
+      <div class="container-question scrollbar-q">
+        <div class="btn-question-area">
+          @for (q of dataReview.questions; track q; let idx = $index) {
+            <button class="btn" [ngClass]="{'btn-success': q.isCorrect, 'btn-danger': !q.isCorrect}">{{ q.no }}</button>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="c bg-2 m-0 pt-4">
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <div class="card c2-question bg-1">
+          <div class="card-body">
+            <h4 class="text-center">You have complete: {{ dataReview.name }}</h4>
+            <div class="w-100 d-flex justify-content-around mt-5">
+              <div class="progress-bar" [ngStyle]="getBgPercent(dataReview.percentCorrect)">
+                <progress [value]="dataReview.percentCorrect" min="0" max="100" class="text-dark"
+                          style="visibility:hidden;height:0;width:0;">75%
+                </progress>
+                <span class="progress-text">{{ dataReview.percentCorrect }}%</span>
+              </div>
+              <div class="d-flex flex-column justify-content-between w-50">
+                <div class="d-flex justify-content-between">
+                  <p class="m-0">Correct answers: </p>
+                  <p class="m-0">{{ dataReview.totalCorrect }}
+                    <i class="mdi mdi-check text-white fw-bold p-1 bg-success rounded-circle"></i>
+                  </p>
+                </div>
 
+                <div class="d-flex justify-content-between">
+                  <p class="m-0">Wrong answers: </p>
+                  <p class="m-0">{{ dataReview.totalQuestions - dataReview.totalCorrect }}
+                    <i class="mdi mdi-alpha-x text-white fw-bold bg-danger rounded-circle p-1"></i>
+                  </p>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <p class="m-0">Number of warning: </p>
+                  <p class="m-0">{{ dataReview.numberOfWarning }}
+                    <i class="mdi mdi-security text-white fw-bold bg-warning rounded-circle p-1"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <hr class="bg-1">
+            <div class="w-100 d-flex justify-content-center flex-column align-items-center">
+              <div class="w-75 mt-3 d-flex justify-content-between">
+                <p class="m-0">
+                  <i class="mdi mdi-progress-clock"></i> Time start:
+                </p>
+                <p class="m-0">{{ dataReview.startTime | date: 'dd:MM:yyyy HH:mm' }}
+                </p>
+              </div>
+
+              <div class="w-75 mt-3 d-flex justify-content-between">
+                <p class="m-0">
+                  <i class="mdi mdi-progress-clock"></i> Time finish:
+                </p>
+                <p class="m-0">{{ dataReview.endTime | date: 'dd:MM:yyyy HH:mm' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        @for (q of dataReview.questions; track q; let idx = $index) {
+          <div class="card c-question">
+            <div class="card-header">
+              <p>{{ q.no }}. {{ q.content }}</p>
+              @if (q.image) {
+                <img [src]="q.image" alt="img">
+              }
+            </div>
+            <div class="card-body">
+              <div class="form-check cursor">
+                <input type="radio" id="optionA{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       [disabled]="isReview()"
+                       value="a"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionA{{idx}}">A. {{ q.optionA }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionB{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       [disabled]="isReview()"
+                       value="b"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionB{{idx}}">B. {{ q.optionB }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionC{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       [disabled]="isReview()"
+                       value="c"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionC{{idx}}">C. {{ q.optionC }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionD{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       [disabled]="isReview()"
+                       value="d"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionD{{idx}}">D. {{ q.optionD }}</label>
+              </div>
+            </div>
+            <div class="card-footer"
+                 [ngClass]="{'bg-danger-lighten': !q.isCorrect, 'bg-success-lighten': q.isCorrect}">
+              <p class="fw-bold" [ngClass]="{'text-danger': !q.isCorrect, 'text-success': q.isCorrect}">Correct
+                answer: {{ q.correctAnswer }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
   </div>
-</div>
+} @else {
+  <div class="container-start w-100">
+    <div class="a bg-1 h-60 d-flex justify-content-between align-items-center p-2 position-sticky m-0 top-0 start-0">
+      <p class="align-self-center m-0 fw-bold">{{ data.name }}</p>
+      @if (data.hasMonitor) {
+        <p class="m-0">Number waring: {{ data.numberTreating }}</p>
+      }
+      <button class="btn btn-danger px-4 py-0 h-75" (click)="navigateToExam()">Exit</button>
+    </div>
+    <div class="b bg-1 h-side-bar position-sticky m-0 start-0 bottom-0 border-c-2 px-2 pt-4">
+      <h4 class="mb-2">Questions: {{ data.questions.length }}</h4>
+      <div class="container-question scrollbar-q">
+        <div class="btn-question-area">
+          @for (q of data.questions; track q; let idx = $index) {
+            <button class="btn btn-question" [ngClass]="{'btn-choose': q.isCheck}">{{ q.no }}</button>
+          }
+        </div>
+      </div>
+      <div class="position-absolute bottom-0 w-100 d-flex justify-content-center mb-2">
+        <button class="btn btn-submit w-75" (click)="submit()">Submit</button>
+      </div>
+    </div>
+    <div class="c bg-2 m-0 pt-4">
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        @for (q of data.questions; track q; let idx = $index) {
+          <div class="card c-question">
+            <div class="card-header">
+              <p>{{ q.no }}. {{ q.content }}</p>
+              @if (q.image) {
+                <img [src]="q.image" alt="img">
+              }
+            </div>
+            <div class="card-body">
+              <div class="form-check cursor">
+                <input type="radio" id="optionA{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       (ngModelChange)="onChooseQuestion(q)"
+                       [disabled]="isReview()"
+                       value="a"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionA{{idx}}">A. {{ q.optionA }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionB{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       (ngModelChange)="onChooseQuestion(q)"
+                       [disabled]="isReview()"
+                       value="b"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionB{{idx}}">B. {{ q.optionB }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionC{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       (ngModelChange)="onChooseQuestion(q)"
+                       [disabled]="isReview()"
+                       value="c"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionC{{idx}}">C. {{ q.optionC }}</label>
+              </div>
+
+              <div class="form-check cursor">
+                <input type="radio" id="optionD{{idx}}" name="answer{{idx}}" [(ngModel)]="q.userAnswer"
+                       (ngModelChange)="onChooseQuestion(q)"
+                       [disabled]="isReview()"
+                       value="d"
+                       class="form-check-input">
+                <label class="form-check-label" for="optionD{{idx}}">D. {{ q.optionD }}</label>
+              </div>
+            </div>
+            @if (isReview()) {
+              <div class="card-footer">
+                <p>Correct answer: {{ q.answer }}</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}

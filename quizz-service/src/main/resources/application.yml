@@ -57,4 +57,4 @@ management:
 
 logging:
   file:
-    name: logs/agent-service.log
+    name: logs/service.log

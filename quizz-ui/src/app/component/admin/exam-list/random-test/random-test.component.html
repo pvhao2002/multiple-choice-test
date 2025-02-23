@@ -1,0 +1,74 @@
+<div class="row pb-0 mb-0">
+  <div class="col-12">
+    <div class="card pb-0 mb-0">
+      <div class="card-header">
+        <h4 class="card-title">Random exam</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="examName" class="form-label">Exam name</label>
+              <input type="text" id="examName" name="examName" class="form-control"
+                     [(ngModel)]="param.name"
+                     placeholder="Enter exam name">
+            </div>
+          </div> <!-- end col-->
+
+          <div class="col-xl-6 d-flex align-items-end">
+            <div class="mb-3 d-flex justify-content-start align-items-center align-content-stretch">
+              <span class="fw-bold me-1">Monitor: </span>
+              <input type="checkbox" id="has-monitor" name="hasMonitor" [(ngModel)]="param.hasMonitor"
+                     class="form-check m-0 me-5">
+            </div>
+          </div> <!-- end col-->
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="numberQuestion" class="form-label">Number question</label>
+              <input type="number" id="numberQuestion" name="numberQuestion" class="form-control"
+                     [(ngModel)]="param.numberQuestion"
+                     min="1" max="100" maxlength="2"
+                     placeholder="Enter number question">
+            </div>
+          </div> <!-- end col-->
+          <div class="col-xl-6"></div>
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <ng-select id="subject"
+                         name="subject"
+                         [(ngModel)]="param.subjectId"
+                         [items]="subjects()"
+                         bindLabel="name"
+                         bindValue="subjectId"
+                         placeholder="Select subject"
+              >
+              </ng-select>
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="subject" class="form-label">Exam</label>
+              <ng-select id="exam"
+                         name="exam"
+                         [(ngModel)]="param.testIds"
+                         [multiple]="true"
+                         [items]="exams()"
+                         bindLabel="name"
+                         bindValue="testId"
+                         placeholder="Select exam"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="button-list">
+          <button class="btn btn-success" (click)="submit()">Submit</button>
+        </div>
+        <!-- end row -->
+      </div> <!-- end card-body -->
+    </div> <!-- end card-->
+  </div> <!-- end col-->
+</div>

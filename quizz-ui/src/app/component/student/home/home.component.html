@@ -1,1 +1,82 @@
-<p>home works!</p>
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card card-h-100">
+      <div class="card-body">
+        <h4 class="header-title mb-3">Statistic my exam in week</h4>
+        <div dir="ltr">
+          @if (barChartData.labels?.length) {
+            <canvas
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'"
+            >
+            </canvas>
+          } @else {
+            <div class="text-center">
+              <span class="text-muted">No data available</span>
+            </div>
+          }
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+            <thead class="table-light">
+            <tr>
+              <th class="all">Subject</th>
+              <th>Exam</th>
+              <th>Has monitor</th>
+              <th>Total question</th>
+              <th>Total answer</th>
+              <th>Total warning</th>
+              <th>Last time</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (item of data.contents; track item; let i = $index) {
+                <tr>
+                  <td>
+                    <p class="m-0 d-inline-block align-middle font-16">
+                      {{ item.subject }}
+                    </p>
+                  </td>
+                  <td>{{ item.exam }}</td>
+                  <td>
+                    @if (item.hasMonitor) {
+                      <span class="badge bg-success">Yes</span>
+                    } @else {
+                      <span class="badge bg-danger">No</span>
+                    }
+                  </td>
+                  <td>{{ item.totalQuestion }}</td>
+                  <td>{{ item.totalAnswered }}</td>
+                  <td>{{ item.totalWarning }}</td>
+                  <td style="width: 150px;">{{ item.lastUpdate | date : 'dd-MM-yyyy HH:mm' }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="text-center" colspan="9">No records found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page"
+                        [itemsPerPage]="data.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+            </pagination>
+          </div>
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col -->
+</div>

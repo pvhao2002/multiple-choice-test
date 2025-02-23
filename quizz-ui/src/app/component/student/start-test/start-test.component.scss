@@ -1,0 +1,149 @@
+$bg-1: #424242;
+$bg-2: #212121;
+$bg-choice: #bdbdbd;
+$bg-submit: #00aeef;
+
+p {
+  color: white;
+}
+
+.container-start {
+  color: white;
+  display: grid;
+  grid-template-columns: 0.6fr 1.4fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 0 0;
+  grid-auto-flow: row;
+  height: 100vh;
+  grid-template-areas:
+    "a a a"
+    "b c c";
+}
+
+.a {
+  grid-area: a;;
+}
+
+.b {
+  grid-area: b;
+}
+
+.c {
+  grid-area: c;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+
+.h-60 {
+  height: 60px;
+}
+
+.bg-1 {
+  background-color: $bg-1;
+}
+
+.border-c-1 {
+  border: solid $bg-1 2px;
+}
+
+.border-c-2 {
+  border: solid $bg-2 2px;
+}
+
+.bg-2 {
+  background-color: $bg-2;
+}
+
+.bg-submit {
+  background-color: $bg-submit;
+}
+
+.h-side-bar {
+  height: calc(100vh - 60px);
+}
+
+
+.container-question {
+  height: 85%;
+  overflow-y: auto;
+
+  .btn-question-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 8px 12px;
+  }
+
+  .btn-question {
+    background-color: $bg-2;
+    color: white;
+    border: solid $bg-2 2px;
+  }
+
+  .btn-choose {
+    background-color: $bg-choice;
+    color: black;
+    border: solid $bg-choice 2px;
+  }
+}
+
+.btn-submit {
+  background-color: $bg-submit;
+  color: white;
+  border: solid $bg-submit 2px;
+}
+
+.scrollbar-q::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.scrollbar-q::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+.scrollbar-q::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
+}
+
+.c-question {
+  min-width: 65%;
+  min-height: 35vh;
+  max-width: 65%;
+
+  p {
+    color: black;
+  }
+
+  img {
+    height: 350px;
+  }
+}
+
+.c2-question {
+  min-width: 80%;
+  min-height: 45vh;
+  max-width: 80%;
+  color: white;
+}
+
+.progress-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.progress-text {
+  position: absolute;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}

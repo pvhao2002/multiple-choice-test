@@ -137,4 +137,18 @@ public class UserRepo {
         var params = new MapSqlParameterSource().addValue("email", email);
         writeDb.update(sql, params);
     }
+
+    public boolean checkSameToken(String token, long userId) {
+        var sql = """
+                SELECT EXISTS(SELECT 1
+                FROM user_tokens
+                WHERE TRUE
+                    AND user_id = :userId
+                    AND token = :token);
+                """;
+        var params = new MapSqlParameterSource()
+                .addValue("token", token)
+                .addValue("userId", userId);
+        return readDb.queryForObject(sql, params, Boolean.class);
+    }
 }

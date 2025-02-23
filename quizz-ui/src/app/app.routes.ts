@@ -5,6 +5,11 @@ import {profileResolver} from './shared/service/user.service';
 
 export const routes: Routes = [
   {
+    path: 'oauth2/redirect',
+    loadComponent: () => import('./component/oauth2/oauth2.component')
+      .then((mod) => mod.Oauth2Component),
+  },
+  {
     path: 'login',
     loadComponent: () => import('./component/login/login.component')
       .then((mod) => mod.LoginComponent),
@@ -46,6 +51,11 @@ export const routes: Routes = [
         path: 'start',
         loadComponent: () => import('./component/student/start-test/start-test.component')
           .then((mod) => mod.StartTestComponent),
+      },
+      {
+        path: 'result',
+        loadComponent: () => import('./component/student/learning-result/learning-result.component')
+          .then((mod) => mod.LearningResultComponent),
       }
     ]
   },

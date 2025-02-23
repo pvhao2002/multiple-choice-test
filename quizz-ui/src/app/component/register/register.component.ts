@@ -64,12 +64,19 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  loginWithGoogle() {
-    window.location.href = `${CONSTANT.BE_URL_LOCAL}/api/oauth2/authorize/google?redirect_uri=${window.location.origin}/oauth2/redirect`;
-  }
-
   navigateToLogin() {
     this.router.navigate(['/login']).then();
+  }
+
+  loginWithSocial(provider: string) {
+    switch (provider) {
+      case 'google':
+        window.location.href = `${CONSTANT.BE_URL_LOCAL}/api/oauth2/authorize/google?redirect_uri=${window.location.origin}/#/oauth2/redirect`;
+        break;
+      default:
+        this.toastr.warning(`Provider ${provider.toUpperCase()} will be available soon`);
+        break;
+    }
   }
 }
 

@@ -19,6 +19,7 @@ import {API_URL, CONSTANT} from './shared/constant';
 import {JwtInterceptor} from './shared/helper/jwt-interceptor';
 import {ErrorInterceptor} from './shared/helper/error-interceptor';
 import {provideToastr} from 'ngx-toastr';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -41,6 +42,7 @@ export const appConfig: ApplicationConfig = {
     )),
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    provideToastr(),
+    provideCharts(withDefaultRegisterables()),
+    provideToastr(), provideCharts(withDefaultRegisterables()),
   ]
 };

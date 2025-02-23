@@ -58,19 +58,20 @@
             <ul class="social-list list-inline mt-3">
               <li class="list-inline-item">
                 <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
-                  class="mdi mdi-facebook"></i></a>
+                  class="mdi mdi-facebook" (click)="loginWithSocial('fb')"></i></a>
               </li>
               <li class="list-inline-item">
-                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"
+                   (click)="loginWithSocial('google')"><i
                   class="mdi mdi-google"></i></a>
               </li>
               <li class="list-inline-item">
                 <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
-                  class="mdi mdi-twitter"></i></a>
+                  class="mdi mdi-twitter" (click)="loginWithSocial('twitter')"></i></a>
               </li>
               <li class="list-inline-item">
                 <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
-                  class="mdi mdi-github"></i></a>
+                  class="mdi mdi-github" (click)="loginWithSocial('github')"></i></a>
               </li>
             </ul>
           </div>

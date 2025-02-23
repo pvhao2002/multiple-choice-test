@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {catchError, finalize, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {LoginDTO, LoginResponseDTO} from '../model/auth.model';
 import {UserService} from './user.service';
 import {API_URL, CONSTANT} from '../constant';
@@ -13,8 +13,6 @@ import {ResponseData} from '../model/response-data.model';
 export class AuthenticationService {
   private currentUser = new BehaviorSubject<LoginResponseDTO>(new LoginResponseDTO());
   private refreshing = false;
-  public changePwdSuccess = false;
-  public transactionCode = '';
 
   constructor(private http: HttpClient,
               private userService: UserService,) {

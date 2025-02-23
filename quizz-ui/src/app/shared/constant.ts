@@ -21,6 +21,30 @@ export const CONSTANT = {
   defaultNumberQuestion: 1,
 };
 
+export const CHART_OPTIONS = {
+  init: {
+    labels: [],
+    datasets: [{data: [], label: ''}]
+  },
+  bar: {
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+      },
+    },
+  }
+};
+
 export const DEFAULT_PAGING_CONFIG: CustomPagingModel = {
   pageNo: 1,
   pageSize: 10,

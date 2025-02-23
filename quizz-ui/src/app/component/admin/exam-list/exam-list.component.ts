@@ -11,6 +11,9 @@ import {Router} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {UpdateExamComponent} from '../update-exam/update-exam.component';
 import {ConfirmComponent} from '../../confirm/confirm.component';
+import {ImportExcelExamComponent} from './import-excel-exam/import-excel-exam.component';
+import {ToastrService} from 'ngx-toastr';
+import {RandomTestComponent} from './random-test/random-test.component';
 
 @Component({
   selector: 'app-exam-list',
@@ -37,7 +40,8 @@ export class ExamListComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private bsModal: BsModalService
+    private bsModal: BsModalService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -46,6 +50,11 @@ export class ExamListComponent implements OnInit {
     this.searchSubject.pipe(
       debounceTime(500) // Wait for 500ms before calling API
     ).subscribe(() => this.getListExam());
+  }
+
+  createQuestion() {
+    this.router.navigate([`/admin/exam/upsert`])
+      .then();
   }
 
   getListExam(page: number = this.data.page, size: number = this.data.size) {
@@ -110,5 +119,33 @@ export class ExamListComponent implements OnInit {
       }
     })
       .then();
+  }
+
+  importExcel() {
+    const bsRef = this.bsModal.show(ImportExcelExamComponent, {
+      class: 'modal-dialog-centered modal-lg'
+    });
+    bsRef?.content?.eventSubmit.subscribe(res => {
+      if (res) {
+        this.getListExam();
+        this.toastr.success('Import successfully');
+      } else {
+        this.toastr.error('Import failed');
+      }
+    });
+  }
+
+  random() {
+    const bsRef = this.bsModal.show(RandomTestComponent, {
+      class: 'modal-dialog-centered modal-lg',
+    });
+    bsRef?.content?.eventSubmit.subscribe(res => {
+      if (res) {
+        this.getListExam();
+        this.toastr.success('Random successfully');
+      } else {
+        this.toastr.error('Random failed');
+      }
+    });
   }
 }

@@ -2,11 +2,12 @@
 @import '../node_modules/bootstrap/scss/functions';
 @import '../node_modules/bootstrap/scss/variables';
 @import '../node_modules/bootstrap/scss/bootstrap';
+@import "@ng-select/ng-select/themes/default.theme.css";
+@import 'ngx-toastr/toastr';
+
 @import 'app/shared/styles/app.min.css';
 @import 'app/shared/styles/icons.min.css';
-@import "@ng-select/ng-select/themes/default.theme.css";
 // regular style toast
-@import 'ngx-toastr/toastr';
 
 @media (min-width: 992px) {
   .auth-brand {

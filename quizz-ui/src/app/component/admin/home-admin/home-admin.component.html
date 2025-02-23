@@ -1,1 +1,140 @@
-<p>home-admin works!</p>
+<div class="row">
+  <div class="col-12">
+    <div class="page-title-box">
+      <div class="page-title-right">
+        <form class="d-flex">
+          <a href="javascript: void(0);" class="btn btn-primary ms-2">
+            <i class="mdi mdi-autorenew"></i>
+          </a>
+        </form>
+      </div>
+      <h4 class="page-title">Analytics</h4>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xl-3 col-lg-4">
+    <div class="card tilebox-one">
+      <div class="card-body">
+        <i class='uil uil-users-alt float-end'></i>
+        <h6 class="text-uppercase mt-0">Active Users</h6>
+        <h2 class="my-2" id="active-users-count">{{ dashboard.userNumber }}</h2>
+        <p class="mb-0 text-muted">
+          <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 5.27%</span>
+          <span class="text-nowrap">Since last month</span>
+        </p>
+      </div> <!-- end card-body-->
+    </div>
+    <!--end card-->
+
+    <div class="card tilebox-one">
+      <div class="card-body">
+        <i class='uil uil-window-restore float-end'></i>
+        <h6 class="text-uppercase mt-0">Active Subject</h6>
+        <h2 class="my-2" id="active-views-count">{{ dashboard.subjectNumber }}</h2>
+        <p class="mb-0 text-muted">
+          <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 1.08%</span>
+          <span class="text-nowrap">Since previous week</span>
+        </p>
+      </div> <!-- end card-body-->
+    </div>
+    <!--end card-->
+
+    <div class="card tilebox-one">
+      <div class="card-body">
+        <i class='uil uil-book float-end'></i>
+        <h6 class="text-uppercase mt-0">Active Exam</h6>
+        <h2 class="my-2" id="active-view-exam">{{ dashboard.examNumber }}</h2>
+        <p class="mb-0 text-muted">
+          <span class="text-success me-2"><span class="mdi mdi-arrow-up-bold"></span> 2.03%</span>
+          <span class="text-nowrap">Since previous week</span>
+        </p>
+      </div> <!-- end card-body-->
+    </div>
+  </div> <!-- end col -->
+
+  <div class="col-xl-9 col-lg-8">
+    <div class="card card-h-100">
+      <div class="card-body">
+        <h4 class="header-title mb-3">Statistic user test week</h4>
+        <div dir="ltr">
+          @if (barChartData.labels?.length) {
+            <canvas
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="'bar'"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"
+            >
+            </canvas>
+          }
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+            <thead class="table-light">
+            <tr>
+              <th class="all">Email</th>
+              <th>Subject</th>
+              <th>Exam</th>
+              <th>Has monitor</th>
+              <th>Total question</th>
+              <th>Total correct</th>
+              <th>Total warning</th>
+              <th>Last time</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (item of userTests.contents; track item; let i = $index) {
+                <tr>
+                  <td>
+                    <p class="m-0 d-inline-block align-middle font-16">
+                      {{ item.email }}
+                    </p>
+                    <p class="m-0 d-inline-block align-middle font-16">
+                      {{ item.fullName }}
+                    </p>
+                  </td>
+                  <td>{{ item.subject }}</td>
+                  <td>{{ item.testName }}</td>
+                  <td>
+                    @if (item.hasMonitor) {
+                      <span class="badge bg-success">Yes</span>
+                    } @else {
+                      <span class="badge bg-danger">No</span>
+                    }
+                  </td>
+                  <td>{{ item.totalQuestion }}</td>
+                  <td>{{ item.totalCorrect }}</td>
+                  <td>{{ item.numberOfWarning }}</td>
+                  <td style="width: 150px;">{{ item.lastUpdate | date : 'dd-MM-yyyy HH:mm' }}</td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="text-center" colspan="9">No records found.</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination [totalItems]="userTests.totalRecords" [(ngModel)]="userTests.page"
+                        [itemsPerPage]="userTests.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+            </pagination>
+          </div>
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col -->
+</div>

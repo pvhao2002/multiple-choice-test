@@ -36,4 +36,7 @@ public class UserService {
         return Constants.SUCCESS;
     }
 
+    public boolean checkSameToken(String token, long userId) {
+        return userRepo.checkSameToken(token, userId);
+    }
 }

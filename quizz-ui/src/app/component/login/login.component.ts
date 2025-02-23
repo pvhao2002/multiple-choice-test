@@ -11,6 +11,7 @@ import {ResponseData} from '../../shared/model/response-data.model';
 import {AuthenticationService} from '../../shared/service/authentication.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {CONSTANT} from '../../shared/constant';
 
 @Component({
   selector: 'app-login',
@@ -81,5 +82,16 @@ export class LoginComponent implements OnInit {
 
   navigateToRegister() {
     this.router.navigate(['/register']).then();
+  }
+
+  loginWithSocial(provider: string) {
+    switch (provider) {
+      case 'google':
+        window.location.href = `${CONSTANT.BE_URL_LOCAL}/api/oauth2/authorize/google?redirect_uri=${window.location.origin}/#/oauth2/redirect`;
+        break;
+      default:
+        this.toastr.warning(`Provider ${provider.toUpperCase()} will be available soon`);
+        break;
+    }
   }
 }

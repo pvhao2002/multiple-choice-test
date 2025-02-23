@@ -6,7 +6,6 @@ import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {CONSTANT} from '../../../shared/constant';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
-import {SubjectDTO} from '../../../shared/model/subject';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Exam} from '../../../shared/model/Exam';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';

@@ -5,9 +5,15 @@
     <div class="card">
       <div class="card-body">
         <div class="row mb-2">
-          <div class="col-sm-5">
-            <a href="javascript:void(0);" class="btn btn-danger mb-2"><i
-              class="mdi mdi-plus-circle me-2"></i> Add Subject
+          <div class="btn-group col-sm-5">
+            <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="createQuestion()"><i
+              class="mdi mdi-plus-circle me-2"></i> Create
+            </a>
+            <a href="javascript:void(0);" class="btn btn-success mb-2 ms-2" (click)="importExcel()"><i
+              class="mdi mdi-file-excel me-2"></i> Import excel
+            </a>
+            <a href="javascript:void(0);" class="btn btn-info mb-2 ms-2" (click)="random()"><i
+              class="mdi mdi-shuffle me-2"></i> Random
             </a>
           </div>
           <div class="col-sm-7 d-flex align-items-center">
@@ -52,7 +58,8 @@
                     }
                   </td>
                   <td class="table-action d-flex">
-                    <a href="javascript:void(0);" class="action-icon" (click)="detailExam(item)"> <i class="mdi mdi-eye"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="detailExam(item)"> <i
+                      class="mdi mdi-eye"></i></a>
                     <a href="javascript:void(0);" class="action-icon" (click)="updateExam(item)"> <i
                       class="mdi mdi-square-edit-outline"></i></a>
                     <a href="javascript:void(0);" class="action-icon" (click)="deleteExam(item)"> <i
