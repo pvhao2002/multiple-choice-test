@@ -1,0 +1,286 @@
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <div class="col-xxl-7 col-xl-7">
+    <!-- project card -->
+    <div class="card d-block">
+      <div class="card-body">
+        <h3 class="mt-3">{{ courseDetail.courseCode }}</h3>
+
+        <ul>
+          <li><strong>Về kỹ năng</strong>
+
+            <ul>
+              <li>Vận dụng được các kỹ năng lập luận phân tích và giải quyết vấn đề.</li>
+            </ul>
+          </li>
+          <li><strong>Về năng lực tự chủ và trách nhiệm</strong>
+            <ul>
+              <li>Vận dụng được kỹ năng làm việc nhóm.</li>
+              <li>Vận dụng được kỹ năng nghe, nói, đọc và viết tiếng Anh.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <ol>
+          <li><strong>PHƯƠNG PHÁP, HÌNH THỨC KIỂM TRA VÀ ĐÁNH GIÁ</strong></li>
+        </ol>
+
+        <p><strong>Đánh giá quá trình</strong></p>
+
+        <table align="center" border="1" cellpadding="0" cellspacing="0" width="429">
+          <tbody>
+          <tr>
+            <td>
+              <p align="center"><strong>Hình thức</strong></p>
+            </td>
+            <td>
+              <p align="center"><strong>Tỷ lệ</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><strong>1. Điểm quá trình</strong></p>
+            </td>
+            <td>
+              <p align="center"><strong>50%</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>1.1. Điểm chuyên cần</p>
+            </td>
+            <td>
+              <p align="center">10%</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p>1.2. Điểm kiểm tra giữa kỳ</p>
+            </td>
+            <td>
+              <p align="center">40%</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ul>
+                <li>Bài tập giữa kỳ số 1</li>
+              </ul>
+            </td>
+            <td>
+              <p align="center">20%</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ul>
+                <li>Bài tập giữa kỳ số 2</li>
+              </ul>
+            </td>
+            <td>
+              <p align="center">20%</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><strong>2. Điểm đánh giá kết thúc học phần</strong></p>
+            </td>
+            <td>
+              <p align="center"><strong>50%</strong></p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Phương pháp, hình thức đánh giá quá trình</strong></p>
+
+        <p><strong>a. Điểm quá trình </strong><strong>(Chiếm 50% điểm tổng kết học phần):</strong></p>
+
+        <p align="center"><strong>Điểm quá trình = Điểm chuyên cần + Điểm kiểm tra giữa kỳ</strong></p>
+
+        <ul>
+          <li><strong>Điểm chuyên cần </strong>(Chiếm <strong>10%</strong> điểm tổng kết học phần):</li>
+        </ul>
+
+        <p>Làm bài luyện tập trắc nghiệm hàng tuần, đăng bài trên hệ thống diễn đàn của lớp học.</p>
+
+        <p><strong><em>Công thức tính điểm chuyên cần:</em></strong></p>
+
+        <p align="center">Điểm chuyên cần = min (A × 2 + B × 1; 10)</p>
+
+        <p align="center"><em>(Ghi chú</em>: <em>Nếu số điểm tính ra vượt quá 10 thì quy tròn về 10 điểm</em>)</p>
+
+        <p>Trong đó:</p>
+
+        <p>A = Số bài luyện tập trắc nghiệm đạt điểm lớn hơn hoặc bằng 5</p>
+
+        <p>B = min (Số bài đăng trên hệ thống diễn đàn; 10)</p>
+
+        <p><em>(Ghi chú: Nếu số bài đăng vượt quá 10 bài thì được tính điểm là 10 bài)</em></p>
+
+        <p><strong>Ví dụ:</strong></p>
+
+        <ul>
+          <li>Sinh viên làm 4 bài tập trắc nghiệm có điểm lớn hơn hoặc bằng 5, đăng 5 bài trên Diễn đàn.</li>
+        </ul>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ta có: 4 × 2 + 5 × 1 = 13 → Điểm chuyên cần là <strong>10
+          điểm</strong>.</p>
+
+        <ul>
+          <li>Sinh viên làm 4 bài tập trắc nghiệm có điểm lớn hơn hoặc bằng 5, đăng 2 bài trên Diễn đàn.</li>
+        </ul>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ta có: 4 × 2 + 2 × 1 = 10 → Điểm chuyên cần là <strong>10
+          điểm</strong>.</p>
+
+        <ul>
+          <li>Sinh viên làm 4 bài tập trắc nghiệm có điểm lớn hơn hoặc bằng 5, đăng 0 bài trên Diễn đàn.</li>
+        </ul>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ta có: 4 × 2 + 0 × 1 = 8 → Điểm chuyên cần là <strong>8
+          điểm</strong>.</p>
+
+        <ul>
+          <li>Sinh viên làm 0 bài tập trắc nghiệm có điểm lớn hơn hoặc bằng 5, đăng 2 bài trên Diễn đàn.</li>
+        </ul>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ta có: 0 × 2 + 2 × 1 = 2 → Điểm chuyên cần là <strong>2
+          điểm</strong>.</p>
+
+        <ul>
+          <li>&nbsp;Sinh viên làm 0 bài luyện tập trắc nghiệm, đăng 0 bài trên Diễn đàn.</li>
+        </ul>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ta có: 0 × 2 + 0 × 1 = 0 → Điểm chuyên cần là <strong>0
+          điểm</strong>.</p>
+
+        <ul>
+          <li><strong>Điểm kiểm tra giữa kỳ </strong>(Chiếm <strong>40%</strong> điểm tổng kết học phần):
+
+            <ul>
+              <li>Bài tập giữa kỳ số 1: 20% (Nộp trên hệ thống LMS);</li>
+              <li>Bài tập giữa kỳ số 2: 20% (Nộp trên hệ thống LMS).</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p><strong>b. Điểm đánh giá kết thúc học phần (Chiếm 50% điểm tổng kết học phần):</strong></p>
+
+        <ul>
+          <li>Sinh viên bắt buộc phải tham gia thi.</li>
+          <li>Hình thức thi: Trắc nghiệm.</li>
+        </ul>
+
+        <p><strong>6.3. Các yêu cầu đối với sinh viên</strong></p>
+
+        <ul>
+          <li>Sinh viên cần nắm vững kế hoạch học tập.</li>
+          <li>Để đạt được kết quả tốt nhất đối với học phần này, sinh viên nên dành ít nhất 2 giờ trong ngày để học
+            tập: đọc, xem và nghe phần lý thuyết; làm các bài luyện tập trắc nghiệm; tham gia thảo luận trên diễn đàn.
+          </li>
+          <li><strong>Sinh viên phải đăng ít nhất 1 bài trên diễn đàn và làm bài Luyện tập trắc nghiệm 1 thì sẽ được
+            làm Bài tập giữa kỳ. Nếu không hoàn thành thì Bài tập giữa kỳ sẽ không được mở.</strong></li>
+          <li><strong>Điều kiện để được tham gia đánh giá kết thúc học phần: </strong>Điểm quá trình<strong> &gt;= 2
+            điểm.</strong></li>
+          <li><strong>Điều kiện để hoàn thành: </strong>Điểm tổng kết &gt;= <strong>4 điểm, </strong>bắt buộc
+            phải tham gia dự thi đánh giá kết thúc học phần.
+          </li>
+        </ul>
+
+        <p><strong>Ví dụ:</strong></p>
+
+        <table align="center" border="1" cellpadding="0" cellspacing="0" width="501">
+          <tbody>
+          <tr>
+            <td colspan="2">
+              <p align="center"><strong>Điểm </strong></p>
+            </td>
+            <td rowspan="2">
+              <p align="center"><strong>Kết luận</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p align="center"><strong>Quá trình</strong></p>
+            </td>
+            <td>
+              <p align="center"><strong>Thi hết học phần</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p align="center">7</p>
+            </td>
+            <td>
+              <p align="center">7</p>
+            </td>
+            <td>
+              <p>Hoàn thành học phần</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p align="center">4</p>
+            </td>
+            <td>
+              <p align="center">3</p>
+            </td>
+            <td>
+              <p>Thi lại</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p align="center">1.5</p>
+            </td>
+            <td>
+              <p align="center">(Không được thi)</p>
+            </td>
+            <td>
+              <p>Học lại</p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <p>&nbsp;</p>
+
+        <p>Sinh viên nếu có thắc mắc về nội dung, quy chế, quy định của học phần, hệ thống học tập LMS sẽ đặt câu hỏi
+          trên Diễn đàn và hệ thống Hỏi đáp (HD72) để được trợ giúp. Trong trường hợp sinh viên có thắc mắc về điểm
+          của học phần, đề nghị liên hệ trực tiếp Quản lý học tập của lớp mình để nhận được sự trợ giúp.</p>
+      </div>
+
+    </div>
+  </div> <!-- end col -->
+
+  <div class="col-xxl-5 col-xl-5">
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">List Subject</h5>
+        @for (sub of courseDetail.subjects; track sub; ) {
+          <h6 class="text-muted mb-2 cursor" (click)="expand(sub)">
+            <strong>{{ sub.subjectName }}</strong>
+            <img [src]="sub.subjectIcon" alt="" style="width: 16px;" class="ms-2">
+            <i class="uil uil-angle-right-b float-end"></i>
+          </h6>
+          <ul class="examName" [ngClass]="{'d-none': !sub.isExpanded, 'd-block': sub.isExpanded}">
+            @for (e of sub.exams; track e) {
+              <li class="d-flex justify-content-between cursor" title="Click to start test" (click)="startTest(e)">
+                {{ e.name }}
+                <small>
+                  <em>
+                    {{ e.startDate | date: 'yyyy-MM-dd h:mm' }} - {{ e.endDate | date: 'yyyy-MM-dd h:mm' }}
+                  </em>
+                </small>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end row -->

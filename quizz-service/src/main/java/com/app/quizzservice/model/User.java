@@ -23,6 +23,7 @@ public class User {
     String password;
     String firstName;
     String lastName;
+    String studentId;
 
     @Builder.Default
     GenderEnum gender = GenderEnum.OTHER;
@@ -45,6 +46,7 @@ public class User {
                 rs.getString("password"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),
+                rs.getString("student_id"),
                 GenderEnum.valueOf(rs.getString("gender").toUpperCase()),
                 rs.getString("avatar"),
                 RoleEnum.valueOf(rs.getString("role").toUpperCase()),

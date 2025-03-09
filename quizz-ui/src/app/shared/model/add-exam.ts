@@ -5,6 +5,8 @@ export class AddExam {
     public examName: string = '',
     public hasMonitor: boolean = false,
     public numberOfQuestion: number = CONSTANT.defaultNumberQuestion,
+    public startDate: string = '',
+    public endDate: string = '',
     public listQuestion: AddQuestion[] = [],
     public subjectId: number | null = null,
   ) {

@@ -35,8 +35,8 @@ public class AuthService {
         this.userTokenService = userTokenService;
     }
 
-    public LoginResponse authenticate(String email, String password) {
-        var user = userRepo.findByEmail(email);
+    public LoginResponse authenticate(String username, String password) {
+        var user = userRepo.findByEmailOrStudentId(username, username);
         if (user.isEmpty()) {
             throw new AppException(ErrorCodeEnum.ACCOUNT_NOT_FOUND);
         }

@@ -1,0 +1,73 @@
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card m-0">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-sm-5">
+            <a href="javascript:void(0);" class="btn btn-danger mb-2" (click)="openCreate()">
+              <i class="mdi mdi-plus-circle me-2"></i> Add Course
+            </a>
+          </div>
+          <div class="col-sm-7 d-flex align-items-center">
+            <span class="me-2">Search:</span>
+            <input type="text" class="form-control" name="search" [(ngModel)]="textSearch"
+                   (ngModelChange)="onSearch()"
+                   (keyup.enter)="getListCourse()"/>
+            <div class="text-sm-end ms-2">
+              <button type="button" class="btn btn-success  me-1" (click)="getListCourse()"><i
+                class="mdi mdi-reload"></i>
+              </button>
+            </div>
+          </div><!-- end col-->
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-centered w-100 dt-responsive nowrap" id="products-datatable">
+            <thead class="table-light">
+            <tr>
+              <th class="all">No</th>
+              <th>Course code</th>
+              <th>Total Student</th>
+              <th>Total Exam</th>
+              <th style="width: 85px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (item of data.contents; track item; let i = $index) {
+                <tr>
+                  <td>{{ ((data.page - 1) * data.size) + (i + 1) }}</td>
+                  <td>
+                    <p class="m-0 d-inline-block align-middle font-16">
+                      {{ item.courseCode }}
+                    </p>
+                  </td>
+                  <td>{{ item.total }}</td>
+                  <td>{{ item.totalTest }}</td>
+
+                  <td class="table-action" style="width: 15%;">
+                    <a href="javascript:void(0);" class="action-icon" (click)="addStudent(item)"> <i
+                      class="mdi mdi-account-multiple-plus-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="addExam(item)"> <i
+                      class="mdi mdi-book-plus-multiple-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="update(item)"> <i
+                      class="mdi mdi-square-edit-outline"></i></a>
+                    <a href="javascript:void(0);" class="action-icon" (click)="delete(item)"> <i
+                      class="mdi mdi-delete"></i></a>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page" [itemsPerPage]="data.size"
+                        [maxSize]="5"
+                        [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+            </pagination>
+          </div>
+        </div>
+      </div> <!-- end card-body-->
+    </div> <!-- end card-->
+  </div> <!-- end col -->
+</div>

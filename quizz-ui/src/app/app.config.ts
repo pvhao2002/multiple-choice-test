@@ -20,6 +20,7 @@ import {JwtInterceptor} from './shared/helper/jwt-interceptor';
 import {ErrorInterceptor} from './shared/helper/error-interceptor';
 import {provideToastr} from 'ngx-toastr';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import {provideMarkdown} from 'ngx-markdown';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,5 +45,6 @@ export const appConfig: ApplicationConfig = {
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     provideCharts(withDefaultRegisterables()),
     provideToastr(), provideCharts(withDefaultRegisterables()),
+    provideMarkdown()
   ]
 };

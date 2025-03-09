@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnInit, signal, ViewChild} from '@angular/core';
 import {PageTitleComponent} from '../../page-title/page-title.component';
 import {Breadcumb} from '../../../shared/model/breadcumb';
 import {HttpClient} from '@angular/common/http';
@@ -10,6 +10,9 @@ import {PageChangedEvent, PaginationComponent} from 'ngx-bootstrap/pagination';
 import {FormsModule} from '@angular/forms';
 import {debounceTime, Subject} from 'rxjs';
 import {CONSTANT} from '../../../shared/constant';
+import {ExportDataService} from '../../../shared/service/export-data.service';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {AddStudentComponent} from '../add-student/add-student.component';
 
 @Component({
   selector: 'app-user-management',
@@ -23,6 +26,7 @@ import {CONSTANT} from '../../../shared/constant';
   styleUrls: ['./user-management.component.scss', CONSTANT.lib1, CONSTANT.lib2]
 })
 export class UserManagementComponent implements OnInit {
+  @ViewChild('student_fail') studentFail: any;
   breadCrumbs = [
     new Breadcumb('Home', '/'),
     new Breadcumb('User Management', '/admin/user-management'),
@@ -31,10 +35,13 @@ export class UserManagementComponent implements OnInit {
   data: PagingData<User> = new PagingData<User>();
   textSearch = signal('');
   searchSubject = new Subject<string>();
+  listStudentFail: string[] = [];
 
   constructor(
     private http: HttpClient,
     private toast: ToastrService,
+    private exportService: ExportDataService,
+    private bsModal: BsModalService
   ) {
     this.searchSubject.pipe(
       debounceTime(500) // Wait for 500ms before calling API
@@ -89,5 +96,46 @@ export class UserManagementComponent implements OnInit {
 
   pageChanged($event: PageChangedEvent) {
     this.getListUser($event.page, $event.itemsPerPage);
+  }
+
+  exportExcel() {
+    window.open('http://localhost:1122/api/users/export', '_blank');
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+
+      // TODO: Implement file upload logic here
+      this.uploadFile(file);
+    }
+  }
+
+  uploadFile(file: File): void {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.http.post<ResponseData<any>>('api/users/import', formData)
+      .subscribe(res => {
+        if (res.success) {
+          this.toast.success('Import successfully');
+        } else {
+          if (res.status === 400) {
+            this.toast.error(res.message);
+          } else {
+            this.listStudentFail = res.data;
+            this.bsModal.show(this.studentFail, {
+              class: 'modal-lg'
+            });
+          }
+        }
+      });
+  }
+
+  addStudent() {
+    this.bsModal.show(AddStudentComponent, {
+      class: 'modal-lg modal-dialog-centered',
+    });
   }
 }

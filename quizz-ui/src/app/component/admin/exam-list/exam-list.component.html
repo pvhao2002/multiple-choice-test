@@ -37,6 +37,9 @@
               <th>Exam name</th>
               <th>Total question</th>
               <th>Has monitor</th>
+              <th>Start date</th>
+              <th>End date</th>
+              <th>Close</th>
               <th style="width: 85px;">Action</th>
             </tr>
             </thead>
@@ -55,6 +58,15 @@
                       <span class="badge bg-success">Yes</span>
                     } @else {
                       <span class="badge bg-danger">No</span>
+                    }
+                  </td>
+                  <td>{{ item.startDate | date : 'yyyy/MM/dd h:mm' }}</td>
+                  <td>{{ item.endDate | date : 'yyyy/MM/dd h:mm' }}</td>
+                  <td>
+                    @if (item.close) {
+                      <span class="badge bg-danger">Closed</span>
+                    } @else {
+                      <span class="badge bg-success">Open</span>
                     }
                   </td>
                   <td class="table-action d-flex">

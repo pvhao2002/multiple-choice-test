@@ -1,0 +1,40 @@
+<app-page-title [data]="breadCrumbs"/>
+
+
+<div class="row">
+  @for (e of data.contents; track e) {
+    <div class="col-md-6 col-xxl-4" (click)="openDetail(e)">
+      <!-- project card -->
+      <div class="card d-block hover-me">
+        <div class="card-body">
+          <!-- project title-->
+          <h4 class="mt-0">
+            <a href="javascript:void(0)" class="text-title text-decoration-none">{{ e.courseCode }}</a>
+          </h4>
+          <!-- project detail-->
+          <p class="mb-1">
+            <span class="text-nowrap mb-2 d-inline-block">
+              <i class="mdi mdi-"></i>
+              <b>{{ e.totalTest }}</b> tests
+          </span>
+          </p>
+        </div> <!-- end card-body-->
+      </div> <!-- end card-->
+    </div> <!-- end col -->
+  }
+
+  @if (data.contents.length === 0) {
+    <div class="col-12">
+      <div class="text-center">
+        <h4 class="mt-3">No data found</h4>
+      </div>
+    </div>
+  } @else if (data.totalRecords > 10) {
+    <div class="d-flex justify-content-center">
+      <pagination [totalItems]="data.totalRecords" [(ngModel)]="data.page" [itemsPerPage]="data.size"
+                  [maxSize]="5"
+                  [boundaryLinks]="true" [directionLinks]="true" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  }
+</div>

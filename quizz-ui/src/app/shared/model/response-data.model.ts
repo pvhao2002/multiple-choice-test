@@ -3,6 +3,7 @@ export interface ResponseData<T> {
   data: T,
   errorCode: string;
   message: string;
+  status: number;
 }
 
 export class PagingData<T> {

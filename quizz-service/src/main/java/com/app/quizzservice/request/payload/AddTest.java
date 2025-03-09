@@ -6,6 +6,8 @@ public record AddTest(
         String examName,
         boolean hasMonitor,
         int numberOfQuestion,
+        String startDate,
+        String endDate,
         List<AddQuestion> listQuestion,
         int subjectId
 ) {

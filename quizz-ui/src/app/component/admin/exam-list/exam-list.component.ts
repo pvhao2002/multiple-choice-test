@@ -14,13 +14,15 @@ import {ConfirmComponent} from '../../confirm/confirm.component';
 import {ImportExcelExamComponent} from './import-excel-exam/import-excel-exam.component';
 import {ToastrService} from 'ngx-toastr';
 import {RandomTestComponent} from './random-test/random-test.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-exam-list',
   imports: [
     PageTitleComponent,
     FormsModule,
-    PaginationComponent
+    PaginationComponent,
+    DatePipe
   ],
   templateUrl: './exam-list.component.html',
   standalone: true,

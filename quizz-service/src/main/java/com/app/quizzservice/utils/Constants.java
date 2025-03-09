@@ -34,6 +34,7 @@ public class Constants {
     public static final String AUTHORIZED_REDIRECT_URI = "authorizedRedirectUris";
     public static final String SUCCESS = "success";
     public static final String ERROR = "error";
+    public static final String USER = "user";
 
     // Email template
     public static final String EMAIL_OTP_TEMPLATE = "email.template.otp";
@@ -50,4 +51,9 @@ public class Constants {
     public static final String EMAIL_PORT = "email.port";
     public static final String EMAIL_USERNAME = "email.username";
     public static final String EMAIL_PASSWORD = "email.password";
+
+    // email student
+    public static final String DEFAULT_TAIL_EMAIL = "@eaut.edu.vn";
+    public static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=";
+    public static final String TOKEN_GEMINI = "token.gemini";
 }

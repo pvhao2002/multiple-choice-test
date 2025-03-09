@@ -12,9 +12,22 @@
                    (keyup.enter)="getListUser()"/>
           </div>
           <div class="col-sm-7">
+            <input #fileInput type="file" class="d-none" name="file" (change)="onFileSelected($event)" accept=".xls,.xlsx"/>
             <div class="text-sm-end">
               <button type="button" class="btn btn-info mb-2 me-1" (click)="getListUser()"><i
                 class="mdi mdi-reload"></i></button>
+
+              <button type="button" class="btn btn-outline-primary mb-2 me-1" (click)="addStudent()"><i
+                class="mdi mdi-account-multiple-plus-outline"></i>Add Student
+              </button>
+
+              <button type="button" class="btn btn-outline-success mb-2 me-1" (click)="exportExcel()"><i
+                class="mdi mdi-file-excel-outline"></i>Export Excel
+              </button>
+
+              <button type="button" class="btn btn-outline-warning mb-2 me-1" (click)="fileInput.click()"><i
+                class="mdi mdi-file-excel"></i>Import Excel
+              </button>
             </div>
           </div>
         </div>
@@ -72,3 +85,10 @@
     </div> <!-- end card-->
   </div> <!-- end col -->
 </div>
+
+
+<ng-template #student_fail>
+  <div class="alert alert-danger m-0" role="alert">
+    <strong>List student add is exist: </strong> {{ listStudentFail?.join(', ') }}
+  </div>
+</ng-template>

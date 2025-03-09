@@ -23,14 +23,20 @@ export class SideMenuComponent implements OnInit {
   menuStudent: Menu[] = [
     new Menu('Dashboard', 'mdi-home-outline', '/student/home'),
     new Menu('Exam', 'mdi-school-outline', '/student/exam', [
-      new ChildMenu('List Subject', '/student/subject'),
-      new ChildMenu('List Exam', '/student/exam'),
+      // new ChildMenu('List Subject', '/student/subject'),
+      // new ChildMenu('List Exam', '/student/exam'),
+      new ChildMenu('List Course', '/student/course'),
     ]),
-    new Menu('Learning Result', 'mdi-book-education-outline', '/student/result')
+    new Menu('Learning Result', 'mdi-book-education-outline', '/student/result'),
+    new Menu('Chat bot', 'mdi-chat-processing-outline', '/student/chat-bot'),
   ]
 
   menuAdmin: Menu[] = [
     new Menu('Dashboard', 'mdi-home-outline', '/admin/home'),
+    new Menu('Course Management', 'mdi-book-outline', '/admin/course', [
+      new ChildMenu('List', '/admin/course/list'),
+      new ChildMenu('Create', '/admin/course/upsert'),
+    ]),
     new Menu('User Management', 'mdi-account-group-outline', '/admin/user-management'),
     new Menu('Subject Management', 'mdi-book-open-page-variant-outline', '/admin/subject', [
       new ChildMenu('List', '/admin/subject/list'),
@@ -40,7 +46,7 @@ export class SideMenuComponent implements OnInit {
       new ChildMenu('List', '/admin/exam/list'),
       new ChildMenu('Create', '/admin/exam/upsert'),
     ]),
-  ]
+  ];
 
   currentMenu: Menu[] = [];
 

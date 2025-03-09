@@ -56,6 +56,21 @@ export const routes: Routes = [
         path: 'result',
         loadComponent: () => import('./component/student/learning-result/learning-result.component')
           .then((mod) => mod.LearningResultComponent),
+      },
+      {
+        path: 'chat-bot',
+        loadComponent: () => import('./component/student/chat-bot/chat-bot.component')
+          .then((mod) => mod.ChatBotComponent),
+      },
+      {
+        path: 'course',
+        loadComponent: () => import('./component/student/course-list/course-list.component')
+          .then((mod) => mod.CourseListComponent),
+      },
+      {
+        path: 'course-detail',
+        loadComponent: () => import('./component/student/course-list/course-detail/course-detail.component')
+          .then((mod) => mod.CourseDetailComponent),
       }
     ]
   },
@@ -114,6 +129,26 @@ export const routes: Routes = [
             path: 'upsert',
             loadComponent: () => import('../app/component/admin/subject-upsert/subject-upsert.component')
               .then((mod) => mod.SubjectUpsertComponent),
+          },
+          {
+            path: '',
+            redirectTo: 'list',
+            pathMatch: 'full'
+          }
+        ]
+      },
+      {
+        path: 'course',
+        children: [
+          {
+            path: 'list',
+            loadComponent: () => import('../app/component/admin/course-list/course-list.component')
+              .then((mod) => mod.CourseListComponent),
+          },
+          {
+            path: 'upsert',
+            loadComponent: () => import('../app/component/admin/course-upsert/course-upsert.component')
+              .then((mod) => mod.CourseUpsertComponent),
           },
           {
             path: '',

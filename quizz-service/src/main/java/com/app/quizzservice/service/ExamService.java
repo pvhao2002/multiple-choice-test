@@ -49,9 +49,11 @@ public class ExamService {
         var paramExam = new MapSqlParameterSource().addValue("examName", data.examName())
                                                    .addValue("hasMonitor", data.hasMonitor())
                                                    .addValue("numberOfQuestion", data.numberOfQuestion())
+                                                   .addValue("startDate", data.startDate())
+                                                   .addValue("endDate", data.endDate())
                                                    .addValue("subjectId", data.subjectId());
         var examId = writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId)",
+                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate)",
                 paramExam,
                 Long.class
         );
@@ -69,13 +71,15 @@ public class ExamService {
     }
 
     @Transactional
-    public long save(String examName, boolean hasMonitor, long subjectId) {
+    public long save(String examName, boolean hasMonitor, long subjectId, String startDate, String endDate) {
         var paramExam = new MapSqlParameterSource()
                 .addValue("examName", examName)
                 .addValue("hasMonitor", hasMonitor)
+                .addValue("startDate", startDate)
+                .addValue("endDate", endDate)
                 .addValue("subjectId", subjectId);
         return writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor,0, :subjectId)",
+                "CALL up_SaveExam(:examName, :hasMonitor, 0, :subjectId, :startDate, :endDate)",
                 paramExam,
                 Long.class
         );
@@ -110,7 +114,8 @@ public class ExamService {
 
     public PagingContainer<Test> findAll(Integer page, Integer size, String key) {
         var sql = """
-                SELECT *
+                SELECT *,
+                 end_date < NOW() as close
                 FROM test
                 WHERE name LIKE :key
                 AND status = 'active'
@@ -268,7 +273,7 @@ public class ExamService {
                 LIMIT 1000
                 """;
         var listQuestion = writeDb.query(sqlGetRandomQuestion, (rs, i) -> new Question(rs));
-        writeDb2.update("DELETE FROM test_ids");
+        writeDb2.execute("DROP TABLE IF EXISTS test_ids;");
         if (org.apache.commons.collections4.CollectionUtils.isEmpty(listQuestion)) {
             throw new AppException(ErrorCodeEnum.NO_QUESTION);
         }
@@ -284,9 +289,11 @@ public class ExamService {
         var paramExam = new MapSqlParameterSource().addValue("examName", payload.name())
                                                    .addValue("hasMonitor", payload.hasMonitor())
                                                    .addValue("numberOfQuestion", maxQuestion)
+                                                   .addValue("startDate", payload.startDate())
+                                                   .addValue("endDate", payload.endDate())
                                                    .addValue("subjectId", payload.subjectId());
         var examId = writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId)",
+                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate)",
                 paramExam,
                 Long.class
         );

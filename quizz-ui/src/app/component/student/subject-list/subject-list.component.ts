@@ -22,7 +22,7 @@ import {FormsModule} from '@angular/forms';
 export class SubjectListComponent implements OnInit {
   breadCrumbs = [
     new Breadcumb('Home', '/'),
-    new Breadcumb('Subject List', '/admin/exam'),
+    new Breadcumb('Subject List', '/student/subject'),
   ];
   data: PagingData<SubjectDTO> = new PagingData<SubjectDTO>();
 

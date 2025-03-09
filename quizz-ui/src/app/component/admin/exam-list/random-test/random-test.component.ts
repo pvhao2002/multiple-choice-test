@@ -10,6 +10,8 @@ import {Exam} from '../../../../shared/model/Exam';
 import {forkJoin} from 'rxjs';
 import {RandomQuestion} from '../../../../shared/model/RandomQuestion';
 import {ToastrService} from 'ngx-toastr';
+import {BsDatepickerDirective, BsDatepickerInputDirective} from 'ngx-bootstrap/datepicker';
+import {DateService} from '../../../../shared/service/date.service';
 
 @Component({
   selector: 'app-random-test',
@@ -17,7 +19,9 @@ import {ToastrService} from 'ngx-toastr';
     NgOptionComponent,
     NgSelectComponent,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BsDatepickerDirective,
+    BsDatepickerInputDirective
   ],
   templateUrl: './random-test.component.html',
   standalone: true,
@@ -28,10 +32,18 @@ export class RandomTestComponent implements OnInit {
   subjects = signal<SubjectDTO[]>([]);
   exams = signal<Exam[]>([]);
   @Output() eventSubmit = new EventEmitter<boolean>();
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  config = {
+    withTimepicker: true,
+    rangeInputFormat: 'DD/MM/YYYY HH:mm:ss',
+    dateInputFormat: 'DD/MM/YYYY HH:mm:ss'
+  };
 
   constructor(private http: HttpClient,
               private bsRef: BsModalRef,
-              private toast: ToastrService
+              private toast: ToastrService,
+              private dateService: DateService
   ) {
   }
 
@@ -60,7 +72,8 @@ export class RandomTestComponent implements OnInit {
       this.toast.error('Number of question must be less than 100');
       return;
     }
-
+    this.param.startDate = this.dateService.getFormatDate(this.startDate);
+    this.param.endDate = this.dateService.getFormatDate(this.endDate);
 
     this.http.post<ResponseData<any>>('api/test/random', this.param)
       .subscribe(res => {

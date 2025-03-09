@@ -1,0 +1,78 @@
+<app-page-title [data]="breadCrumbs"/>
+
+<div class="row">
+  <!-- chat area -->
+  <div class="col-xxl-12 col-xl-12 order-xl-2">
+    <div class="card">
+      <div class="d-flex justify-content-center w-100">
+        <span class="text-center text-decoration-underline">Hello, {{ user.email }}</span>
+      </div>
+      <div class="card-body px-0 pb-0">
+        <ul class="conversation-list px-3" data-simplebar style="max-height: 538px; min-height: 338px;">
+          @for (i of conversations; track i) {
+            <li class="clearfix odd">
+              <div class="chat-avatar">
+                <img [src]="user.avatar" class="rounded" alt="dominic" style="width: 42px; height: 42px;"/>
+              </div>
+              <div class="conversation-text">
+                <div class="ctext-wrap">
+                  <i>{{ user.studentId }}</i>
+                  <p>
+                    {{ i.question }}
+                  </p>
+                  <p>{{ i.createdAt | date:'M/d/yy, h:mm a' }}</p>
+                </div>
+              </div>
+            </li>
+            <li class="clearfix">
+              <div class="chat-avatar">
+                <img ngSrc="assets/images/logo_42_42.jpg" class="rounded" alt="EAUT" height="42" width="42"/>
+              </div>
+              <div class="conversation-text">
+                <div class="ctext-wrap">
+                  <i>Bot</i>
+                  <p>
+                    <markdown [data]="i.answer"></markdown>
+                  </p>
+                  <p>{{ i.createdAt | date:'M/d/yy, h:mm a' }}</p>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+        <div class="row px-3 pb-3">
+          <div class="col">
+            <div class="mt-2 bg-light p-3 rounded">
+              <form class="needs-validation" novalidate="" name="chat-form"
+                    id="chat-form">
+                <div class="row">
+                  <div class="col mb-2 mb-sm-0">
+                    <textarea class="form-control border-0" name="message"
+                              [(ngModel)]="message"
+                              [disabled]="isLoading()"
+                              placeholder="Enter your text" required=""></textarea>
+                  </div>
+                  <div class="col-sm-auto">
+                    <div class="btn-group">
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-success chat-send" (click)="ask()">
+                          @if (isLoading()) {
+                            <i class="loader"></i>
+                          } @else {
+                            <i class="mdi mdi-send"></i>
+                          }
+                        </button>
+                      </div>
+                    </div>
+                  </div> <!-- end col -->
+                </div> <!-- end row-->
+              </form>
+            </div>
+          </div> <!-- end col-->
+        </div>
+        <!-- end row -->
+      </div> <!-- end card-body -->
+    </div> <!-- end card -->
+  </div>
+  <!-- end chat area-->
+</div> <!-- end row-->

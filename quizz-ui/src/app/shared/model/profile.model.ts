@@ -13,14 +13,17 @@ export class ProfileDTO {
   }
 }
 
-export class UserInfo{
+export class UserInfo {
   constructor(
     public email = '',
     public firstName = '',
     public lastName = '',
     public gender = '',
     public avatar = '',
+    public studentId = '',
+    public label = '',
   ) {
+    this.label = `${this.firstName} ${this.lastName}`;
   }
 }
 

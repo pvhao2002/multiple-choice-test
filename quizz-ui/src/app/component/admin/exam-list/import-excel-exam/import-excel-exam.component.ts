@@ -6,13 +6,17 @@ import {PagingData, ResponseData} from '../../../../shared/model/response-data.m
 import {FormsModule} from '@angular/forms';
 import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
 import {BsModalRef} from 'ngx-bootstrap/modal';
+import {BsDatepickerDirective, BsDatepickerInputDirective} from 'ngx-bootstrap/datepicker';
+import {DateService} from '../../../../shared/service/date.service';
 
 @Component({
   selector: 'app-import-excel-exam',
   imports: [
     FormsModule,
     NgSelectComponent,
-    NgOptionComponent
+    NgOptionComponent,
+    BsDatepickerDirective,
+    BsDatepickerInputDirective
   ],
   templateUrl: './import-excel-exam.component.html',
   standalone: true,
@@ -23,9 +27,17 @@ export class ImportExcelExamComponent implements OnInit {
   subjects = signal<SubjectDTO[]>([]);
   @Output() eventSubmit = new EventEmitter<boolean>();
   formData: FormData = new FormData();
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  config = {
+    withTimepicker: true,
+    rangeInputFormat: 'DD/MM/YYYY HH:mm:ss',
+    dateInputFormat: 'DD/MM/YYYY HH:mm:ss'
+  };
 
   constructor(private http: HttpClient,
-              private bsRef: BsModalRef) {
+              private bsRef: BsModalRef,
+              private dateService: DateService) {
   }
 
   getListSubject() {
@@ -45,6 +57,8 @@ export class ImportExcelExamComponent implements OnInit {
     if (this.formData.has('payload')) {
       this.formData.delete('payload');
     }
+    this.param.startDate = this.dateService.getFormatDate(this.startDate);
+    this.param.endDate = this.dateService.getFormatDate(this.endDate);
     this.formData.append('payload', new Blob([JSON.stringify(this.param)], {type: 'application/json'}));
     this.http.post<ResponseData<string>>('api//test/import-excel', this.formData)
       .subscribe(res => {

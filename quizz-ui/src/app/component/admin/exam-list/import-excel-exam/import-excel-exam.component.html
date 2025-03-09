@@ -25,6 +25,34 @@
 
           <div class="col-xl-6">
             <div class="mb-3">
+              <label class="form-label">Start date</label>
+              <input type="text"
+                     placeholder="Start date"
+                     placement="right"
+                     name="startDate"
+                     [(ngModel)]="startDate"
+                     class="form-control"
+                     [bsConfig]="config"
+                     bsDatepicker>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label class="form-label">End date</label>
+              <input type="text"
+                     placeholder="End date"
+                     placement="left"
+                     name="endDate"
+                     [(ngModel)]="endDate"
+                     class="form-control"
+                     [bsConfig]="config"
+                     bsDatepicker>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="mb-3">
               <label for="subject" class="form-label">Subject</label>
               <ng-select id="subject" [(ngModel)]="param.subjectId">
                 @for (sub of subjects(); track sub; let idx = $index) {

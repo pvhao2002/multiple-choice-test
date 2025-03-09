@@ -32,6 +32,10 @@ public final class ResponseContainer<T> {
         return failure(ErrorCodeEnum.BAD_REQUEST, message);
     }
 
+    public static ResponseContainer<Object> failure(Object data) {
+        return of(500, ErrorCodeEnum.BAD_REQUEST.name(), "", data);
+    }
+
     public static ResponseContainer<Object> failure(ErrorCodeEnum errorCode, String message) {
         return failure(errorCode.getCode(), errorCode.name(), message);
     }

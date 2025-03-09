@@ -41,11 +41,6 @@ public class AuthenticateController {
         return captchaProperty.captcha();
     }
 
-    @PostMapping("tes")
-    public Object test(String t, boolean a) {
-        return ResponseContainer.success(a, t);
-    }
-
     @PostMapping("login")
     public Object login(
             @Valid @RequestBody LoginPayload payload,

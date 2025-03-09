@@ -9,6 +9,8 @@ import {TransferFileService} from '../../../shared/service/transfer-file.service
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
 import {SubjectDTO} from '../../../shared/model/subject';
 import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import {DateService} from '../../../shared/service/date.service';
 
 @Component({
   selector: 'app-exam-upsert',
@@ -16,7 +18,8 @@ import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
     PageTitleComponent,
     FormsModule,
     NgSelectComponent,
-    NgOptionComponent
+    NgOptionComponent,
+    BsDatepickerModule,
   ],
   templateUrl: './exam-upsert.component.html',
   standalone: true,
@@ -30,13 +33,21 @@ export class ExamUpsertComponent implements OnInit {
     new Breadcumb('Create Exam', '/admin/exam/upsert')
   ];
   params = signal<AddExam>(new AddExam());
+  startDate = new Date();
+  endDate = new Date();
   subjects = signal<SubjectDTO[]>([])
   @Output() eventSubmit = new EventEmitter<boolean>();
+  config = {
+    withTimepicker: true,
+    rangeInputFormat: 'DD/MM/YYYY HH:mm:ss',
+    dateInputFormat: 'DD/MM/YYYY HH:mm:ss'
+  };
 
   constructor(
     private http: HttpClient,
     private toast: ToastrService,
-    protected fileService: TransferFileService
+    protected fileService: TransferFileService,
+    private dateService: DateService
   ) {
   }
 
@@ -50,6 +61,8 @@ export class ExamUpsertComponent implements OnInit {
   }
 
   submit() {
+    this.params().startDate = this.dateService.getFormatDate(this.startDate);
+    this.params().endDate = this.dateService.getFormatDate(this.endDate);
     this.http.post<ResponseData<string>>('api/test', this.params())
       .subscribe(res => {
         if (res.success) {
@@ -58,7 +71,7 @@ export class ExamUpsertComponent implements OnInit {
         } else {
           this.toast.error(res.message);
         }
-      })
+      });
   }
 
   processFile(event: any, idx: number) {

@@ -225,7 +225,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
   }
 
   navigateToExam() {
-    this.router.navigate(['/student/exam']).then();
+    this.router.navigate(['/student/course']).then();
   }
 
   initTestResult(eid: number) {

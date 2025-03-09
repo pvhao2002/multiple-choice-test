@@ -4,10 +4,10 @@
       <div class="card-body">
 
         <div class="auth-brand text-center text-lg-start">
-          <a href="/quizz-ui/public" class="logo-dark">
+          <a href="/#" class="logo-dark">
             <span><img ngSrc="/assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
-          <a href="/quizz-ui/public" class="logo-light">
+          <a href="/#" class="logo-light">
             <span><img ngSrc="/assets/images/logo.jpg" alt="" height="50" width="50"></span>
           </a>
         </div>
@@ -21,15 +21,15 @@
         <!-- form -->
         <form>
           <div class="mb-3">
-            <label for="emailaddress" class="form-label">Email</label>
+            <label for="emailaddress" class="form-label">Email / Student Id</label>
             <input class="form-control" type="email" name="email"
                    [(ngModel)]="loginPayload.email"
                    id="emailaddress" required
-                   placeholder="Enter your email">
+                   placeholder="Enter your email or student id">
           </div>
           <div class="mb-3">
-            <a href="javascript:void(0)" class="text-muted float-end" (click)="openForgetPassword()"><small>Forget
-              password?</small></a>
+<!--            <a href="javascript:void(0)" class="text-muted float-end" (click)="openForgetPassword()"><small>Forget-->
+<!--              password?</small></a>-->
             <label for="password" class="form-label">Password</label>
             <input class="form-control" type="password" name="password"
                    [(ngModel)]="loginPayload.password"
@@ -53,38 +53,37 @@
             </button>
           </div>
           <!-- social-->
-          <div class="text-center mt-4">
-            <p class="text-muted font-16">Login with</p>
-            <ul class="social-list list-inline mt-3">
-              <li class="list-inline-item">
-                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
-                  class="mdi mdi-facebook" (click)="loginWithSocial('fb')"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"
-                   (click)="loginWithSocial('google')"><i
-                  class="mdi mdi-google"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
-                  class="mdi mdi-twitter" (click)="loginWithSocial('twitter')"></i></a>
-              </li>
-              <li class="list-inline-item">
-                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
-                  class="mdi mdi-github" (click)="loginWithSocial('github')"></i></a>
-              </li>
-            </ul>
-          </div>
+<!--          <div class="text-center mt-4">-->
+<!--            <p class="text-muted font-16">Login with</p>-->
+<!--            <ul class="social-list list-inline mt-3">-->
+<!--              <li class="list-inline-item">-->
+<!--                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i-->
+<!--                  class="mdi mdi-facebook" (click)="loginWithSocial('fb')"></i></a>-->
+<!--              </li>-->
+<!--              <li class="list-inline-item">-->
+<!--                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"-->
+<!--                   (click)="loginWithSocial('google')"><i-->
+<!--                  class="mdi mdi-google"></i></a>-->
+<!--              </li>-->
+<!--              <li class="list-inline-item">-->
+<!--                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i-->
+<!--                  class="mdi mdi-twitter" (click)="loginWithSocial('twitter')"></i></a>-->
+<!--              </li>-->
+<!--              <li class="list-inline-item">-->
+<!--                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i-->
+<!--                  class="mdi mdi-github" (click)="loginWithSocial('github')"></i></a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
         </form>
         <!-- end form-->
 
         <!-- Footer-->
-        <footer class="footer footer-alt">
-          <p class="text-muted">Not have account? <a href="javascript:void(0)" class="text-muted ms-1"
-                                                     (click)="navigateToRegister()"><b>Register</b></a>
-          </p>
-        </footer>
-
+<!--        <footer class="footer footer-alt">-->
+<!--          <p class="text-muted">Not have account? <a href="javascript:void(0)" class="text-muted ms-1"-->
+<!--                                                     (click)="navigateToRegister()"><b>Register</b></a>-->
+<!--          </p>-->
+<!--        </footer>-->
       </div>
     </div>
   </div>
