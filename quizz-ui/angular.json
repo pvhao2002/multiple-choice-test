@@ -54,7 +54,15 @@
               "src/app/shared/styles/app.min.js"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/app/shared/styles/app.min.css",
+              "src/app/shared/styles/icons.min.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.scss"
             ],
             "scripts": [
               "src/app/shared/styles/vendor.min.js",

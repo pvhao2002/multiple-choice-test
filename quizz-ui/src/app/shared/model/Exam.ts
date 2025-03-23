@@ -11,6 +11,10 @@ export class Exam {
     public subjectId: number | null = null,
     public count: number = 0,
     public updatedAt: string = '',
+    public time: number = 0,
+    public cssClass: string = '',
+    public status: string = '',
+    public open: boolean = false,
   ) {
   }
 }

@@ -138,4 +138,8 @@ export class UserManagementComponent implements OnInit {
       class: 'modal-lg modal-dialog-centered',
     });
   }
+
+  getMessageStudent() {
+    return this.listStudentFail.join('<br>');
+  }
 }

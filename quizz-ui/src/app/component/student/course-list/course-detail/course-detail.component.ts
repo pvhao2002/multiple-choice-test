@@ -68,8 +68,24 @@ export class CourseDetailComponent implements OnInit {
     } else if (new Date(e.endDate) < new Date()) {
       this.toast.error('This test is expired');
       return;
+    } else if (e.isJoined) {
+      this.toast.error('You have already joined this test');
+      return;
     }
 
+    this.http.get<ResponseData<boolean>>(`api/v2/test/is-joined?eid=${e.testId}`)
+      .subscribe((res: ResponseData<boolean>) => {
+        if (res.success) {
+          if (res.data) {
+            this.toast.error('You have already joined this test');
+          } else {
+            this.showConfirm(e);
+          }
+        }
+      });
+  }
+
+  showConfirm(e: ExamCourse) {
     this.bsModal.show(ConfirmV2Component, {
       class: 'modal-dialog-centered modal-sm',
       initialState: {

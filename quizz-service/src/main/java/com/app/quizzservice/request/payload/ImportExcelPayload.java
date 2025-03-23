@@ -5,6 +5,7 @@ public record ImportExcelPayload(
         boolean hasMonitor,
         String startDate,
         String endDate,
-        long subjectId
+        long subjectId,
+        int time
 ) {
 }

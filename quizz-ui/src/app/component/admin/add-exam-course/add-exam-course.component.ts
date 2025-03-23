@@ -2,20 +2,21 @@ import {Component, EventEmitter, OnDestroy, OnInit, Output, signal, ViewChild} f
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
-import {UserInfo} from '../../../shared/model/profile.model';
 import {HttpClient} from '@angular/common/http';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {Exam} from '../../../shared/model/Exam';
 import {forkJoin} from 'rxjs';
 import {FormsModule} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-add-exam-course',
   imports: [
     NgSelectComponent,
     PaginationComponent,
-    FormsModule
+    FormsModule,
+    DatePipe
   ],
   templateUrl: './add-exam-course.component.html',
   standalone: true,

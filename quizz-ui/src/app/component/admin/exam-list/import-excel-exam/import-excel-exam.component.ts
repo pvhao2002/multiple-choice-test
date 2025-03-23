@@ -31,8 +31,8 @@ export class ImportExcelExamComponent implements OnInit {
   endDate: Date = new Date();
   config = {
     withTimepicker: true,
-    rangeInputFormat: 'DD/MM/YYYY HH:mm:ss',
-    dateInputFormat: 'DD/MM/YYYY HH:mm:ss'
+    rangeInputFormat: 'DD/MM/YYYY h:mm',
+    dateInputFormat: 'DD/MM/YYYY h:mm'
   };
 
   constructor(private http: HttpClient,

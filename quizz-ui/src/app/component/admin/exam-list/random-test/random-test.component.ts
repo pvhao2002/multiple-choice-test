@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, signal} from '@angular/core';
-import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
+import {NgSelectComponent} from '@ng-select/ng-select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {ImportExcelQuestion} from '../../../../shared/model/ImportExcelQuestion';
 import {SubjectDTO} from '../../../../shared/model/subject';
 import {HttpClient} from '@angular/common/http';
 import {PagingData, ResponseData} from '../../../../shared/model/response-data.model';
@@ -16,7 +15,6 @@ import {DateService} from '../../../../shared/service/date.service';
 @Component({
   selector: 'app-random-test',
   imports: [
-    NgOptionComponent,
     NgSelectComponent,
     ReactiveFormsModule,
     FormsModule,
@@ -36,8 +34,8 @@ export class RandomTestComponent implements OnInit {
   endDate: Date = new Date();
   config = {
     withTimepicker: true,
-    rangeInputFormat: 'DD/MM/YYYY HH:mm:ss',
-    dateInputFormat: 'DD/MM/YYYY HH:mm:ss'
+    rangeInputFormat: 'DD/MM/YYYY h:mm',
+    dateInputFormat: 'DD/MM/YYYY h:mm'
   };
 
   constructor(private http: HttpClient,

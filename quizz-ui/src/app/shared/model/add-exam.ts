@@ -7,6 +7,7 @@ export class AddExam {
     public numberOfQuestion: number = CONSTANT.defaultNumberQuestion,
     public startDate: string = '',
     public endDate: string = '',
+    public time: number = 0,
     public listQuestion: AddQuestion[] = [],
     public subjectId: number | null = null,
   ) {

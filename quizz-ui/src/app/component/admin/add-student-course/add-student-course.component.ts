@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output, signal, ViewChild, viewChild} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, signal, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
@@ -7,7 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {forkJoin} from 'rxjs';
-import {NgOptgroupTemplateDirective, NgSelectComponent} from '@ng-select/ng-select';
+import {NgSelectComponent} from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-add-student-course',
@@ -15,7 +15,6 @@ import {NgOptgroupTemplateDirective, NgSelectComponent} from '@ng-select/ng-sele
     FormsModule,
     PaginationComponent,
     NgSelectComponent,
-    NgOptgroupTemplateDirective
   ],
   templateUrl: './add-student-course.component.html',
   standalone: true,

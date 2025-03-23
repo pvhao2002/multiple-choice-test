@@ -3,10 +3,12 @@ export class ExamDetail {
     public testId: number = 0,
     public name: string = '',
     public totalQuestion: number = 0,
+    public time: number = 0,
     public hasMonitor: boolean = false,
     public hasStarted: boolean = false,
     public numberTreating: number = 0,
     public testAttemptId: number = 0,
+    public remainingTime: number = 0,
     public questions: QuestionDetail[] = [],
   ) {
   }

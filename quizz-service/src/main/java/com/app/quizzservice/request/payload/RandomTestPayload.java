@@ -9,6 +9,7 @@ public record RandomTestPayload(
         String endDate,
         boolean hasMonitor,
         long subjectId,
-        List<Long> testIds
+        List<Long> testIds,
+        int time
 ) {
 }

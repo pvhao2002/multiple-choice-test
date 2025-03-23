@@ -1,0 +1,21 @@
+@if (about.isLoading()) {
+  <p class="loading-message">Loading ...</p>
+} @else if (about.error()) {
+  <p class="error-message">Error: {{ about.error() }}</p>
+} @else if (about.hasValue()) {
+  <app-page-title [data]="breadCrumbs"/>
+
+  <quill-editor class="w-100"
+                [(ngModel)]="htmlText"
+                placeholder="Enter Text"
+                (onContentChanged)="onContentChanged($event)"
+  ></quill-editor>
+  <button class="btn btn-primary" (click)="submit()">Submit</button>
+
+  <div class="container">
+    <h4>Preview:</h4>
+    <div class="preview-frame p-3">
+      <div [innerHTML]="htmlText()"></div>
+    </div>
+  </div>
+}

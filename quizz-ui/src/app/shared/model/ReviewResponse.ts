@@ -7,6 +7,7 @@ export class ReviewResponse {
     public numberOfWarning: number = 0,
     public totalCorrect: number = 0,
     public score: number = 0,
+    public time: number = 0,
     public startTime: string = '',
     public endTime: string = '',
     public totalQuestions: number = 0,

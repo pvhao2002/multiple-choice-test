@@ -31,12 +31,16 @@ BEGIN
                q.option_c,
                q.option_d,
                tad.answer,
-               'incomplete'      as status,
-               testAttemptId     as test_attempt_id,
-               vNumberOfTreating as number_treating
+               'incomplete'                                                                      as status,
+               testAttemptId                                                                     as test_attempt_id,
+               vNumberOfTreating                                                                 as number_treating,
+               t.duration,
+               TIMESTAMPDIFF(SECOND, NOW(), DATE_ADD(ta.created_at, INTERVAL t.duration MINUTE)) as remaining_time
         FROM test t
                  INNER JOIN questions q on t.test_id = q.test_id
-                 LEFT JOIN test_attempt_details tad ON tad.question_id = q.question_id AND tad.test_attempt_id = testAttemptId
+                 INNER JOIN test_attempts ta on t.test_id = ta.test_id
+                 LEFT JOIN test_attempt_details tad
+                           ON tad.question_id = q.question_id AND tad.test_attempt_id = testAttemptId
         WHERE TRUE
           AND t.test_id = pTestId
           AND t.status = 'active';
@@ -53,10 +57,12 @@ BEGIN
                q.option_b,
                q.option_c,
                q.option_d,
-               ''            as answer,
-               'not_started' as status,
-               0             as test_attempt_id,
-               0             as number_treating
+               ''              as answer,
+               'not_started'   as status,
+               0               as test_attempt_id,
+               0               as number_treating,
+               t.duration,
+               t.duration * 60 as remaining_time
         FROM test t
                  INNER JOIN questions q on t.test_id = q.test_id
         WHERE TRUE

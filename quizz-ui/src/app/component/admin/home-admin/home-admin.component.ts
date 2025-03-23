@@ -12,6 +12,7 @@ import {UserTest} from '../../../shared/model/UserTest';
 import {FormsModule} from '@angular/forms';
 import {PaginationComponent} from 'ngx-bootstrap/pagination';
 import {DatePipe} from '@angular/common';
+import {ExportDataService} from '../../../shared/service/export-data.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -32,7 +33,8 @@ export class HomeAdminComponent implements OnInit {
   userTests: PagingData<UserTest> = new PagingData<UserTest>();
 
   constructor(private http: HttpClient,
-              private toast: ToastrService
+              private toast: ToastrService,
+              protected exportService: ExportDataService
   ) {
   }
 
@@ -87,5 +89,9 @@ export class HomeAdminComponent implements OnInit {
           this.toast.error(res3.message);
         }
       });
+  }
+
+  exportData() {
+    window.open('http://localhost:1122/api/home/export', '_blank');
   }
 }

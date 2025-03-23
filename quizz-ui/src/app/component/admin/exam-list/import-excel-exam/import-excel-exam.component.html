@@ -61,6 +61,16 @@
               </ng-select>
             </div>
           </div> <!-- end col-->
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="time" class="form-label">Time</label>
+              <input type="number" id="time" name="time" class="form-control"
+                     min="0"
+                     max="100"
+                     [(ngModel)]="param.time"
+              >
+            </div>
+          </div>
           <div class="col-sm-12 mb-2">
             <label class="form-label">File excel</label>
             <input class="form-control" type="file" name="excel" id="inputGroupFile04" (change)="processFile($event)">

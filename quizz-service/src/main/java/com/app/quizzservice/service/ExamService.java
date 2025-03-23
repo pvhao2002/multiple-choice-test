@@ -44,6 +44,15 @@ public class ExamService {
         this.writeDb2 = writeDb2;
     }
 
+    public boolean isJoined(Long eid, Long uid) {
+        var param = new MapSqlParameterSource().addValue("eid", eid).addValue("uid", uid);
+        return writeDb.queryForObject(
+                "SELECT EXISTS(SELECT 1 FROM test_attempts WHERE test_id = :eid AND user_id = :uid)",
+                param,
+                Boolean.class
+        );
+    }
+
     @Transactional
     public String save(AddTest data) {
         var paramExam = new MapSqlParameterSource().addValue("examName", data.examName())
@@ -51,9 +60,10 @@ public class ExamService {
                                                    .addValue("numberOfQuestion", data.numberOfQuestion())
                                                    .addValue("startDate", data.startDate())
                                                    .addValue("endDate", data.endDate())
-                                                   .addValue("subjectId", data.subjectId());
+                                                   .addValue("subjectId", data.subjectId())
+                                                   .addValue("time", data.time());
         var examId = writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate)",
+                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate, :time)",
                 paramExam,
                 Long.class
         );
@@ -71,15 +81,16 @@ public class ExamService {
     }
 
     @Transactional
-    public long save(String examName, boolean hasMonitor, long subjectId, String startDate, String endDate) {
+    public long save(String examName, boolean hasMonitor, long subjectId, String startDate, String endDate, int time) {
         var paramExam = new MapSqlParameterSource()
                 .addValue("examName", examName)
                 .addValue("hasMonitor", hasMonitor)
                 .addValue("startDate", startDate)
                 .addValue("endDate", endDate)
-                .addValue("subjectId", subjectId);
+                .addValue("subjectId", subjectId)
+                .addValue("time", time);
         return writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor, 0, :subjectId, :startDate, :endDate)",
+                "CALL up_SaveExam(:examName, :hasMonitor, 0, :subjectId, :startDate, :endDate, :time)",
                 paramExam,
                 Long.class
         );
@@ -95,12 +106,18 @@ public class ExamService {
         var param = new MapSqlParameterSource().addValue("eid", request.testId())
                                                .addValue("name", request.name())
                                                .addValue("hasMonitor", request.hasMonitor())
-                                               .addValue("subjectId", request.subjectId());
+                                               .addValue("subjectId", request.subjectId())
+                                               .addValue("startDate", request.startDate())
+                                               .addValue("endDate", request.endDate())
+                                               .addValue("time", request.time());
         writeDb.update("""
                                update test
                                set subject_id = IFNULL(:subjectId, subject_id),
                                   name = IFNULL(:name, name),
-                                  has_monitor = IFNULL(:hasMonitor, has_monitor)
+                                  has_monitor = IFNULL(:hasMonitor, has_monitor),
+                                  start_date = IFNULL(:startDate, start_date),
+                                  end_date = IFNULL(:endDate, end_date),
+                                  duration = IFNULL(:time, duration)
                                where test_id = :eid;
                                """, param);
         return Constants.SUCCESS;
@@ -291,9 +308,10 @@ public class ExamService {
                                                    .addValue("numberOfQuestion", maxQuestion)
                                                    .addValue("startDate", payload.startDate())
                                                    .addValue("endDate", payload.endDate())
-                                                   .addValue("subjectId", payload.subjectId());
+                                                   .addValue("subjectId", payload.subjectId())
+                                                   .addValue("time", payload.time());
         var examId = writeDb.queryForObject(
-                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate)",
+                "CALL up_SaveExam(:examName, :hasMonitor, :numberOfQuestion, :subjectId, :startDate, :endDate, :time)",
                 paramExam,
                 Long.class
         );

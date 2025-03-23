@@ -25,6 +25,10 @@ export class ExamCourse {
     public name: string = '',
     public startDate: string = '',
     public endDate: string = '',
+    public time: number = 0,
+    public cssClass: string = '',
+    public status: string = '',
+    public isJoined: boolean = false,
   ) {
   }
 }

@@ -21,4 +21,7 @@ public class CourseDetail {
     Long subjectId;
     String subjectName;
     String subjectIcon;
+
+    Integer duration;
+    Boolean isAttempted;
 }

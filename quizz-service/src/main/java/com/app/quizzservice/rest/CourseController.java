@@ -4,6 +4,7 @@ import com.app.quizzservice.model.ResponseContainer;
 import com.app.quizzservice.model.User;
 import com.app.quizzservice.request.payload.AddExamCoursePayload;
 import com.app.quizzservice.request.payload.AddStudentCoursePayload;
+import com.app.quizzservice.request.payload.CourseAboutPayload;
 import com.app.quizzservice.request.payload.CoursePayload;
 import com.app.quizzservice.service.CourseService;
 import org.apache.commons.collections4.CollectionUtils;
@@ -20,9 +21,20 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    @GetMapping("about")
+    public Object about() {
+        return ResponseContainer.success(courseService.about());
+    }
+
+    @PostMapping("about")
+    public Object about(@RequestBody CourseAboutPayload payload) {
+        courseService.updateAbout(payload.aboutId(), payload.content());
+        return ResponseContainer.success("OK");
+    }
+
     @GetMapping("detail")
-    public Object detail(@RequestParam("cid") long cid) {
-        return ResponseContainer.success(courseService.detail(cid));
+    public Object detail(@RequestParam("cid") long cid, @AuthenticationPrincipal User user) {
+        return ResponseContainer.success(courseService.detail(cid, user.getUserId()));
     }
 
     @GetMapping("student")

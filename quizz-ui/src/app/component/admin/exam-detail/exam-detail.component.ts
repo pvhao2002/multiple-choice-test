@@ -1,13 +1,11 @@
 import {Component, OnInit, signal} from '@angular/core';
-import {Exam, Question} from '../../../shared/model/Exam';
+import {Question} from '../../../shared/model/Exam';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {ResponseData} from '../../../shared/model/response-data.model';
 import {PageTitleComponent} from '../../page-title/page-title.component';
 import {Breadcumb} from '../../../shared/model/breadcumb';
-import {PaginationComponent} from 'ngx-bootstrap/pagination';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {debounceTime, Subject} from 'rxjs';
 import {CONSTANT} from '../../../shared/constant';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {QuestionUpsertComponent} from '../question-upsert/question-upsert.component';
@@ -19,7 +17,6 @@ import {ConfirmComponent} from '../../confirm/confirm.component';
   selector: 'app-exam-detail',
   imports: [
     PageTitleComponent,
-    PaginationComponent,
     ReactiveFormsModule,
     FormsModule,
     PopoverDirective

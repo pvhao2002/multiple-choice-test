@@ -1,16 +1,15 @@
 import {Component, OnInit, signal} from '@angular/core';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {Breadcumb} from '../../../shared/model/breadcumb';
 import {PageTitleComponent} from '../../page-title/page-title.component';
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {AskQuestion} from '../../../shared/model/AskQuestion';
-import {AuthenticationService} from '../../../shared/service/authentication.service';
 import {UserService} from '../../../shared/service/user.service';
 import {UserInfo} from '../../../shared/model/profile.model';
 import {ResponseData} from '../../../shared/model/response-data.model';
-import {MarkdownComponent, MarkdownModule, MarkdownService} from 'ngx-markdown';
+import {MarkdownModule} from 'ngx-markdown';
 import {Content, Part, PayloadGemini} from '../../../shared/model/PayloadGemini';
 
 @Component({

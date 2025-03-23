@@ -29,6 +29,9 @@
               <th class="all">No</th>
               <th>Exam ID</th>
               <th>Exam name</th>
+              <th>Time</th>
+              <th>Duration</th>
+              <th>Status</th>
               <th style="width: 85px;">Action</th>
             </tr>
             </thead>
@@ -42,6 +45,15 @@
                     </p>
                   </td>
                   <td>{{ item.name }}</td>
+                  <td>{{ item.time }}</td>
+                  <td>{{ item.startDate | date: 'yyyy-MM-dd h:mm' }} - {{ item.endDate | date: 'yyyy-MM-dd h:mm' }}</td>
+                  <td>
+                    @if (item.open) {
+                      <span class="badge bg-success">Open</span>
+                    } @else {
+                      <span class="badge bg-danger">Close</span>
+                    }
+                  </td>
                   <td class="table-action" style="width: 15%;">
                     <a href="javascript:void(0);" class="btn btn-danger text-decoration-none" (click)="delete(item)"> <i
                       class="mdi mdi-minus-circle"></i>Delete</a>

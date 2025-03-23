@@ -26,6 +26,14 @@ public class TestV2Controller {
         return ResponseContainer.success(examService.findAll(page, size, sid, mode));
     }
 
+    @GetMapping("is-joined")
+    public Object isJoined(
+            @RequestParam(value = "eid") Long eid,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+        return ResponseContainer.success(examService.isJoined(eid, userPrincipal.getUserId()));
+    }
+
     @GetMapping("detail")
     public Object detail(
             @RequestParam(value = "eid") Long eid,

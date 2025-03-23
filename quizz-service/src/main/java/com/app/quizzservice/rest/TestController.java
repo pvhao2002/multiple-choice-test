@@ -39,7 +39,14 @@ public class TestController {
             @RequestPart("payload") ImportExcelPayload payload
     ) {
         var listQuestion = new ArrayList<ImportExcelQuetion>();
-        var examId = examService.save(payload.name(), payload.hasMonitor(), payload.subjectId(), payload.startDate(), payload.endDate());
+        var examId = examService.save(
+                payload.name(),
+                payload.hasMonitor(),
+                payload.subjectId(),
+                payload.startDate(),
+                payload.endDate(),
+                payload.time()
+        );
         try (var workbook = new XSSFWorkbook(file.getInputStream())) {
             for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
                 var sheet = workbook.getSheetAt(i);

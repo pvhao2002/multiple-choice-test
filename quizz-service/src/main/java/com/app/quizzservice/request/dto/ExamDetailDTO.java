@@ -19,7 +19,9 @@ public record ExamDetailDTO(
         String answer,
         String status,
         long testAttemptId,
-        int numberTreating
+        int numberTreating,
+        int time,
+        int remainingTime
 ) {
     public ExamDetailDTO(ResultSet rs) throws SQLException {
         this(
@@ -38,7 +40,9 @@ public record ExamDetailDTO(
                 rs.getString("answer"),
                 rs.getString("status"),
                 rs.getLong("test_attempt_id"),
-                rs.getInt("number_treating")
+                rs.getInt("number_treating"),
+                rs.getInt("duration"),
+                rs.getInt("remaining_time")
         );
     }
 }

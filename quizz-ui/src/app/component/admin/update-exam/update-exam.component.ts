@@ -8,6 +8,8 @@ import {NgOptionComponent, NgSelectComponent} from '@ng-select/ng-select';
 import {Exam} from '../../../shared/model/Exam';
 import {SubjectDTO} from '../../../shared/model/subject';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
+import {BsDatepickerDirective, BsDatepickerInputDirective} from 'ngx-bootstrap/datepicker';
+import {DateService} from '../../../shared/service/date.service';
 
 @Component({
   selector: 'app-update-exam',
@@ -15,7 +17,9 @@ import {PagingData, ResponseData} from '../../../shared/model/response-data.mode
     ReactiveFormsModule,
     NgOptionComponent,
     NgSelectComponent,
-    FormsModule
+    FormsModule,
+    BsDatepickerDirective,
+    BsDatepickerInputDirective
   ],
   templateUrl: './update-exam.component.html',
   standalone: true,
@@ -27,14 +31,21 @@ export class UpdateExamComponent implements OnInit {
     new Breadcumb('Exam Management', '/admin/exam'),
     new Breadcumb('Create Exam', '/admin/exam/upsert')
   ];
-
+  startDate = new Date();
+  endDate = new Date();
   params = signal<Exam>(new Exam());
   subjects = signal<SubjectDTO[]>([])
   @Output() eventSubmit = new EventEmitter<boolean>();
+  config = {
+    withTimepicker: true,
+    rangeInputFormat: 'DD/MM/YYYY h:mm',
+    dateInputFormat: 'DD/MM/YYYY h:mm'
+  };
 
   constructor(private http: HttpClient,
               private bsRef: BsModalRef,
               private toast: ToastrService,
+              private dateService: DateService
   ) {
   }
 
@@ -43,6 +54,8 @@ export class UpdateExamComponent implements OnInit {
   }
 
   submit() {
+    this.params().startDate = this.dateService.getFormatDate(this.startDate);
+    this.params().endDate = this.dateService.getFormatDate(this.endDate);
     this.http.patch<ResponseData<string>>('api/test', this.params())
       .subscribe(res => {
         if (res.success) {

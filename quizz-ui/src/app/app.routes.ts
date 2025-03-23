@@ -71,6 +71,11 @@ export const routes: Routes = [
         path: 'course-detail',
         loadComponent: () => import('./component/student/course-list/course-detail/course-detail.component')
           .then((mod) => mod.CourseDetailComponent),
+      },
+      {
+        path: 'about',
+        loadComponent: () => import('./component/student/about/about.component')
+          .then((mod) => mod.AboutComponent),
       }
     ]
   },
@@ -79,13 +84,18 @@ export const routes: Routes = [
     component: CommonTemplateComponent,
     canActivate: [AuthGuard],
     resolve: {
-      // profile: profileResolver
+      profile: profileResolver
     },
     children: [
       {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'
+      },
+      {
+        path: 'about',
+        loadComponent: () => import('../app/component/admin/about-manage/about-manage.component')
+          .then((mod) => mod.AboutManageComponent),
       },
       {
         path: 'home',

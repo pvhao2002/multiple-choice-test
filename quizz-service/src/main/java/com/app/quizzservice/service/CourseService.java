@@ -5,6 +5,7 @@ import com.app.quizzservice.model.PagingContainer;
 import com.app.quizzservice.model.Test;
 import com.app.quizzservice.model.User;
 import com.app.quizzservice.request.dto.CourseDetail;
+import com.app.quizzservice.request.payload.CourseAboutPayload;
 import com.app.quizzservice.request.response.CourseResponse;
 import com.app.quizzservice.request.response.SubjectCourseRepsonse;
 import com.app.quizzservice.utils.PagingUtil;
@@ -26,26 +27,56 @@ public class CourseService {
         this.writeDb = writeDb;
     }
 
-    public CourseResponse detail(long cid) {
+    public CourseAboutPayload about() {
         var sql = """
-                select t1.course_id,
+                select course_id as aboutId,
+                       course_description as content
+                from course_about
+                """;
+        return writeDb.query(
+                sql,
+                Map.of(),
+                (res, i) -> new CourseAboutPayload(res)
+        ).stream().findFirst().orElse(new CourseAboutPayload(1L, ""));
+    }
+
+    @Transactional
+    public void updateAbout(Long id, String content) {
+        var sql = """
+                INSERT INTO course_about (course_id, course_description)
+                VALUES (:id, :content)
+                ON DUPLICATE KEY UPDATE course_description = :content;
+                """;
+        var params = Map.of("id", id, "content", content);
+        writeDb.update(sql, params);
+    }
+
+
+    public CourseResponse detail(long cid, long userId) {
+        var sql = """
+                 select t1.course_id,
                        t1.course_code,
                        t3.test_id,
                        t3.name,
                        t3.start_date,
                        t3.end_date,
                        t4.subject_id,
-                       t4.name as subject_name,
-                       t4.icon as subject_icon
+                       t4.name                                              as subject_name,
+                       t4.icon                                              as subject_icon,
+                       t3.duration,
+                       IFNULL((select exists(select 1
+                                      from test_attempts ta
+                                      where ta.user_id = :userId
+                                        and ta.test_id = t3.test_id)),0)       as is_attempted
                 from course t1
                          inner join course_test t2 on t2.course_id = t1.course_id
                          inner join test t3 on t3.test_id = t2.test_id
                          inner join subjects t4 on t3.subject_id = t4.subject_id
                 where t1.course_id = :courseId;
-                """;
+                 """;
         var data = writeDb.query(
                 sql,
-                Map.of("courseId", cid),
+                Map.of("courseId", cid, "userId", userId),
                 BeanPropertyRowMapper.newInstance(CourseDetail.class)
         );
         var subjects = data.stream()

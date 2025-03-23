@@ -9,6 +9,7 @@ public record AddTest(
         String startDate,
         String endDate,
         List<AddQuestion> listQuestion,
-        int subjectId
+        int subjectId,
+        int time
 ) {
 }

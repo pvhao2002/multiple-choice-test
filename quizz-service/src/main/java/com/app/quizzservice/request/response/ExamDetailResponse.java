@@ -13,7 +13,9 @@ public record ExamDetailResponse(
         boolean hasStarted,
         long testAttemptId,
         int numberTreating,
-        List<QuestionResponse> questions
+        List<QuestionResponse> questions,
+        int time,
+        int remainingTime
 ) {
     public ExamDetailResponse(List<ExamDetailDTO> dtos) {
         this(
@@ -24,11 +26,13 @@ public record ExamDetailResponse(
                 dtos.getFirst().status().equals("incomplete"),
                 dtos.getFirst().testAttemptId(),
                 dtos.getFirst().numberTreating(),
-                dtos.stream().map(QuestionResponse::new).toList()
+                dtos.stream().map(QuestionResponse::new).toList(),
+                dtos.getFirst().time(),
+                dtos.getFirst().remainingTime()
         );
     }
 
     public ExamDetailResponse() {
-        this(0, "", 0, false, false, 0, 0, List.of());
+        this(0, "", 0, false, false, 0, 0, List.of(), 0, 0);
     }
 }

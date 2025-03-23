@@ -12,7 +12,8 @@
                    (keyup.enter)="getListUser()"/>
           </div>
           <div class="col-sm-7">
-            <input #fileInput type="file" class="d-none" name="file" (change)="onFileSelected($event)" accept=".xls,.xlsx"/>
+            <input #fileInput type="file" class="d-none" name="file" (change)="onFileSelected($event)"
+                   accept=".xls,.xlsx"/>
             <div class="text-sm-end">
               <button type="button" class="btn btn-info mb-2 me-1" (click)="getListUser()"><i
                 class="mdi mdi-reload"></i></button>
@@ -89,6 +90,6 @@
 
 <ng-template #student_fail>
   <div class="alert alert-danger m-0" role="alert">
-    <strong>List student add is exist: </strong> {{ listStudentFail?.join(', ') }}
+    <strong>List student add is exist: </strong> {{ getMessageStudent() }}
   </div>
 </ng-template>

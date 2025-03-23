@@ -10,6 +10,8 @@ import lombok.experimental.FieldDefaults;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -26,6 +28,8 @@ public class Test {
     int totalQuestions;
     StatusEnum status;
     boolean hasMonitor;
+    int time;
+    boolean isOpen;
 
     public Test(ResultSet rs) throws SQLException {
         this(
@@ -37,7 +41,15 @@ public class Test {
                 JDBCUtils.getValueResultSet(rs, Boolean.class, false, "close"),
                 rs.getInt("total_questions"),
                 StatusEnum.valueOf(rs.getString("status").toUpperCase()),
-                rs.getBoolean("has_monitor")
+                rs.getBoolean("has_monitor"),
+                rs.getInt("duration"),
+                isOpen(rs.getString("end_date"))
         );
+    }
+
+    private static boolean isOpen(String endDate) {
+        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        var endDateTime = LocalDateTime.parse(endDate, formatter);
+        return LocalDateTime.now().isBefore(endDateTime);
     }
 }

@@ -34,6 +34,44 @@
               </ng-select>
             </div>
           </div> <!-- end col-->
+
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label for="time" class="form-label">Time</label>
+              <input type="number" id="time" name="time" class="form-control"
+                     min="0"
+                     max="100"
+                     [(ngModel)]="params().time"
+              >
+            </div>
+          </div>
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label class="form-label">Start date</label>
+              <input type="text"
+                     placeholder="Start date"
+                     placement="right"
+                     name="startDate"
+                     [(ngModel)]="startDate"
+                     class="form-control"
+                     [bsConfig]="config"
+                     bsDatepicker>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="mb-3">
+              <label class="form-label">End date</label>
+              <input type="text"
+                     placeholder="End date"
+                     placement="left"
+                     name="endDate"
+                     [(ngModel)]="endDate"
+                     class="form-control"
+                     [bsConfig]="config"
+                     bsDatepicker>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card-footer">
