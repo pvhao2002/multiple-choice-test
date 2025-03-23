@@ -127,7 +127,7 @@ export class StartTestComponent implements OnInit, OnDestroy {
         this.updateTime(remainingTime);
       } else {
         this.toast.warning('Time is up');
-        this.submit();
+        this.submitTest();
         this.timerSubscription.unsubscribe(); // Stop countdown at 0
       }
     });
@@ -165,18 +165,22 @@ export class StartTestComponent implements OnInit, OnDestroy {
     });
     bsRef?.content?.onClick.subscribe((result: boolean) => {
       if (result) {
-        const param = this.buildParam();
-        this.http.post<ResponseData<string>>('api/v2/test/submit-test', param)
-          .subscribe(res => {
-            if (res.success) {
-              this.toast.success('Submit test successfully');
-              this.navigateToExam();
-            } else {
-              this.toast.error(res.message);
-            }
-          });
+        this.submitTest();
       }
     });
+  }
+
+  submitTest() {
+    const param = this.buildParam();
+    this.http.post<ResponseData<string>>('api/v2/test/submit-test', param)
+      .subscribe(res => {
+        if (res.success) {
+          this.toast.success('Submit test successfully');
+          this.navigateToExam();
+        } else {
+          this.toast.error(res.message);
+        }
+      });
   }
 
   buildParam() {
