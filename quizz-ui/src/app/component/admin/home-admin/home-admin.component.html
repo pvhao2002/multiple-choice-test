@@ -57,13 +57,15 @@
   <div class="col-xl-9 col-lg-8">
     <div class="card card-h-100">
       <div class="card-body">
-        <h4 class="header-title mb-3">Statistic user test week</h4>
+        <h4 class="header-title mb-3">Statistic user test by exam</h4>
         <div dir="ltr">
           @if (barChartData.labels?.length) {
             <canvas
               baseChart
               [data]="barChartData"
               [options]="barChartOptions"
+              title="Statistic user test by exam"
+              [legend]="true"
               [type]="'bar'"
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"

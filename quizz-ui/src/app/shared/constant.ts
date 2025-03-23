@@ -41,6 +41,10 @@ export const CHART_OPTIONS = {
         anchor: 'end',
         align: 'end',
       },
+      subtitle: {
+        display: true,
+        text: 'Statistic user test by exam'
+      }
     },
   }
 };

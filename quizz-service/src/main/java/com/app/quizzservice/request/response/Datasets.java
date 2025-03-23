@@ -1,5 +1,6 @@
 package com.app.quizzservice.request.response;
 
+import com.app.quizzservice.request.dto.ChartByExam;
 import com.app.quizzservice.request.dto.UserTestWeekDTO;
 
 import java.util.List;
@@ -16,6 +17,13 @@ public record Datasets(
                      .map(UserTestWeekDTO::totalAttempts)
                      .toList(),
                 entry.getKey()
+        );
+    }
+
+    public Datasets(ChartByExam chart) {
+        this(
+                List.of(chart.getCourseCount()),
+                chart.getName()
         );
     }
 }

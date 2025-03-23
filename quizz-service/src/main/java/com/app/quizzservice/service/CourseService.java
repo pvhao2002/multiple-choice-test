@@ -4,6 +4,7 @@ import com.app.quizzservice.model.Course;
 import com.app.quizzservice.model.PagingContainer;
 import com.app.quizzservice.model.Test;
 import com.app.quizzservice.model.User;
+import com.app.quizzservice.request.dto.CourseDTO;
 import com.app.quizzservice.request.dto.CourseDetail;
 import com.app.quizzservice.request.payload.CourseAboutPayload;
 import com.app.quizzservice.request.response.CourseResponse;
@@ -25,6 +26,31 @@ public class CourseService {
 
     public CourseService(NamedParameterJdbcTemplate writeDb) {
         this.writeDb = writeDb;
+    }
+
+    public List<CourseDTO> exportCourse(long courseId) {
+        var sql = """
+                select t.test_id,
+                       t.name               as testName,
+                       u.email,
+                       t.total_questions,
+                       ta.created_at        as testDate,
+                       ta.total_correct,
+                       ta.number_of_warning as totalWarning,
+                       ta.updated_at        as lastUpdate,
+                       t.has_monitor
+                from course c
+                         inner join course_test ct on c.course_id = ct.course_id
+                         inner join test t on ct.test_id = t.test_id
+                         inner join test_attempts ta on t.test_id = ta.test_id
+                         inner join users u on ta.user_id = u.user_id
+                where c.course_id = :courseId;
+                """;
+        return writeDb.query(
+                sql,
+                Map.of("courseId", courseId),
+                BeanPropertyRowMapper.newInstance(CourseDTO.class)
+        );
     }
 
     public CourseAboutPayload about() {

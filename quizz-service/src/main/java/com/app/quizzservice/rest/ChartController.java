@@ -27,4 +27,9 @@ public class ChartController {
     public Object myTestWeek(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return ResponseContainer.success(chartService.getUserTestWeek(userPrincipal.getUserId()));
     }
+
+    @GetMapping("total-test-by-exam")
+    public Object totalTestByExam() {
+        return ResponseContainer.success(chartService.totalTestByExam());
+    }
 }

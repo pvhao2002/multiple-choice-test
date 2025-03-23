@@ -3,7 +3,6 @@ import {PageTitleComponent} from '../../page-title/page-title.component';
 import {Breadcumb} from '../../../shared/model/breadcumb';
 import {debounceTime, Subject} from 'rxjs';
 import {PagingData, ResponseData} from '../../../shared/model/response-data.model';
-import {SubjectDTO} from '../../../shared/model/subject';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BsModalService} from 'ngx-bootstrap/modal';
@@ -143,5 +142,9 @@ export class CourseListComponent implements OnInit {
         this.getListCourse();
       }
     });
+  }
+
+  export(item: Course) {
+    window.open(`http://localhost:1122/api/courses/export?cid=${item.courseId}`, '_blank');
   }
 }

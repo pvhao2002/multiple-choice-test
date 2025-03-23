@@ -29,6 +29,7 @@ application:
       - /auth/**
       - /users/export
       - /home/export
+      - /courses/export
   datasource:
     read:
       jdbc-url: "jdbc:mysql://${MYSQL_READ_DB_HOST:localhost}:${MYSQL_READ_DB_PORT:3306}/${MYSQL_READ_DB_NAME:quizz_db}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true"

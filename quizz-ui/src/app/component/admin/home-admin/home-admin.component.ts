@@ -44,7 +44,7 @@ export class HomeAdminComponent implements OnInit {
 
   init() {
     forkJoin([
-      this.http.get<ResponseData<Chart>>('api/chart/user-test-week'),
+      this.http.get<ResponseData<Chart>>('api/chart/total-test-by-exam'),
       this.http.get<ResponseData<Dashboard>>('api/home/admin'),
       this.http.get<ResponseData<PagingData<UserTest>>>('api/home/user-test')
     ]).subscribe(([res1, res2, res3]) => {
