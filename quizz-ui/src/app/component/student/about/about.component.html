@@ -1,4 +1,106 @@
-<app-page-title [data]="breadCrumbs"/>
+<header class="container text-center">
+  <h1 class="fw-bold text-primary">Chào mừng bạn đến với hệ thống thi trắc nghiệm Online</h1>
+</header>
 
-<div class="container mt-4 preview-frame" [innerHTML]="htmlText()">
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <img src="/assets/images/slider-1.png" alt="" style="width: 100%;">
+    </div>
+  </div>
 </div>
+<section class="container my-4">
+  <h3 class="text-warning">📢 Thông Báo Mới Nhất</h3>
+  <div class="alert alert-info" role="alert">
+    🔥 Kỳ thi giữa kỳ sẽ diễn ra vào ngày <strong>15/04/2025</strong>. Sinh viên vui lòng kiểm tra lịch thi của mình.
+  </div>
+  <div class="alert alert-info" role="alert">
+    🔔 TRẢI NGHIỆM CHƯƠNG TRÌNH HỌC TẬP VÀ TRẢI NGHIỆM TẠI THỤY SĨ VÀ THÁI LAN CHO SV EAUT
+  </div>
+  <div class="alert alert-info" role="alert">
+    🔔 LƯU Ý DÀNH CHO PHỤ HUYNH VÀ TÂN SINH VIÊN SAU KHI NHẬP HỌC TẠI ĐẠI HỌC CÔNG NGHỆ ĐÔNG Á
+  </div>
+  <div class="alert alert-info" role="alert">
+    🔔 XÉT TUYỂN ĐẠI HỌC CHÍNH QUY 2025
+  </div>
+  <div class="alert alert-info" role="alert">
+    🔔 DÀNH CHO TÂN SINH VIÊN VỀ HƯỚNG DẪN VỀ QUY TRÌNH NHẬP HỌC
+  </div>
+  <div class="alert alert-success" role="alert">
+    ✅ Hệ thống đã được nâng cấp! Trải nghiệm đăng ký và thi trắc nghiệm nhanh chóng hơn.
+  </div>
+  <div class="alert alert-danger" role="alert">
+    ⚠️ Lưu ý: Hạn chót nộp lệ phí thi là <strong>10/04/2025</strong>.
+  </div>
+</section>
+
+<section class="container my-5">
+  <h3 class="text-primary text-center">📰 Tin Tức Mới Nhất</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img ngSrc="assets/images/GetArticleImage.jpg" class="card-img-top" alt="Tin tức 1" height="249" width="250">
+        <div class="card-body">
+          <h5 class="card-title">Cập nhật lịch thi mới</h5>
+          <p class="card-text">Lịch thi mới nhất đã được cập nhật. Hãy kiểm tra ngay!</p>
+          <a href="javascript:void(0)" class="btn btn-primary">Đọc thêm</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img ngSrc="assets/images/GetArticleImage.jpg" class="card-img-top" alt="Tin tức 2" height="249" width="250">
+        <div class="card-body">
+          <h5 class="card-title">Hướng dẫn đăng ký thi online</h5>
+          <p class="card-text">Bạn mới sử dụng hệ thống? Hãy đọc hướng dẫn chi tiết!</p>
+          <a href="javascript:void(0)" class="btn btn-primary">Đọc thêm</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <img ngSrc="assets/images/GetArticleImage.jpg" class="card-img-top" alt="Tin tức 3" height="249" width="250">
+        <div class="card-body">
+          <h5 class="card-title">Công nghệ mới trong giáo dục</h5>
+          <p class="card-text">Khám phá những xu hướng mới nhất.</p>
+          <a href="javascript:void(0)" class="btn btn-primary">Đọc thêm</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="text-danger">Danh sách môn học</h3>
+      <ul class="list-group shadow">
+        @for (s of aboutData().subjects | slice : 0: 6; track s) {
+          <li class="list-group-item border-bottom border-2">{{ s.subjectName }}</li>
+        }
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h3 class="text-danger">Thông tin thời gian thi</h3>
+      <table class="table table-bordered">
+        <thead class="table-dark">
+        <tr>
+          <th>Lớp Học</th>
+          <th>Thời Gian Thi Bắt Đầu</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (c of aboutData().courses; track c) {
+            <tr>
+              <td>{{ c.courseCode }}</td>
+              <td>{{ c.startDate }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<footer class="bg-dark text-white text-center py-3 mt-5">
+  &copy; 2025 Thi Trắc Nghiệm Online | Mọi quyền được bảo lưu.
+</footer>

@@ -3,41 +3,64 @@ import {HttpClient} from '@angular/common/http';
 import {ToastrService} from 'ngx-toastr';
 import {rxResource} from '@angular/core/rxjs-interop';
 import {ResponseData} from '../../../shared/model/response-data.model';
-import {About} from '../../admin/about-manage/about-manage.component';
 import {PageTitleComponent} from '../../page-title/page-title.component';
-import {Breadcumb} from '../../../shared/model/breadcumb';
+import {TranslateModule} from '@ngx-translate/core';
+import {NgOptimizedImage, SlicePipe} from '@angular/common';
 
 @Component({
   selector: 'app-about',
   imports: [
-    PageTitleComponent
+    PageTitleComponent,
+    TranslateModule,
+    NgOptimizedImage,
+    SlicePipe
   ],
   templateUrl: './about.component.html',
   standalone: true,
   styleUrl: './about.component.scss'
 })
 export class AboutComponent {
-  breadCrumbs = [
-    new Breadcumb('Home', '/'),
-    new Breadcumb('About', '/student/student'),
-  ];
-
   http = inject(HttpClient);
   toast = inject(ToastrService);
 
   about = rxResource({
     loader: (_) =>
       this.http.get<ResponseData<About>>(
-        `/api/courses/about`
+        `/api/home/about`
       ),
   });
 
-  htmlText = signal<string>('');
+  aboutData = signal<About>(new About());
 
   _ = effect(() => {
-    const content = this.about.value()?.data?.content;
-    if (content) {
-      this.htmlText.set(content);
+    const data = this.about.value()?.data;
+    if (data) {
+      this.aboutData.set(data);
     }
   });
+
+}
+
+
+export class About {
+  constructor(
+    public subjects: SubjectAboutDTO[] = [],
+    public courses: CourseAboutDTO[] = [],
+  ) {
+  }
+}
+
+export class CourseAboutDTO {
+  constructor(
+    public courseCode: string = '',
+    public startDate: string = '',
+  ) {
+  }
+}
+
+export class SubjectAboutDTO {
+  constructor(
+    public subjectName: string = '',
+  ) {
+  }
 }

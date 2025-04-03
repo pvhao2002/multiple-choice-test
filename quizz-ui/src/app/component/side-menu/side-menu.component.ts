@@ -19,12 +19,10 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class SideMenuComponent implements OnInit {
   menuStudent: Menu[] = [
-    new Menu('Dashboard', 'mdi-home-outline', '/student/home'),
+    new Menu('Home', 'mdi-home-outline', '/student/about'),
     new Menu('Exam', 'mdi-school-outline', '/student/exam', [
-      // new ChildMenu('List Subject', '/student/subject'),
-      // new ChildMenu('List Exam', '/student/exam'),
+      new ChildMenu('Dashboard', '/student/home'),
       new ChildMenu('List Course', '/student/course'),
-      new ChildMenu('About', '/student/about'),
     ]),
     new Menu('Learning Result', 'mdi-book-education-outline', '/student/result'),
     new Menu('Chat bot', 'mdi-chat-processing-outline', '/student/chat-bot'),
@@ -35,7 +33,6 @@ export class SideMenuComponent implements OnInit {
     new Menu('Course Management', 'mdi-book-outline', '/admin/course', [
       new ChildMenu('List', '/admin/course/list'),
       new ChildMenu('Create', '/admin/course/upsert'),
-      new ChildMenu('About', '/admin/about'),
     ]),
     new Menu('User Management', 'mdi-account-group-outline', '/admin/user-management'),
     new Menu('Subject Management', 'mdi-book-open-page-variant-outline', '/admin/subject', [

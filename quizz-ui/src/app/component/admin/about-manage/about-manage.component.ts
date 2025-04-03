@@ -29,42 +29,27 @@ export class AboutManageComponent {
   http = inject(HttpClient);
   toast = inject(ToastrService);
 
-  about = rxResource({
-    loader: (_) =>
-      this.http.get<ResponseData<About>>(
-        `/api/courses/about`
-      ),
-  });
-
-  htmlText = signal<string>('');
-
-  _ = effect(() => {
-    const content = this.about.value()?.data?.content;
-    if (content) {
-      this.htmlText.set(content);
-    }
-  });
-
-  onContentChanged(event: any) {
-    this.htmlText.set(event.html);
-  }
-
-  submit() {
-    this.http.post<ResponseData<string>>('api/courses/about', new About(1, this.htmlText()))
-      .subscribe(res => {
-        if (res.success) {
-          this.toast.success('Update about success');
-        } else {
-          this.toast.error('Update about failed');
-        }
-      });
-  }
 }
 
 export class About {
   constructor(
-    public aboutId: number,
-    public content: string
+    public subjects: SubjectAboutDTO[] = [],
+    public courses: CourseAboutDTO[] = [],
+  ) {
+  }
+}
+
+export class CourseAboutDTO {
+  constructor(
+    public courseCode: string = '',
+    public startDate: string = '',
+  ) {
+  }
+}
+
+export class SubjectAboutDTO {
+  constructor(
+    public subjectName: string = '',
   ) {
   }
 }

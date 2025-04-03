@@ -2,10 +2,12 @@ package com.app.quizzservice.service;
 
 import com.app.quizzservice.config.db.ReadDB;
 import com.app.quizzservice.model.PagingContainer;
+import com.app.quizzservice.request.dto.AboutDTO;
 import com.app.quizzservice.request.dto.UserTestDTO;
 import com.app.quizzservice.request.response.DashboardAdminResponse;
 import com.app.quizzservice.request.response.MyTestIncompleteResponse;
 import com.app.quizzservice.utils.PagingUtil;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,26 @@ public class DashboardService {
 
     public DashboardService(@ReadDB NamedParameterJdbcTemplate readDb) {
         this.readDb = readDb;
+    }
+
+    public AboutDTO about() {
+        var sqlSubject = """
+                select s.name as subject_name
+                from subjects s
+                where s.status = 'active'
+                """;
+        var subjects = readDb.query(sqlSubject, BeanPropertyRowMapper.newInstance(AboutDTO.SubjectAboutDTO.class));
+        var sqlCourse = """
+                select c.course_code, date(min(t.start_date)) as start_date
+                from course c
+                         inner join course_test ct on c.course_id = ct.course_id
+                         inner join test t on ct.test_id = t.test_id
+                where c.status = 'active'
+                group by c.course_code
+                order by start_date
+                """;
+        var courses = readDb.query(sqlCourse, BeanPropertyRowMapper.newInstance(AboutDTO.CourseAboutDTO.class));
+        return new AboutDTO(subjects, courses);
     }
 
     public PagingContainer<MyTestIncompleteResponse> getStudent(int page, int size, long userId) {

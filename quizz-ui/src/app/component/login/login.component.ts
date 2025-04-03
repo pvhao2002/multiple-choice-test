@@ -7,7 +7,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
 import {LoginDTO} from '../../shared/model/auth.model';
 import {HttpClient} from '@angular/common/http';
-import {ResponseData} from '../../shared/model/response-data.model';
 import {AuthenticationService} from '../../shared/service/authentication.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';

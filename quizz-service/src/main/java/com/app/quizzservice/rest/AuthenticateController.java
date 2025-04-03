@@ -11,7 +11,6 @@ import com.app.quizzservice.utils.AESUtils;
 import com.app.quizzservice.utils.CaptchaGenerator;
 import com.app.quizzservice.utils.Constants;
 import com.app.quizzservice.utils.CookieUtils;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.extern.java.Log;
@@ -42,15 +41,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("login")
-    public Object login(
-            @Valid @RequestBody LoginPayload payload,
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-        if (!authService.validateCaptcha(request, payload.captcha())) {
-            return ResponseContainer.failure("Invalid captcha");
-        }
-        CookieUtils.delete(request, response, Constants.CAPTCHA);
+    public Object login(@Valid @RequestBody LoginPayload payload) {
         return ResponseContainer.success(authService.authenticate(payload.email(), payload.password()));
     }
 

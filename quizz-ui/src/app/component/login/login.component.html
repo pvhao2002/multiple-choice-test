@@ -28,62 +28,17 @@
                    placeholder="Enter your email or student id">
           </div>
           <div class="mb-3">
-<!--            <a href="javascript:void(0)" class="text-muted float-end" (click)="openForgetPassword()"><small>Forget-->
-<!--              password?</small></a>-->
             <label for="password" class="form-label">Password</label>
             <input class="form-control" type="password" name="password"
                    [(ngModel)]="loginPayload.password"
                    required id="password"
                    placeholder="Enter your password">
           </div>
-
-          <div class="mb-3">
-            <label for="captcha" class="form-label">Captcha</label>
-            <div class="d-flex">
-              <img [src]="captchaUrl" (click)="getCaptcha()" alt="captcha" class="captcha"/>
-              <input class="form-control ms-3" type="text" name="captcha"
-                     [(ngModel)]="loginPayload.captcha"
-                     id="captcha" required
-                     placeholder="">
-            </div>
-          </div>
-
           <div class="d-grid mb-0 text-center">
             <button class="btn btn-primary" type="submit" (click)="doLogin()"><i class="mdi mdi-login"></i> Login
             </button>
           </div>
-          <!-- social-->
-<!--          <div class="text-center mt-4">-->
-<!--            <p class="text-muted font-16">Login with</p>-->
-<!--            <ul class="social-list list-inline mt-3">-->
-<!--              <li class="list-inline-item">-->
-<!--                <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i-->
-<!--                  class="mdi mdi-facebook" (click)="loginWithSocial('fb')"></i></a>-->
-<!--              </li>-->
-<!--              <li class="list-inline-item">-->
-<!--                <a href="javascript: void(0);" class="social-list-item border-danger text-danger"-->
-<!--                   (click)="loginWithSocial('google')"><i-->
-<!--                  class="mdi mdi-google"></i></a>-->
-<!--              </li>-->
-<!--              <li class="list-inline-item">-->
-<!--                <a href="javascript: void(0);" class="social-list-item border-info text-info"><i-->
-<!--                  class="mdi mdi-twitter" (click)="loginWithSocial('twitter')"></i></a>-->
-<!--              </li>-->
-<!--              <li class="list-inline-item">-->
-<!--                <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i-->
-<!--                  class="mdi mdi-github" (click)="loginWithSocial('github')"></i></a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
         </form>
-        <!-- end form-->
-
-        <!-- Footer-->
-<!--        <footer class="footer footer-alt">-->
-<!--          <p class="text-muted">Not have account? <a href="javascript:void(0)" class="text-muted ms-1"-->
-<!--                                                     (click)="navigateToRegister()"><b>Register</b></a>-->
-<!--          </p>-->
-<!--        </footer>-->
       </div>
     </div>
   </div>

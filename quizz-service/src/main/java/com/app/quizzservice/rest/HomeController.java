@@ -37,6 +37,11 @@ public class HomeController {
         this.dashboardService = dashboardService;
     }
 
+    @GetMapping("about")
+    public Object about() {
+        return ResponseContainer.success(dashboardService.about());
+    }
+
     @GetMapping("student")
     public Object getStudent(
             @RequestParam(value = "page", defaultValue = "1") int page,

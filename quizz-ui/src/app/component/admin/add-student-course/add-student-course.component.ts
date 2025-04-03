@@ -109,4 +109,30 @@ export class AddStudentCourseComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.event.emit(true);
   }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const formData: FormData = new FormData();
+      formData.append('courseId', new Blob([JSON.stringify(this.courseId())], {type: 'application/json'}));
+      formData.append('file', file);
+
+      this.http.post<ResponseData<any>>('api/courses/import-student', formData)
+        .subscribe(res => {
+          if (res.success) {
+            this.toast.success('Import successfully');
+          } else {
+            if (res.status === 400) {
+              this.toast.error(res.message);
+            } else {
+              this.listStudentFail = res.data;
+              this.bsModal.show(this.listAddStudentFail, {
+                class: 'modal-lg',
+              });
+            }
+          }
+        });
+    }
+  }
 }

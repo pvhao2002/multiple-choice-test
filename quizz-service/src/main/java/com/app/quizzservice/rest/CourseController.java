@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -172,9 +173,27 @@ public class CourseController {
     }
 
     @PostMapping("import-student")
-    public Object importStudent(@RequestParam("file") MultipartFile file) {
+    public Object importStudent(@RequestPart("file") MultipartFile file, @RequestPart("courseId") long courseId) {
+        var listStudent = new ArrayList<String>();
+        try (var workbook = new XSSFWorkbook(file.getInputStream())) {
+            var sheet = workbook.getSheetAt(0);
+            // validate header format is: Student ID, Fullname, Gender
+            var headerRow = sheet.getRow(0);
+            if (headerRow == null) {
+                return ResponseContainer.failure("Sheet is empty");
+            }
+            sheet.forEach(row -> {
+                if (row.getRowNum() < 2) return;
+                listStudent.add(row.getCell(0).getStringCellValue());
+            });
+            var result = courseService.addStudent2Course(courseId, listStudent);
 
-        return ResponseContainer.success("OK");
+            return CollectionUtils.isEmpty(result)
+                    ? ResponseContainer.success("OK")
+                    : ResponseContainer.failure(result);
+        } catch (Exception e) {
+            return ResponseContainer.failure(e.getMessage());
+        }
     }
 
     @PostMapping
