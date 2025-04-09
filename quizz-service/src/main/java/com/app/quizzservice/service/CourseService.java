@@ -244,7 +244,7 @@ public class CourseService {
         );
         var totalRecords = writeDb.queryForObject(
                 "SELECT COUNT(1) FROM course_detail WHERE course_id = :courseId",
-                Map.of("courseId", 1),
+                Map.of("courseId", courseId),
                 Long.class
         );
         return new PagingContainer<>(page, size, totalRecords, data);
