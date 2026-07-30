@@ -1,0 +1,44 @@
+name: MCE Prepare Pillow Runtime for Windows
+
+on:
+  push:
+    branches:
+      - mce-public-deps-20260729
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Download and prepare source-free Pillow runtime
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force -Path wheel,site-packages | Out-Null
+          python -m pip download --only-binary=:all: --no-deps --platform win_amd64 --implementation cp --python-version 314 --abi cp314 Pillow==12.0.0 --dest wheel
+          $whl = (Get-ChildItem wheel\*.whl | Select-Object -First 1).FullName
+          Expand-Archive -LiteralPath $whl -DestinationPath site-packages -Force
+          python -m compileall -q -b site-packages\PIL
+          Get-ChildItem site-packages -Recurse -Filter *.py | Remove-Item -Force
+          Get-ChildItem site-packages -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+          Get-ChildItem site-packages -Recurse -Directory | Where-Object { $_.Name -match '^(tests?|Tests?)$' } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+          if (Get-ChildItem site-packages -Recurse -Filter *.py) { throw 'Loose .py files remain' }
+          if (-not (Test-Path site-packages\PIL\__init__.pyc)) { throw 'PIL package bytecode missing' }
+          if (-not (Get-ChildItem site-packages\PIL\_imaging*.pyd)) { throw 'Pillow native extension missing' }
+          Set-Content -Path site-packages\MCE_PILLOW_RUNTIME.txt -Value 'Pillow 12.0.0 CPython 3.14 Windows x64; .py compiled to legacy .pyc and removed' -Encoding UTF8
+          Get-ChildItem site-packages -Recurse | Select-Object FullName,Length
+      - name: Upload prepared runtime
+        uses: actions/upload-artifact@v4
+        with:
+          name: mce-pillow-runtime-cp314-win-amd64
+          path: site-packages
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1

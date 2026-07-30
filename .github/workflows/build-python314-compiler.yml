@@ -1,0 +1,59 @@
+name: Build Python 3.14 compiler helper
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-python314:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out CPython 3.14.0
+        uses: actions/checkout@v4
+        with:
+          repository: python/cpython
+          ref: v3.14.0
+          path: cpython
+          fetch-depth: 1
+
+      - name: Install build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config libssl-dev zlib1g-dev \
+            libbz2-dev libreadline-dev libsqlite3-dev libffi-dev liblzma-dev \
+            libncursesw5-dev libgdbm-dev libnss3-dev uuid-dev tk-dev xz-utils
+
+      - name: Build and install Python 3.14
+        working-directory: cpython
+        run: |
+          set -euxo pipefail
+          PREFIX="$GITHUB_WORKSPACE/python314"
+          ./configure --prefix="$PREFIX" --with-ensurepip=no
+          make -j2
+          make install
+          "$PREFIX/bin/python3.14" --version
+          "$PREFIX/bin/python3.14" - <<'PY'
+          import importlib.util, sys
+          print(sys.version)
+          print(importlib.util.MAGIC_NUMBER.hex())
+          PY
+
+      - name: Package compiler helper
+        run: |
+          tar -C "$GITHUB_WORKSPACE" -cJf python314-linux-compiler.tar.xz python314
+          sha256sum python314-linux-compiler.tar.xz > python314-linux-compiler.tar.xz.sha256
+
+      - name: Upload compiler helper
+        uses: actions/upload-artifact@v4
+        with:
+          name: python314-linux-compiler
+          path: |
+            python314-linux-compiler.tar.xz
+            python314-linux-compiler.tar.xz.sha256
+          if-no-files-found: error
+          retention-days: 1

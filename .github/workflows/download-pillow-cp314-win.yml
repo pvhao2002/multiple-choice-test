@@ -1,0 +1,32 @@
+name: Download Pillow CPython 3.14 Windows wheel
+
+on:
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-wheel:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Download verified Pillow wheel
+        run: |
+          set -euxo pipefail
+          URL='https://files.pythonhosted.org/packages/2b/24/b350c31543fb0107ab2599464d7e28e6f856027aadda995022e695313d94/pillow-12.0.0-cp314-cp314-win_amd64.whl'
+          curl --fail --location --retry 4 --output pillow-12.0.0-cp314-cp314-win_amd64.whl "$URL"
+          echo '8dc232e39d409036af549c86f24aed8273a40ffa459981146829a324e0848b4b  pillow-12.0.0-cp314-cp314-win_amd64.whl' | sha256sum --check
+          sha256sum pillow-12.0.0-cp314-cp314-win_amd64.whl > pillow-12.0.0-cp314-cp314-win_amd64.whl.sha256
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: pillow-cp314-win-amd64
+          path: |
+            pillow-12.0.0-cp314-cp314-win_amd64.whl
+            pillow-12.0.0-cp314-cp314-win_amd64.whl.sha256
+          if-no-files-found: error
+          retention-days: 1
