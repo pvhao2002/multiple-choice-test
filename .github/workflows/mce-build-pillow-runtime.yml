@@ -1,6 +1,9 @@
 name: Build Pillow 12 Runtime for MCE Lite
 
 on:
+  pull_request:
+    branches:
+      - master
   push:
     branches:
       - mce-public-deps-20260729
@@ -28,10 +31,12 @@ jobs:
           python -m compileall -q -b site-packages\PIL
           Get-ChildItem site-packages -Recurse -Filter *.py | Remove-Item -Force
           Get-ChildItem site-packages -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-          Get-ChildItem site-packages -Recurse -Directory | Where-Object { $_.Name -match 'tests|test' } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-          Get-ChildItem site-packages -Recurse | Select-Object FullName,Length
+          Get-ChildItem site-packages -Recurse -Directory | Where-Object { $_.Name -match '^(tests?|Tests?)$' } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
           if (Get-ChildItem site-packages -Recurse -Filter *.py) { throw 'Loose .py files remain' }
-          Set-Content -Path site-packages\MCE_PILLOW_RUNTIME.txt -Value "Pillow 12.0.0 CPython 3.14 Windows x64; source .py removed after compileall -b" -Encoding UTF8
+          if (-not (Test-Path site-packages\PIL\__init__.pyc)) { throw 'PIL package bytecode missing' }
+          if (-not (Get-ChildItem site-packages\PIL\_imaging*.pyd)) { throw 'Pillow native extension missing' }
+          Set-Content -Path site-packages\MCE_PILLOW_RUNTIME.txt -Value 'Pillow 12.0.0 CPython 3.14 Windows x64; .py compiled to legacy .pyc and removed' -Encoding UTF8
+          Get-ChildItem site-packages -Recurse | Select-Object FullName,Length
       - name: Upload prepared runtime
         uses: actions/upload-artifact@v4
         with:
