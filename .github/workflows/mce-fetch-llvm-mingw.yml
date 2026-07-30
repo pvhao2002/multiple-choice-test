@@ -1,0 +1,36 @@
+name: MCE Fetch LLVM MinGW Toolchain
+
+on:
+  push:
+    branches: [mce-fetch-llvm-mingw-20260730]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  fetch-toolchain:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - name: Download official llvm-mingw Linux cross toolchain
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release download 20260616 \
+            --repo mstorsjo/llvm-mingw \
+            --pattern 'llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz'
+          sha256sum llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz | tee SHA256SUMS.txt
+          ls -lh llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz SHA256SUMS.txt
+
+      - name: Upload short-lived toolchain artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: llvm-mingw-20260616-ucrt-linux-x86_64
+          path: |
+            llvm-mingw-20260616-ucrt-ubuntu-22.04-x86_64.tar.xz
+            SHA256SUMS.txt
+          compression-level: 0
+          retention-days: 1
