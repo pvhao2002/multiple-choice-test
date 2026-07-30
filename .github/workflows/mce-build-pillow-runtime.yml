@@ -1,0 +1,42 @@
+name: Build Pillow 12 Runtime for MCE Lite
+
+on:
+  push:
+    branches:
+      - mce-public-deps-20260729
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Prepare Pillow runtime without source files
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force -Path wheel,site-packages | Out-Null
+          python -m pip download --only-binary=:all: --no-deps --platform win_amd64 --implementation cp --python-version 314 --abi cp314 Pillow==12.0.0 --dest wheel
+          $whl = (Get-ChildItem wheel\*.whl | Select-Object -First 1).FullName
+          Expand-Archive -LiteralPath $whl -DestinationPath site-packages -Force
+          python -m compileall -q -b site-packages\PIL
+          Get-ChildItem site-packages -Recurse -Filter *.py | Remove-Item -Force
+          Get-ChildItem site-packages -Recurse -Directory -Filter __pycache__ | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+          Get-ChildItem site-packages -Recurse -Directory | Where-Object { $_.Name -match 'tests|test' } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+          Get-ChildItem site-packages -Recurse | Select-Object FullName,Length
+          if (Get-ChildItem site-packages -Recurse -Filter *.py) { throw 'Loose .py files remain' }
+          Set-Content -Path site-packages\MCE_PILLOW_RUNTIME.txt -Value "Pillow 12.0.0 CPython 3.14 Windows x64; source .py removed after compileall -b" -Encoding UTF8
+      - name: Upload prepared runtime
+        uses: actions/upload-artifact@v4
+        with:
+          name: mce-pillow-runtime-cp314-win-amd64
+          path: site-packages
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1
