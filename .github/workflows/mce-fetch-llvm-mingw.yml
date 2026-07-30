@@ -1,6 +1,8 @@
 name: MCE Fetch LLVM MinGW Toolchain
 
 on:
+  push:
+    branches: [mce-fetch-llvm-mingw-20260730]
   pull_request:
     branches: [master]
 
