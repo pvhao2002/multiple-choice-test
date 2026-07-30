@@ -1,0 +1,33 @@
+name: MCE Download Pillow Windows Wheel
+
+on:
+  push:
+    branches:
+      - mce-public-deps-20260729
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  download-wheel:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Download Pillow Windows x64 wheel
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path wheel | Out-Null
+          python -m pip download --only-binary=:all: --no-deps --platform win_amd64 --implementation cp --python-version 314 --abi cp314 Pillow==12.3.0 --dest wheel
+          Get-ChildItem wheel
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: pillow-cp314-win-amd64
+          path: wheel/*.whl
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 1
