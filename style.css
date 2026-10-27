@@ -124,6 +124,10 @@ button{cursor:pointer}
 }
 
 .brand-logo-photo{object-fit:contain;border-radius:22%;background:#fff}
-.brand-logo-fallback{display:none}
+.brand-logo-fallback{display:none!important}
 .hero-logo-photo{width:min(270px,100%);aspect-ratio:412/406;object-fit:contain;border-radius:25%;filter:drop-shadow(0 14px 20px rgba(7,28,63,.22))}
-.hero-logo-fallback{display:none;width:min(270px,100%);filter:drop-shadow(0 14px 20px rgba(7,28,63,.22))}
+.hero-logo-fallback{display:none!important;width:min(270px,100%);filter:drop-shadow(0 14px 20px rgba(7,28,63,.22))}
+
+.pair-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.pair-inputs label{display:grid;gap:8px;font-weight:800;color:#526175;font-size:15px}
+@media(max-width:720px){.pair-inputs{grid-template-columns:1fr}}
