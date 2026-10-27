@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071c3f">
+  <meta name="description" content="MCE Top School - Thi thử 3 môn Toán, Tiếng Anh, Tiếng Việt vào lớp 6 THCS Thanh Xuân.">
+  <title>MCE Top School | Thi thử THCS Thanh Xuân</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" id="brandHome" aria-label="MCE Top School">
+    <svg class="brand-logo" viewBox="0 0 412 406" role="img" aria-label="MCE Top School">
+      <defs>
+        <linearGradient id="navyG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#183667"/><stop offset="1" stop-color="#071b43"/></linearGradient>
+        <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a3"/><stop offset=".25" stop-color="#e1a63b"/><stop offset=".7" stop-color="#9a5d16"/><stop offset="1" stop-color="#f3c763"/></linearGradient>
+        <linearGradient id="shieldG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f7d578"/><stop offset=".55" stop-color="#c98b25"/><stop offset="1" stop-color="#8e5418"/></linearGradient>
+        <filter id="shadow"><feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#000" flood-opacity=".28"/></filter>
+      </defs>
+      <rect x="24" y="20" width="364" height="364" rx="78" fill="url(#navyG)" stroke="url(#goldG)" stroke-width="12" filter="url(#shadow)"/>
+      <path d="M206 61 C250 79 290 86 318 101 L318 196 C318 258 277 306 206 337 C135 306 94 258 94 196 L94 101 C122 86 162 79 206 61Z" fill="url(#shieldG)" stroke="#f7d37a" stroke-width="9" filter="url(#shadow)"/>
+      <path d="M206 88 l12 24 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4z" fill="#fff8c8" filter="url(#shadow)"/>
+      <g transform="translate(126 165)" filter="url(#shadow)">
+        <path d="M80 0 150 42H10Z" fill="#223e78" stroke="#152c60" stroke-width="5"/>
+        <circle cx="80" cy="28" r="9" fill="#e4b750"/>
+        <rect x="20" y="42" width="120" height="26" rx="5" fill="#334d86"/>
+        <rect x="28" y="68" width="18" height="48" rx="3" fill="#e3b858"/>
+        <rect x="53" y="68" width="18" height="48" rx="3" fill="#e3b858"/>
+        <rect x="89" y="68" width="18" height="48" rx="3" fill="#e3b858"/>
+        <rect x="114" y="68" width="18" height="48" rx="3" fill="#e3b858"/>
+        <path d="M73 116V78h14v38" fill="#f8e3a2"/>
+        <rect x="15" y="116" width="130" height="13" rx="4" fill="#263f77"/>
+        <g fill="#d8ad52">
+          <rect x="0" y="65" width="14" height="14" rx="3"/><rect x="0" y="84" width="14" height="14" rx="3"/><rect x="0" y="103" width="14" height="14" rx="3"/>
+          <rect x="146" y="65" width="14" height="14" rx="3"/><rect x="146" y="84" width="14" height="14" rx="3"/><rect x="146" y="103" width="14" height="14" rx="3"/>
+        </g>
+      </g>
+    </svg>
+    <div><strong>MCE TOP SCHOOL</strong><span>Mock Test Online</span></div>
+  </a>
+  <div class="top-actions">
+    <button id="changeSubjectBtn" class="btn btn-ghost hidden" type="button">Đổi môn</button>
+    <div id="timerWrap" class="timer-wrap hidden"><span>THỜI GIAN</span><strong id="timer">40:00</strong></div>
+    <button id="submitTop" class="btn btn-gold hidden" type="button">Nộp bài</button>
+  </div>
+</header>
+
+<main class="shell">
+  <section id="homeScreen">
+    <div class="hero card">
+      <div class="hero-copy">
+        <div class="eyebrow">TRẢI NGHIỆM MCE TOP SCHOOL</div>
+        <h1>Thi thử vào lớp 6<br><span>Trường THCS Thanh Xuân</span></h1>
+        <p>Chọn 1 trong 3 môn dưới đây. Mỗi đề 40 phút, nộp bài và nhận kết quả ngay.</p>
+        <div class="notice">Các đề trên website là tài liệu ôn luyện/tham khảo do MCE biên soạn, không phải đề thi chính thức do Trường THCS Thanh Xuân công bố.</div>
+      </div>
+      <div class="hero-logo-large">
+        <svg viewBox="0 0 412 406" aria-hidden="true">
+          <defs><linearGradient id="n2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#183667"/><stop offset="1" stop-color="#071b43"/></linearGradient><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0a3"/><stop offset=".25" stop-color="#e1a63b"/><stop offset=".7" stop-color="#9a5d16"/><stop offset="1" stop-color="#f3c763"/></linearGradient><linearGradient id="s2" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f7d578"/><stop offset=".55" stop-color="#c98b25"/><stop offset="1" stop-color="#8e5418"/></linearGradient></defs>
+          <rect x="24" y="20" width="364" height="364" rx="78" fill="url(#n2)" stroke="url(#g2)" stroke-width="12"/>
+          <path d="M206 61 C250 79 290 86 318 101 L318 196 C318 258 277 306 206 337 C135 306 94 258 94 196 L94 101 C122 86 162 79 206 61Z" fill="url(#s2)" stroke="#f7d37a" stroke-width="9"/>
+          <path d="M206 88 l12 24 27 4-20 19 5 27-24-13-24 13 5-27-20-19 27-4z" fill="#fff8c8"/>
+          <g transform="translate(126 165)"><path d="M80 0 150 42H10Z" fill="#223e78"/><circle cx="80" cy="28" r="9" fill="#e4b750"/><rect x="20" y="42" width="120" height="26" rx="5" fill="#334d86"/><rect x="28" y="68" width="18" height="48" rx="3" fill="#e3b858"/><rect x="53" y="68" width="18" height="48" rx="3" fill="#e3b858"/><rect x="89" y="68" width="18" height="48" rx="3" fill="#e3b858"/><rect x="114" y="68" width="18" height="48" rx="3" fill="#e3b858"/><path d="M73 116V78h14v38" fill="#f8e3a2"/><rect x="15" y="116" width="130" height="13" rx="4" fill="#263f77"/></g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="subject-grid">
+      <button class="subject-card math" data-subject="math">
+        <span class="subject-icon">∑</span>
+        <span class="subject-kicker">ĐỀ LÀM THỬ 01</span>
+        <strong>TOÁN</strong>
+        <span>22 câu • 40 phút • 10 điểm</span>
+        <em>Bắt đầu làm đề →</em>
+      </button>
+      <button class="subject-card english" data-subject="english">
+        <span class="subject-icon">A+</span>
+        <span class="subject-kicker">ĐỀ LÀM THỬ 01</span>
+        <strong>TIẾNG ANH</strong>
+        <span>35 câu • 40 phút • 10 điểm</span>
+        <em>Bắt đầu làm đề →</em>
+      </button>
+      <button class="subject-card vietnamese" data-subject="vietnamese">
+        <span class="subject-icon">V</span>
+        <span class="subject-kicker">ĐỀ LÀM THỬ 01</span>
+        <strong>TIẾNG VIỆT</strong>
+        <span>20 TN + 2 tự luận • 40 phút</span>
+        <em>Bắt đầu làm đề →</em>
+      </button>
+    </div>
+
+    <div class="pro-card compact">
+      <div><span class="pro-kicker">MCE TOP SCHOOL PRO</span><h2>Muốn luyện thêm đề theo trường mục tiêu?</h2><p>Liên hệ trực tiếp qua Facebook để được tư vấn bản Pro, bộ cài và key kích hoạt.</p></div>
+      <div class="pro-actions">
+        <a class="btn btn-facebook" href="https://www.facebook.com/Lonelyc" target="_blank" rel="noopener">Facebook Thầy Đức</a>
+        <a class="btn btn-facebook alt" href="https://www.facebook.com/khanhlinh.tong.1" target="_blank" rel="noopener">Facebook Cô Chung</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="examScreen" class="hidden">
+    <section class="exam-heading card">
+      <div><div id="examKicker" class="eyebrow">ĐỀ LÀM THỬ</div><h1 id="examTitle">Môn</h1><p id="examSubtitle"></p><div id="examNotice" class="notice"></div></div>
+      <div id="examStats" class="hero-stats"></div>
+    </section>
+
+    <section id="startPanel" class="start-panel card">
+      <div><h2>Sẵn sàng làm bài?</h2><p>Nhập tên học sinh (không bắt buộc), sau đó bấm <b>Bắt đầu</b>. Bài làm được tự lưu trên thiết bị này.</p></div>
+      <div class="start-controls"><label><span>Tên học sinh</span><input id="studentName" type="text" maxlength="60" placeholder="Ví dụ: Nguyễn Minh Anh" autocomplete="name"></label><button id="startBtn" class="btn btn-gold btn-large" type="button">Bắt đầu làm bài</button></div>
+    </section>
+
+    <div id="examLayout" class="exam-layout is-locked">
+      <section class="question-column">
+        <div id="questionList"></div>
+        <div class="submit-card card"><h2>Hoàn thành bài thi</h2><p>Hãy kiểm tra lại các câu chưa làm trước khi nộp.</p><button id="submitBottom" class="btn btn-gold btn-large" type="button">Nộp bài & xem điểm</button></div>
+      </section>
+      <aside class="navigator card"><div class="nav-head"><h3>Phiếu trả lời</h3><span id="progressText">0/0 đã làm</span></div><div id="navGrid" class="nav-grid"></div><div class="legend"><span><i class="dot done"></i>Đã làm</span><span><i class="dot review"></i>Xem lại</span><span><i class="dot empty"></i>Chưa làm</span></div><button id="clearBtn" class="btn btn-ghost" type="button">Xóa bài đang làm</button></aside>
+    </div>
+  </section>
+
+  <section id="resultSection" class="result-section hidden" aria-live="polite">
+    <div class="result-hero card">
+      <div class="score-ring"><span id="scoreValue">0.0</span><small id="scoreDenom">/ 10</small></div>
+      <div class="result-copy"><div class="eyebrow">KẾT QUẢ THI THỬ</div><h2 id="resultTitle">Hoàn thành!</h2><p id="resultMeta"></p><div id="resultChips" class="result-chips"></div><p id="resultNote" class="result-note"></p></div>
+    </div>
+    <div class="card review-card"><div class="section-title-row"><div><div class="eyebrow">ĐỐI CHIẾU</div><h2>Đáp án & lời giải</h2></div><button id="toggleAllSolutions" class="btn btn-ghost" type="button">Mở tất cả lời giải</button></div><div id="reviewList"></div></div>
+    <div class="pro-card"><div><span class="pro-kicker">MCE TOP SCHOOL PRO</span><h2>Muốn con luyện thêm đề?</h2><p>Bản Pro có Toán • Tiếng Việt • Tiếng Anh, đề tham khảo, luyện tập, dự đoán và chấm điểm.</p></div><div class="pro-actions"><a class="btn btn-facebook" href="https://www.facebook.com/Lonelyc" target="_blank" rel="noopener">Liên hệ Thầy Đức</a><a class="btn btn-facebook alt" href="https://www.facebook.com/khanhlinh.tong.1" target="_blank" rel="noopener">Liên hệ Cô Chung</a><button id="retryBtn" class="btn btn-light" type="button">Làm lại đề</button><button id="backHomeBtn" class="btn btn-light" type="button">Chọn môn khác</button></div></div>
+  </section>
+</main>
+
+<dialog id="confirmDialog" class="dialog"><form method="dialog"><h3>Nộp bài?</h3><p id="confirmText">Bạn có chắc chắn muốn nộp bài?</p><div class="dialog-actions"><button class="btn btn-ghost" value="cancel">Quay lại</button><button id="confirmSubmitBtn" class="btn btn-gold" value="submit">Nộp bài</button></div></form></dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
