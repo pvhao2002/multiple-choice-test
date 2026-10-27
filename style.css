@@ -131,3 +131,16 @@ button{cursor:pointer}
 .pair-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .pair-inputs label{display:grid;gap:8px;font-weight:800;color:#526175;font-size:15px}
 @media(max-width:720px){.pair-inputs{grid-template-columns:1fr}}
+
+.marketing-lead{
+  margin:12px 0 16px!important;
+  padding:11px 14px;
+  border-radius:12px;
+  background:#eef4fb;
+  border:1px solid #d7e3f2;
+  color:#27415f!important;
+  font-size:16px!important;
+  line-height:1.55;
+}
+.marketing-lead strong{color:#0b2d5c}
+.pro-card p strong{color:#ffe09b}
