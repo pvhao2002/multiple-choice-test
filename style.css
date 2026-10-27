@@ -122,3 +122,8 @@ button{cursor:pointer}
   .question-card{padding:22px 18px}.question-text{font-size:25px;line-height:1.55}.passage{font-size:21px;line-height:1.6}.option-text{font-size:23px}.short-input,.essay-input{font-size:22px}
   .nav-grid{grid-template-columns:repeat(6,1fr)}.result-hero{grid-template-columns:1fr;text-align:center}.score-ring{margin:auto}.result-chips{justify-content:center}.section-title-row{align-items:flex-start;flex-direction:column}
 }
+
+.brand-logo-photo{object-fit:cover;border-radius:22%;background:#fff}
+.brand-logo-fallback{display:none}
+.hero-logo-photo{width:min(270px,100%);aspect-ratio:412/406;object-fit:cover;border-radius:25%;filter:drop-shadow(0 14px 20px rgba(7,28,63,.22))}
+.hero-logo-fallback{display:none;width:min(270px,100%);filter:drop-shadow(0 14px 20px rgba(7,28,63,.22))}
