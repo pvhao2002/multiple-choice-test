@@ -11,3 +11,7 @@ Bản web tĩnh HTML/CSS/JavaScript, dùng được trên Cloudflare mà không 
 
 ## Deploy Cloudflare
 Tải ZIP của branch này, giải nén và upload các file ở thư mục gốc. Không cần build command.
+
+
+## Logo 11111.jpg
+Trang ưu tiên dùng đúng file `11111.jpg` ở cùng thư mục với `index.html`. Nếu ảnh bị thiếu, web tự chuyển sang logo vector dự phòng để không bị vỡ giao diện.
