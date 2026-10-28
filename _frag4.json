@@ -1,0 +1,92 @@
+[
+  {
+    "school": "Lương Thế Vinh",
+    "subject": "Toán",
+    "component_label": "Toán",
+    "source_file": "5_De_Toan_Luong_The_Vinh_2027_2028_Da_Ra_Soat_Hieu_Dinh(2).pdf",
+    "source_file_id": "file_00000000d03882098444ba9670a316d9",
+    "source_status": "reviewed",
+    "matrix_text": "",
+    "exam_text": "No readable content was found in this file for the requested mode.",
+    "answer_and_solution_text": "",
+    "audit": {
+      "question_number_max_detected": null,
+      "answer_section_present": false,
+      "matrix_section_present": false,
+      "source_reviewed": true,
+      "notes": ""
+    }
+  },
+  {
+    "school": "Lương Thế Vinh",
+    "subject": "Tiếng Anh",
+    "component_label": "Tiếng Anh",
+    "source_file": "5_De_Tieng_Anh_Luong_The_Vinh_2027_2028_Da_Ra_Soat_Hieu_Dinh(2).pdf",
+    "source_file_id": "file_00000000d57c8209bd9d9a2dcb1e3434",
+    "source_status": "reviewed",
+    "matrix_text": "",
+    "exam_text": "No readable content was found in this file for the requested mode.",
+    "answer_and_solution_text": "",
+    "audit": {
+      "question_number_max_detected": null,
+      "answer_section_present": false,
+      "matrix_section_present": false,
+      "source_reviewed": true,
+      "notes": ""
+    }
+  },
+  {
+    "school": "Lương Thế Vinh",
+    "subject": "Tiếng Việt",
+    "component_label": "Tiếng Việt",
+    "source_file": "5_De_Tieng_Viet_Luong_The_Vinh_2027_2028_Da_Ra_Soat_Hieu_Dinh(2).pdf",
+    "source_file_id": "file_000000009644820687521f331b3a48f2",
+    "source_status": "reviewed",
+    "matrix_text": "",
+    "exam_text": "No readable content was found in this file for the requested mode.",
+    "answer_and_solution_text": "",
+    "audit": {
+      "question_number_max_detected": null,
+      "answer_section_present": false,
+      "matrix_section_present": false,
+      "source_reviewed": true,
+      "notes": ""
+    }
+  },
+  {
+    "school": "THCS Ngoại ngữ",
+    "subject": "Toán",
+    "component_label": "PSA Toán – Khoa học tự nhiên",
+    "source_file": "5_De_Toan_PSA_THCS_Ngoai_Ngu_2027_2028_Da_Ra_Soat_Hieu_Dinh(3).pdf",
+    "source_file_id": "file_00000000cd1c81fdae5c2ff3fefac8bd",
+    "source_status": "reviewed",
+    "matrix_text": "",
+    "exam_text": "No readable content was found in this file for the requested mode.",
+    "answer_and_solution_text": "",
+    "audit": {
+      "question_number_max_detected": null,
+      "answer_section_present": false,
+      "matrix_section_present": false,
+      "source_reviewed": true,
+      "notes": "Thành phần PSA, không phải bài Toán tách biệt theo format CLC công lập."
+    }
+  },
+  {
+    "school": "THCS Ngoại ngữ",
+    "subject": "Tiếng Anh",
+    "component_label": "PSA Tiếng Anh",
+    "source_file": "10_De_Tham_Khao_Phan_Tieng_Anh_PSA_Vao_Lop_6_THCS_Ngoai_Ngu_2027_2028_Da_Ra_Soat(3).pdf",
+    "source_file_id": "file_00000000b3b8820bad39152a3ae5bc1d",
+    "source_status": "reviewed",
+    "matrix_text": "",
+    "exam_text": "No readable content was found in this file for the requested mode.",
+    "answer_and_solution_text": "",
+    "audit": {
+      "question_number_max_detected": null,
+      "answer_section_present": false,
+      "matrix_section_present": false,
+      "source_reviewed": true,
+      "notes": "Thành phần PSA."
+    }
+  }
+]
